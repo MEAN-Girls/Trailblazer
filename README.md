@@ -6,7 +6,7 @@ To get the app running on your local machine, you first need to install all prer
 
 From the **app directory** do the following:
 
-1. Install all of your packages and libraries by running:
+1.Install all of your packages and libraries by running:
 ```bash
 $ npm install
 $ bower install
