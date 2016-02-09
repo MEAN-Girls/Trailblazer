@@ -99,7 +99,7 @@ describe('User CRUD tests', function () {
 
             // NodeJS v4 changed the status code representation so we must check
             // before asserting, to be comptabile with all node versions.
-            if (process.version.indexOf('v4') === 0) {
+            if (process.version.indexOf('v5') === 0) {
               signoutRes.text.should.equal('Found. Redirecting to /');
             } else {
               signoutRes.text.should.equal('Moved Temporarily. Redirecting to /');
@@ -828,72 +828,6 @@ describe('User CRUD tests', function () {
           return done();
         });
     });
-  });
-
-  it('should not be able to update own user profile picture without being logged-in', function (done) {
-
-    agent.post('/api/users/picture')
-      .send({})
-      .expect(400)
-      .end(function (userInfoErr, userInfoRes) {
-        if (userInfoErr) {
-          return done(userInfoErr);
-        }
-
-        userInfoRes.body.message.should.equal('User is not signed in');
-
-        // Call the assertion callback
-        return done();
-      });
-  });
-
-  it('should be able to change profile picture if signed in', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        agent.post('/api/users/picture')
-          .attach('newProfilePicture', './modules/users/client/img/profile/default.png')
-          .send(credentials)
-          .expect(200)
-          .end(function (userInfoErr, userInfoRes) {
-            // Handle change profile picture error
-            if (userInfoErr) {
-              return done(userInfoErr);
-            }
-
-            userInfoRes.body.should.be.instanceof(Object);
-            userInfoRes.body.profileImageURL.should.be.a.String();
-            userInfoRes.body._id.should.be.equal(String(user._id));
-
-            return done();
-          });
-      });
-  });
-
-  it('should not be able to change profile picture if attach a picture with a different field name', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        agent.post('/api/users/picture')
-          .attach('fieldThatDoesntWork', './modules/users/client/img/profile/default.png')
-          .send(credentials)
-          .expect(400)
-          .end(function (userInfoErr, userInfoRes) {
-            done(userInfoErr);
-          });
-      });
   });
 
   afterEach(function (done) {

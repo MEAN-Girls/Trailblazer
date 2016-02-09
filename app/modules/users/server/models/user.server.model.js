@@ -66,10 +66,6 @@ var UserSchema = new Schema({
   salt: {
     type: String
   },
-  profileImageURL: {
-    type: String,
-    default: 'modules/users/client/img/profile/default.png'
-  },
   provider: {
     type: String,
     required: 'Provider is required'
