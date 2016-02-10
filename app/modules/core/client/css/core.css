@@ -11,13 +11,6 @@
 .x-ng-cloak {
   display: none !important;
 }
-.header-profile-image {
-  opacity: 0.8;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
 .open .header-profile-image,
 a:hover .header-profile-image {
   opacity: 1;
@@ -34,4 +27,7 @@ a:hover .header-profile-image {
 }
 .has-error .help-inline.error-text {
   display: inline;
+}
+section {
+  height: 550px;
 }
