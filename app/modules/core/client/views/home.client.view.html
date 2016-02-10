@@ -1,4 +1,3 @@
-<section ng-controller="HomeController">
-  <h1>Alachua County </h1>
-  <leaflet id="county" lf-center="alachua" controls="controls" paths="paths" width="100%" height="480px"></leaflet>
+<section class="map" ng-controller="HomeController">
+	<leaflet id="county" lf-center="alachua" controls="controls" paths="paths" geojson="geojson" width="100%" height="100%"></leaflet>
 </section>

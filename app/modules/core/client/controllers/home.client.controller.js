@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication',
-  function ($scope, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http',
+  function ($scope, Authentication, $http) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -48,9 +48,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     			position: 'topleft'
     		}
         },
-        /*
-        This is an example of how to draw polygons on the map
-        */
+
+        //This is an example of how to draw polygons on the map
         paths: {
             polygon: {
                 type: "polygon",
@@ -61,9 +60,31 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                     polygonExample.Micanopy
                 ],
                 color: 'red',
-                fillColor: 'red'
+                fillColor: 'red',
+                fillOpacity: 0.1,
+                weight: 2
             }
         }
+
+    });
+
+    /*
+    This polygon is drawn using Geojson.
+    */
+    $http.get("https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/FL/Alachua.geo.json").success(function(data, status) {
+        angular.extend($scope, {
+            geojson: {
+                data: data,
+                style: {
+                    fillColor: 'green',
+                    weight: 2,
+                    opacity: 0.5,
+                    color: 'green',
+                    dashArray: '1',
+                    fillOpacity: 0.1
+                }
+            }
+        });
     });
 	}
 ]);

@@ -29,5 +29,12 @@ a:hover .header-profile-image {
   display: inline;
 }
 section {
-  height: 500px;
+  height: 100%;
+}
+section .map {
+  position: absolute;
+  left: 0rem;
+  right: 0rem;
+  bottom: 0rem;
+  top: 5rem;
 }
