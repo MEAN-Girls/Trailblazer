@@ -17,6 +17,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
     //these coordinates were used to draw the polygon below
+   
     var polygonExample = {
         Waldo: {
             lat: 29.7897,
@@ -35,8 +36,21 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             lng: -82.4797
         }
     };
+    var regions = { //defines corner coordinates for maxboundary
+        alachua: {
+            northEast: {
+                lat: 29.939227,
+                lng: -82.103027
+            },
+            southWest: {
+                lat: 29.478818,
+                lng: -82.786926
+            }
+        }
+    };
 
 	angular.extend($scope, {
+        maxbounds: regions.alachua, // Added maxbounds declaration
 		alachua: {
 			//lat: 29.6520,
 			//lng: -82.3250,
