@@ -52,10 +52,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	angular.extend($scope, {
         maxbounds: regions.alachua, // Added maxbounds declaration
 		alachua: {
-			//lat: 29.6520,
-			//lng: -82.3250,
+			lat: 29.6520,
+			lng: -82.3250,
 			zoom: 10,
-			autoDiscover: true
+			//autoDiscover: true
     	},
     	controls: {
     		fullscreen: {
@@ -66,7 +66,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         //This is an example of how to draw polygons on the map
         paths: {
             polygon: {
-                type: "polygon",
+                type: 'polygon',
                 latlngs: [
                     polygonExample.Waldo,
                     polygonExample.LaCrosse,
@@ -85,7 +85,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     /*
     This polygon is drawn using Geojson.
     */
-    $http.get("https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/FL/Alachua.geo.json").success(function(data, status) {
+    $http.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/FL/Alachua.geo.json').success(function(data, status) {
         angular.extend($scope, {
             geojson: {
                 data: data,
