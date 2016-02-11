@@ -31,7 +31,8 @@ a:hover .header-profile-image {
 }
 .navbar-head{
   background-color: #1C941C;
-  width: 100%;
+  padding-right: 25px;
+  padding-left: 25px;
 }
 .navbar-inverse .navbar-brand{
   color: white;
