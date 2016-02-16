@@ -1,3 +1,4 @@
+
 .content {
   margin-top: 50px;
 }
@@ -10,13 +11,6 @@
 .ng-cloak,
 .x-ng-cloak {
   display: none !important;
-}
-.header-profile-image {
-  opacity: 0.8;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  margin-right: 5px;
 }
 .open .header-profile-image,
 a:hover .header-profile-image {
@@ -34,4 +28,34 @@ a:hover .header-profile-image {
 }
 .has-error .help-inline.error-text {
   display: inline;
+}
+.navbar-head{
+  background-color: #1C941C;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+.navbar-inverse .navbar-brand{
+  color: white;
+}
+.navbar-inverse .navbar-nav > li > a{
+  color: white;
+}
+.navbar-inverse .navbar-brand:hover{
+  color: black;
+}
+.navbar-inverse .navbar-nav > li > a:hover{
+  color: black;
+}
+section {
+  height: 100%;
+}
+.angular-leaflet-map {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.leaflet-control-container{
+  position: absolute;
+  top: 5rem;
 }
