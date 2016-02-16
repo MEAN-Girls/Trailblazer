@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http','$stateParams', '$state',
-  function ($scope, Authentication, $http, $stateParams, $state) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http',
+  function ($scope, Authentication, $http) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -54,7 +54,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		alachua: {
 			lat: 29.6520,
 			lng: -82.3250,
-			zoom: 10
+			zoom: 10,
 			//autoDiscover: true
     	},
     	controls: {
@@ -80,21 +80,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
             }
         }
 
-    }); 
-
-    function onEachFeature(feature, layer) {
-    //bind click
-    layer.on('click', function (e) {
-      // e = event
-      console.log(e);
-      $state.go('bad-request');
     });
 
-    }
     /*
     This polygon is drawn using Geojson.
     */
-    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/testJson.json').success(function(data, status) {
+    $http.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/FL/Alachua.geo.json').success(function(data, status) {
         angular.extend($scope, {
             geojson: {
                 data: data,
@@ -105,11 +96,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                     color: 'green',
                     dashArray: '1',
                     fillOpacity: 0.1
-                },
-                onEachFeature: onEachFeature            
+                }
             }
         });
     });
-    
 	}
 ]);
