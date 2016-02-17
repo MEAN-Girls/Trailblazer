@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http','$stateParams', '$state',
-  function ($scope, Authentication, $http, $stateParams, $state) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state',
+ 
+  function ($scope, $rootScope, Authentication, $http, $stateParams, $state) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
-
+    
     /*
         Some quick references for leaflet use in the docs, 
 
@@ -87,8 +88,11 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     
     layer.on('click', function (e) {
       // e = event
-      console.log(feature.properties);
-      $state.go('bad-request');
+      console.log(feature);
+
+      $state.go('boundary', {'boundaryName': feature.properties.Name});
+      $rootScope.tempName = feature.properties.Name;
+      $rootScope.tempCoords = feature.geometry.coordinates;
     });
 
     }
@@ -103,9 +107,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                 style: function(feature){
                     
                 switch (feature.properties.Name) {
-                case 'Prop6': return {color: 'orange'};
-                case 'Prop5': return {color: 'blue'};
-                default: return {color: 'green'};
+                case 'Prop6': return { color: 'orange' };
+                case 'Prop5': return { color: 'blue' };
+                default: return { color: 'green' };
                 }
     
                 },
