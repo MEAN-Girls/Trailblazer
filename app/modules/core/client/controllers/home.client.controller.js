@@ -90,7 +90,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
       // e = event
       console.log(feature);
 
-      $state.go('boundary', {'boundaryName': feature.properties.Name});
+      $state.go('boundary', { 'boundaryName': feature.properties.Name });
       $rootScope.tempName = feature.properties.Name;
       $rootScope.tempCoords = feature.geometry.coordinates;
     });
