@@ -35,6 +35,12 @@ a:hover .header-profile-image {
   background-color: #3f6f83;
   padding: 7px 25px;}
 
+.userButton{
+  color: white;
+  text-shadow: none !important;
+  font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
+}
+
 
 .navbar-inverse .navbar-brand{
   color: white;
@@ -66,7 +72,7 @@ section {
 }
 .leaflet-control-container{
   position: absolute;
-  top: 5rem;
+  top: 7rem;
 }
 
 .header-logo{
