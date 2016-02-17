@@ -1,4 +1,6 @@
-
+.navbar {
+  border-bottom: 0px;
+}
 .content {
   margin-top: 50px;
 }
@@ -31,9 +33,7 @@ a:hover .header-profile-image {
 }
 .navbar-head{
   background-color: #3f6f83;
-  padding-right: 25px;
-  padding-left: 25px;
-}
+  padding: 7px 25px;}
 
 
 .navbar-inverse .navbar-brand{
@@ -53,7 +53,7 @@ a:hover .header-profile-image {
   /*color: black;*/
   font-size: 22px;
   font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
-  text-shadow: 0 !important;
+  text-shadow: none !important;
 }
 section {
   height: 100%;
@@ -72,7 +72,17 @@ section {
 .header-logo{
   height: 34px;
   /*width: auto;*/
-  margin-top: 25%;
+  margin-top: 8px;
+  margin-right: 60px;
+
+  -webkit-filter: brightness(0) invert(1);
+
+}
+.header-logo-wordmark{
+  height: 34px;
+  /*width: auto;*/
+  margin-top: -6px;
+  margin-right: 60px;
 
   -webkit-filter: brightness(0) invert(1);
 
