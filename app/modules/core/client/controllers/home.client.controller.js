@@ -52,9 +52,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	angular.extend($scope, {
         maxbounds: regions.alachua, // Added maxbounds declaration
 		alachua: {
-			lat: 29.6520,
-			lng: -82.3250,
-			zoom: 10
+			lat: 29.59599854794921,
+			lng: -82.24021911621094, 
+			zoom: 14
 			//autoDiscover: true
     	},
     	controls: {
@@ -94,7 +94,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     /*
     This polygon is drawn using Geojson.
     */
-    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/testJson.json').success(function(data, status) {
+    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
         angular.extend($scope, {
             geojson: {
                 data: data,
