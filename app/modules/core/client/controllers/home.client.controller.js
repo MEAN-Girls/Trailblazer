@@ -84,13 +84,15 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     function onEachFeature(feature, layer) {
     //bind click
+    
     layer.on('click', function (e) {
       // e = event
-      console.log(e);
+      console.log(feature.properties);
       $state.go('bad-request');
     });
 
     }
+    
     /*
     This polygon is drawn using Geojson.
     */
@@ -98,13 +100,14 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         angular.extend($scope, {
             geojson: {
                 data: data,
-                style: {
-                    fillColor: 'green',
-                    weight: 2,
-                    opacity: 0.5,
-                    color: 'green',
-                    dashArray: '1',
-                    fillOpacity: 0.1
+                style: function(feature){
+                    
+                switch (feature.properties.Name) {
+                case 'Prop6': return {color: 'orange'};
+                case 'Prop5': return {color: 'blue'};
+                default: return {color: 'green'};
+                }
+    
                 },
                 onEachFeature: onEachFeature            
             }
