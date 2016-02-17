@@ -30,10 +30,12 @@ a:hover .header-profile-image {
   display: inline;
 }
 .navbar-head{
-  background-color: #1C941C;
+  background-color: #3f6f83;
   padding-right: 25px;
   padding-left: 25px;
 }
+
+
 .navbar-inverse .navbar-brand{
   color: white;
 }
@@ -45,6 +47,13 @@ a:hover .header-profile-image {
 }
 .navbar-inverse .navbar-nav > li > a:hover{
   color: black;
+}
+
+.navbar-brand{
+  /*color: black;*/
+  font-size: 22px;
+  font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
+  text-shadow: 0 !important;
 }
 section {
   height: 100%;
@@ -58,4 +67,13 @@ section {
 .leaflet-control-container{
   position: absolute;
   top: 5rem;
+}
+
+.header-logo{
+  height: 34px;
+  /*width: auto;*/
+  margin-top: 25%;
+
+  -webkit-filter: brightness(0) invert(1);
+
 }
