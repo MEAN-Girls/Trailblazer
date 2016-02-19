@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state',
- 
   function ($scope, $rootScope, Authentication, $http, $stateParams, $state) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
@@ -80,7 +79,6 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 weight: 2
             }
         }
-
     }); 
 
     function onEachFeature(feature, layer) {
@@ -114,9 +112,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     
                 },
                 onEachFeature: onEachFeature            
-            }
         });
-    });
-    
+        });
 	}
 ]);
