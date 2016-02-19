@@ -37,6 +37,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
       data: {
         ignoreState: true
       }
+    })
+    .state('boundary', {
+      url: '/boundary/:boundaryName',
+      templateUrl: 'modules/core/client/views/boundary.client.view.html'
     });
   }
 ]);
