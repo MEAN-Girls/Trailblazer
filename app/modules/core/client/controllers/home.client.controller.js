@@ -112,7 +112,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     
                 },
                 onEachFeature: onEachFeature            
+        }
         });
+
         });
 	}
 ]);
