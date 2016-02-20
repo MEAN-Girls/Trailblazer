@@ -20,6 +20,11 @@
         <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
       </li>
     </ul>
+	<ul class="nav navbar-nav navbar-right" ng-controller="HomeController">
+		<li>
+			<button class="navbar-locate" type="button" ng-click="findUser()">Find Me</button>
+		</li>
+	</ul>
     <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user">
       <li ui-sref-active="active">
         <a ui-sref="authentication.signup">Sign Up</a>

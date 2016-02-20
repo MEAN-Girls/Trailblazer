@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state',
-  function ($scope, $rootScope, Authentication, $http, $stateParams, $state) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData',
+  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
     
@@ -116,5 +116,32 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         });
 
         });
+    $scope.map = null; 
+
+    leafletData.getMap('county').then(function(map) {
+        $scope.map = map;
+         console.log("success");
+    });
+   var marker;
+    angular.extend($scope, {
+        findUser : function(){
+            $scope.map.locate({ setView : true, maxZoom : 15 });
+            console.log("locate");
+            $scope.map.on('locationfound', $scope.onLocationFound);
+        },
+        onLocationFound : function(e){
+            console.log("onlocfound");
+            if(marker){
+                $scope.map.removeLayer(marker);
+            }
+            marker = new L.marker(e.latlng).addTo($scope.map);
+         }
+         
+    });
+       
+    
+
+
+
 	}
 ]);
