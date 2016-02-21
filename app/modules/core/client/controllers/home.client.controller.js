@@ -116,21 +116,28 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         });
 
         });
+
+    /* 
+        Get Map data
+    */
     $scope.map = null; 
 
     leafletData.getMap('county').then(function(map) {
         $scope.map = map;
-         console.log("success");
     });
-   var marker;
+   
+   /*
+        Draw Markers
+    */
+    var marker;
     angular.extend($scope, {
+
         findUser : function(){
-            $scope.map.locate({ setView : true, maxZoom : 15 });
-            console.log("locate");
+            $scope.map.locate({ setView : true, maxZoom : 17 });
             $scope.map.on('locationfound', $scope.onLocationFound);
         },
+
         onLocationFound : function(e){
-            console.log("onlocfound");
             if(marker){
                 $scope.map.removeLayer(marker);
             }
