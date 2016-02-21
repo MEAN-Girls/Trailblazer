@@ -49,13 +49,17 @@ a:hover .header-profile-image {
 section {
   height: 100%;
 }
-.angular-leaflet-map {
+section > .map {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  top: 0;
 }
 .leaflet-control-container{
   position: absolute;
   top: 5rem;
+}
+.button{
+  position: absolute;
+  bottom: 0;
 }
