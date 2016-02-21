@@ -10,7 +10,6 @@ var ApplicationConfiguration = (function () {
                                             'ui.router', 
                                             'ui.bootstrap', 
                                             'ui.utils', 
-                                            'angularFileUpload', 
                                             'leaflet-directive'];
 
   // Add a new vertical module
