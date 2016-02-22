@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData',
-  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile',
+  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
     
@@ -81,41 +81,12 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         }
     }); 
 
-    function onEachFeature(feature, layer) {
-    //bind click
     
-    layer.on('click', function (e) {
-      // e = event
-      console.log(feature);
-
-      $state.go('boundary', { 'boundaryName': feature.properties.Name });
-      $rootScope.tempName = feature.properties.Name;
-      $rootScope.tempCoords = feature.geometry.coordinates;
-    });
-
-    }
     
     /*
     This polygon is drawn using Geojson.
     */
-    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
-        angular.extend($scope, {
-            geojson: {
-                data: data,
-                style: function(feature){
-                    
-                switch (feature.properties.Name) {
-                case 'Prop6': return { color: 'orange' };
-                case 'Prop5': return { color: 'blue' };
-                default: return { color: 'green' };
-                }
     
-                },
-                onEachFeature: onEachFeature            
-        }
-        });
-
-        });
 
     /* 
         Get Map data
@@ -142,12 +113,68 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);
-         }
+         },
+        onEachFeature : function(feature, layer){
+            layer.on('click', function(e){
+                console.log(feature);
+                $rootScope.tempName = feature.properties.Name;
+                $rootScope.tempCoords = feature.geometry.coordinates;
+                //alert(layer.feature.properties.Name);
+
+//                var linkFn = $compile('<<button ng-controller="HomeController" type="button" ng-click="expand()">More...</button>');
+//                var element = linkFn({feature});
+                var popup = L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent(feature.properties.Name)
+                    .openOn($scope.map);
+                //layer.bindPopup(feature).openPopup();
+//                popup.setContent($compile('<new_marker_form></new_marker_form>')({}));
+//                layer.bindPopup(popup).openPopup();
+            });
+        },
+        expand : function(){
+            console.log("here");
+     //       $state.go('boundary', { 'boundaryName': e.properties.Name });
+     //       $rootScope.tempName = e.properties.Name;
+     //       $rootScope.tempCoords = e.geometry.coordinates;
+        }
          
     });
-       
+    /*
+    function onEachFeature(feature, layer, $scope) {
+    //bind click
     
+    layer.on('click', function (e) {
+        // e = event
+        console.log(feature);
 
+//      $state.go('boundary', { 'boundaryName': feature.properties.Name });
+//      $rootScope.tempName = feature.properties.Name;
+//      $rootScope.tempCoords = feature.geometry.coordinates;
+    });
+
+
+    }
+      */ 
+    
+    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
+            angular.extend($scope, {
+                geojson: {
+                    data: data,
+                    style: function(feature){
+                        
+                    switch (feature.properties.Name) {
+                    case 'Prop6': return { color: 'orange' };
+                    case 'Prop5': return { color: 'blue' };
+                    default: return { color: 'green' };
+                    }
+        
+                    },
+                    onEachFeature: $scope.onEachFeature            
+            }
+            });
+
+    });
 
 
 	}
