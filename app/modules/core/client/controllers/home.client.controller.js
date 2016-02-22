@@ -116,46 +116,21 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
          },
         onEachFeature : function(feature, layer){
             layer.on('click', function(e){
-                console.log(feature);
+
+                $scope.name_test = feature.properties.Name;
                 $rootScope.tempName = feature.properties.Name;
                 $rootScope.tempCoords = feature.geometry.coordinates;
-                //alert(layer.feature.properties.Name);
-
-//                var linkFn = $compile('<<button ng-controller="HomeController" type="button" ng-click="expand()">More...</button>');
-//                var element = linkFn({feature});
                 var popup = L.popup()
                     .setLatLng(e.latlng)
-                    .setContent(feature.properties.Name)
+                    .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
                     .openOn($scope.map);
-                //layer.bindPopup(feature).openPopup();
-//                popup.setContent($compile('<new_marker_form></new_marker_form>')({}));
-//                layer.bindPopup(popup).openPopup();
             });
         },
-        expand : function(){
-            console.log("here");
-     //       $state.go('boundary', { 'boundaryName': e.properties.Name });
-     //       $rootScope.tempName = e.properties.Name;
-     //       $rootScope.tempCoords = e.geometry.coordinates;
+        expand : function(feature){
+            $state.go('boundary', { 'boundaryName': $scope.name_test });
         }
          
     });
-    /*
-    function onEachFeature(feature, layer, $scope) {
-    //bind click
-    
-    layer.on('click', function (e) {
-        // e = event
-        console.log(feature);
-
-//      $state.go('boundary', { 'boundaryName': feature.properties.Name });
-//      $rootScope.tempName = feature.properties.Name;
-//      $rootScope.tempCoords = feature.geometry.coordinates;
-    });
-
-
-    }
-      */ 
     
     $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
             angular.extend($scope, {
