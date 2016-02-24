@@ -104,12 +104,16 @@ section > .map {
 }
 
 .leaflet-popup-content {
-  color: green;
+  color: black;
+  text-align: center;
+  /*font-size: 15px;*/
+  /*margin: 0px;*/
+  /*border: 0px;*/
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: 0px;
-      box-shadow: 0 2px 1px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  box-shadow: 0 2px 1px rgba(0,0,0,0.05);
 }
 
 @media screen and (max-width: 992px) {
