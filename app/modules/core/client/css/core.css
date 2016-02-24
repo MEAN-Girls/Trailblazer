@@ -33,7 +33,7 @@ a:hover .header-profile-image {
 }
 .navbar-head{
   background-color: #3f6f83;
-  padding: 7px 25px;}
+  padding: 0px 25px;}
 
 .userButton{
   color: white;
@@ -52,7 +52,7 @@ a:hover .header-profile-image {
   color: black;
 }
 .navbar-inverse .navbar-nav > li > a:hover{
-  color: black;
+  color: white;
 }
 
 .navbar-brand{
@@ -96,4 +96,15 @@ section > .map {
 .button{
   position: absolute;
   bottom: 0;
+}
+
+.navbar-inverse{
+  padding: 5px 0px;
+  background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-head{
+    padding: 0px;
+  }
 }
