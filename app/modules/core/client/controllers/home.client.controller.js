@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$http',
-  function ($scope, Authentication, $http) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile',
+  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
-
+    
     /*
         Some quick references for leaflet use in the docs, 
 
@@ -52,9 +52,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	angular.extend($scope, {
         maxbounds: regions.alachua, // Added maxbounds declaration
 		alachua: {
-			lat: 29.6520,
-			lng: -82.3250,
-			zoom: 10,
+			lat: 29.59599854794921,
+			lng: -82.24021911621094, 
+			zoom: 14
 			//autoDiscover: true
     	},
     	controls: {
@@ -79,26 +79,78 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                 weight: 2
             }
         }
+    }); 
 
-    });
-
+    
+    
     /*
     This polygon is drawn using Geojson.
     */
-    $http.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/USA/FL/Alachua.geo.json').success(function(data, status) {
-        angular.extend($scope, {
-            geojson: {
-                data: data,
-                style: {
-                    fillColor: 'green',
-                    weight: 2,
-                    opacity: 0.5,
-                    color: 'green',
-                    dashArray: '1',
-                    fillOpacity: 0.1
-                }
-            }
-        });
+    
+
+    /* 
+        Get Map data
+    */
+    $scope.map = null; 
+
+    leafletData.getMap('county').then(function(map) {
+        $scope.map = map;
     });
+   
+   /*
+        Draw Markers
+    */
+    var marker;
+    angular.extend($scope, {
+
+        findUser : function(){
+            $scope.map.locate({ setView : true, maxZoom : 17 });
+            $scope.map.on('locationfound', $scope.onLocationFound);
+        },
+
+        onLocationFound : function(e){
+            if(marker){
+                $scope.map.removeLayer(marker);
+            }
+            marker = new L.marker(e.latlng).addTo($scope.map);
+         },
+        onEachFeature : function(feature, layer){
+            layer.on('click', function(e){
+
+                $scope.name_test = feature.properties.Name;
+                $rootScope.tempName = feature.properties.Name;
+                $rootScope.tempCoords = feature.geometry.coordinates;
+                var popup = L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
+                    .openOn($scope.map);
+            });
+        },
+        expand : function(feature){
+            $state.go('boundary', { 'boundaryName': $scope.name_test });
+        }
+         
+    });
+    
+    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
+            angular.extend($scope, {
+                geojson: {
+                    data: data,
+                    style: function(feature){
+                        
+                    switch (feature.properties.Name) {
+                    case 'Prop6': return { color: 'orange' };
+                    case 'Prop5': return { color: 'blue' };
+                    default: return { color: 'green' };
+                    }
+        
+                    },
+                    onEachFeature: $scope.onEachFeature            
+            }
+            });
+
+    });
+
+
 	}
 ]);
