@@ -1,5 +1,5 @@
 .navbar {
-  border-bottom: 0px;
+  border-bottom: 0;
 }
 .content {
   margin-top: 50px;
@@ -33,7 +33,7 @@ a:hover .header-profile-image {
 }
 .navbar-head{
   background-color: #3f6f83;
-  padding: 0px 25px;}
+  padding: 0 25px;}
 
 .userButton{
   color: white;
@@ -99,7 +99,7 @@ section > .map {
 }
 
 .navbar-inverse{
-  padding: 5px 0px;
+  padding: 5px 0;
   background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);
 }
 
@@ -118,6 +118,6 @@ section > .map {
 
 @media screen and (max-width: 992px) {
   .navbar-head{
-    padding: 0px;
+    padding: 0;
   }
 }
