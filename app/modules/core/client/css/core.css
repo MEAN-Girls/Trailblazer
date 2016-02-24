@@ -1,4 +1,6 @@
-
+.navbar {
+  border-bottom: 0px;
+}
 .content {
   margin-top: 50px;
 }
@@ -30,10 +32,16 @@ a:hover .header-profile-image {
   display: inline;
 }
 .navbar-head{
-  background-color: #1C941C;
-  padding-right: 25px;
-  padding-left: 25px;
+  background-color: #3f6f83;
+  padding: 7px 25px;}
+
+.userButton{
+  color: white;
+  text-shadow: none !important;
+  font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
 }
+
+
 .navbar-inverse .navbar-brand{
   color: white;
 }
@@ -46,6 +54,13 @@ a:hover .header-profile-image {
 .navbar-inverse .navbar-nav > li > a:hover{
   color: black;
 }
+
+.navbar-brand{
+  /*color: black;*/
+  font-size: 22px;
+  font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
+  text-shadow: none !important;
+}
 section {
   height: 100%;
 }
@@ -57,7 +72,26 @@ section > .map {
 }
 .leaflet-control-container{
   position: absolute;
-  top: 5rem;
+  top: 7rem;
+}
+
+.header-logo{
+  height: 34px;
+  /*width: auto;*/
+  margin-top: 8px;
+  margin-right: 60px;
+
+  -webkit-filter: brightness(0) invert(1);
+
+}
+.header-logo-wordmark{
+  height: 34px;
+  /*width: auto;*/
+  margin-top: -6px;
+  margin-right: 60px;
+
+  -webkit-filter: brightness(0) invert(1);
+
 }
 .button{
   position: absolute;
