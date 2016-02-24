@@ -103,6 +103,15 @@ section > .map {
   background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);
 }
 
+.leaflet-popup-content {
+  color: green;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0px;
+      box-shadow: 0 2px 1px rgba(0,0,0,0.05);
+}
+
 @media screen and (max-width: 992px) {
   .navbar-head{
     padding: 0px;
