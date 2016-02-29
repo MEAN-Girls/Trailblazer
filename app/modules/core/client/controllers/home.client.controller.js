@@ -15,36 +15,15 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         This is a simple rendering of our map. 
     */
 
-
-    //these coordinates were used to draw the polygon below
-   
-    var polygonExample = {
-        Waldo: {
-            lat: 29.7897,
-            lng: -82.1708
-        },
-        LaCrosse: {
-            lat: 29.8500,
-            lng: -82.4000
-        },
-        Micanopy: {
-            lat: 29.5064,
-            lng: -82.2819
-        },
-        Al: {
-            lat: 29.7792,
-            lng: -82.4797
-        }
-    };
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
-                lat: 29.939227,
-                lng: -82.103027
+                lat: 30.00965233044293,
+                lng: -81.89071655273438
             },
             southWest: {
-                lat: 29.478818,
-                lng: -82.786926
+                lat: 29.3642238956322,
+                lng: -83.00308227539062
             }
         }
     };
@@ -63,22 +42,6 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     		}
         },
 
-        //This is an example of how to draw polygons on the map
-        paths: {
-            polygon: {
-                type: 'polygon',
-                latlngs: [
-                    polygonExample.Waldo,
-                    polygonExample.LaCrosse,
-                    polygonExample.Al,
-                    polygonExample.Micanopy
-                ],
-                color: 'red',
-                fillColor: 'red',
-                fillOpacity: 0.1,
-                weight: 2
-            }
-        }
     }); 
 
     
@@ -95,8 +58,15 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
     leafletData.getMap('county').then(function(map) {
         $scope.map = map;
+        $scope.map.locate({ setView : true, maxZoom : 13 });
+        $scope.map.on('locationfound', function (e){
+            if(marker){
+            $scope.map.removeLayer(marker);
+            }
+            marker = new L.marker(e.latlng).addTo($scope.map);
+        });
     });
-   
+
    /*
         Draw Markers
     */
@@ -104,7 +74,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     angular.extend($scope, {
 
         findUser : function(){
-            $scope.map.locate({ setView : true, maxZoom : 17 });
+            $scope.map.locate({ setView : true, maxZoom : 13 });
             $scope.map.on('locationfound', $scope.onLocationFound);
         },
 
@@ -136,14 +106,15 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             angular.extend($scope, {
                 geojson: {
                     data: data,
-                    style: function(feature){
-                        
+                    style: 
+                    function(feature){
+                    
                     switch (feature.properties.Name) {
-                    case 'Prop6': return { color: 'orange' };
-                    case 'Prop5': return { color: 'blue' };
-                    default: return { color: 'green' };
+                    case 'Prop6': return { color: 'orange', 'weight' : 2, 'opacity' : .30 };
+                    case 'Prop5': return { color: 'blue', 'weight' : 2, 'opacity': .30 };
+                    default: return { color: 'green', 'weight' : 2, 'opacity' : .30 };
                     }
-        
+                    
                     },
                     onEachFeature: $scope.onEachFeature            
             }

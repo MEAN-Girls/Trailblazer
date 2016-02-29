@@ -80,7 +80,7 @@ section > .map {
   /*width: auto;*/
   margin-top: 8px;
   margin-right: 60px;
-
+  filter: brightness(0) invert(1);
   -webkit-filter: brightness(0) invert(1);
 
 }
@@ -89,7 +89,7 @@ section > .map {
   /*width: auto;*/
   margin-top: -6px;
   margin-right: 60px;
-
+  filter: brightness(0) invert(1);
   -webkit-filter: brightness(0) invert(1);
 
 }
