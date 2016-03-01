@@ -116,7 +116,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
          },
         onEachFeature : function(feature, layer){
             layer.on('click', function(e){
-
+                $scope.feature = feature;
                 $scope.name_test = feature.properties.Name;
                 $rootScope.tempName = feature.properties.Name;
                 $rootScope.tempCoords = feature.geometry.coordinates;
@@ -127,7 +127,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             });
         },
         expand : function(feature){
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test });
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature});
         }
          
     });
