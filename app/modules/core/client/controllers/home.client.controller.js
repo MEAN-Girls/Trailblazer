@@ -54,6 +54,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     /* 
         Get Map data
     */
+    var marker;
     $scope.map = null; 
 
     leafletData.getMap('county').then(function(map) {
@@ -70,7 +71,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
    /*
         Draw Markers
     */
-    var marker;
+    
     angular.extend($scope, {
 
         findUser : function(){
@@ -85,8 +86,11 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             marker = new L.marker(e.latlng).addTo($scope.map);
          },
         onEachFeature : function(feature, layer){
-            layer.on('click', function(e){
 
+            if(feature.properties.kind !== 'county'){
+            layer.on('click', function(e){
+                console.log(feature.properties.kind);
+                console.log("test");
                 $scope.name_test = feature.properties.Name;
                 $rootScope.tempName = feature.properties.Name;
                 $rootScope.tempCoords = feature.geometry.coordinates;
@@ -94,7 +98,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     .setLatLng(e.latlng)
                     .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
                     .openOn($scope.map);
+               
             });
+            }
         },
         expand : function(feature){
             $state.go('boundary', { 'boundaryName': $scope.name_test });
@@ -110,9 +116,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     function(feature){
                     
                     switch (feature.properties.Name) {
-                    case 'Prop6': return { color: 'orange', 'weight' : 2, 'opacity' : .30 };
-                    case 'Prop5': return { color: 'blue', 'weight' : 2, 'opacity': .30 };
-                    default: return { color: 'green', 'weight' : 2, 'opacity' : .30 };
+                    case 'Prop6': return { color: 'orange', 'weight' : 2 };
+                    case 'Prop5': return { color: 'blue', 'weight' : 2 };
+                    default: return { color: 'green', 'weight' : 2 };
                     }
                     
                     },
