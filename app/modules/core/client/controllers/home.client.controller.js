@@ -127,7 +127,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             });
         },
         expand : function(feature){
-            $state.go('boundary', { 'boundaryName': $scope.name_test });
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test });
         }
          
     });

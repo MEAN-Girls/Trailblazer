@@ -1,22 +1,10 @@
-<section ng-controller="BoundarysController" ng-init="findOne()">
-  <div class="page-header">
-    <h1 ng-bind="boundary.title"></h1>
-  </div>
-  <div class="pull-right" ng-show="authentication.user._id == boundary.user._id">
-    <a class="btn btn-primary" ui-sref="boundarys.edit({boundaryId: boundary._id})">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-  </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="boundary.created | date:'mediumDate'"></span>
-      by
-      <span ng-bind="boundary.user.displayName"></span>
-    </em>
-  </small>
-  <p class="lead" ng-bind="boundary.content"></p>
+<section>
+<div ng-controller="BoundarysController">
+<h2>Name: </h2>
+<p>{{tempName}}</p>
+<h2>Coordinates: </h2>
+<p>{{tempCoords}} </p>
+<p>All work and no play makes Jack a dull boy</p>
+</div>
 </section>
+
