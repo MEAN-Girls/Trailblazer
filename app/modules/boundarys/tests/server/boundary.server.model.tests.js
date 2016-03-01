@@ -6,17 +6,17 @@
 var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Article = mongoose.model('Article');
+  Boundary = mongoose.model('Boundary');
 
 /**
  * Globals
  */
-var user, article;
+var user, boundary;
 
 /**
  * Unit tests
  */
-describe('Article Model Unit Tests:', function () {
+describe('Boundary Model Unit Tests:', function () {
 
   beforeEach(function (done) {
     user = new User({
@@ -29,9 +29,9 @@ describe('Article Model Unit Tests:', function () {
     });
 
     user.save(function () {
-      article = new Article({
-        title: 'Article Title',
-        content: 'Article Content',
+      boundary = new Boundary({
+        title: 'Boundary Title',
+        content: 'Boundary Content',
         user: user
       });
 
@@ -42,16 +42,16 @@ describe('Article Model Unit Tests:', function () {
   describe('Method Save', function () {
     it('should be able to save without problems', function (done) {
       this.timeout(10000);
-      return article.save(function (err) {
+      return boundary.save(function (err) {
         should.not.exist(err);
         done();
       });
     });
 
     it('should be able to show an error when try to save without title', function (done) {
-      article.title = '';
+      boundary.title = '';
 
-      return article.save(function (err) {
+      return boundary.save(function (err) {
         should.exist(err);
         done();
       });
@@ -59,7 +59,7 @@ describe('Article Model Unit Tests:', function () {
   });
 
   afterEach(function (done) {
-    Article.remove().exec(function () {
+    Boundary.remove().exec(function () {
       User.remove().exec(done);
     });
   });
