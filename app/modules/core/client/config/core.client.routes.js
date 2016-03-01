@@ -41,10 +41,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     .state('login', {
       url: '/login',
       templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
-    })
-    .state('boundary', {
-      url: '/boundary/:boundaryName',
-      templateUrl: 'modules/core/client/views/boundary.client.view.html'
     });
   }
 ]);

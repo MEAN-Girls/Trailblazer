@@ -86,24 +86,23 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             marker = new L.marker(e.latlng).addTo($scope.map);
          },
         onEachFeature : function(feature, layer){
-
             if(feature.properties.kind !== 'county'){
-            layer.on('click', function(e){
-                console.log(feature.properties.kind);
-                console.log("test");
-                $scope.name_test = feature.properties.Name;
-                $rootScope.tempName = feature.properties.Name;
-                $rootScope.tempCoords = feature.geometry.coordinates;
-                var popup = L.popup()
-                    .setLatLng(e.latlng)
-                    .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
-                    .openOn($scope.map);
-               
+                layer.on('click', function(e){
+                    console.log(feature.properties.kind);
+                    console.log("test");
+                    $scope.feature = feature;
+                    $scope.name_test = feature.properties.Name;
+                    $rootScope.tempName = feature.properties.Name;
+                    $rootScope.tempCoords = feature.geometry.coordinates;
+                    var popup = L.popup()
+                        .setLatLng(e.latlng)
+                        .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
+                        .openOn($scope.map);    
             });
             }
         },
         expand : function(feature){
-            $state.go('boundary', { 'boundaryName': $scope.name_test });
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature});
         }
          
     });
