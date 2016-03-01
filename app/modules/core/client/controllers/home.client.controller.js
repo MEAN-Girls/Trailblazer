@@ -89,20 +89,20 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             if(feature.properties.kind !== 'county'){
                 layer.on('click', function(e){
                     console.log(feature.properties.kind);
-                    console.log("test");
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
                     $rootScope.tempName = feature.properties.Name;
-                    $rootScope.tempCoords = feature.geometry.coordinates;
+                    $rootScope.tempCoordss= feature.geometry.coordinates;
                     var popup = L.popup()
                         .setLatLng(e.latlng)
-                        .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
+                        .setContent($compile('<p><b>{{name_test}}</b><br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
+                        //need to $compile to introduce ng directives
                         .openOn($scope.map);    
             });
             }
         },
         expand : function(feature){
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature});
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature });
         }
          
     });
