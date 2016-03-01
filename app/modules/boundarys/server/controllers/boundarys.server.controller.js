@@ -5,106 +5,106 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article'),
+  Boundary = mongoose.model('Boundary'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
- * Create a article
+ * Create a boundary
  */
 exports.create = function (req, res) {
-  var article = new Article(req.body);
-  article.user = req.user;
+  var boundary = new Boundary(req.body);
+  boundary.user = req.user;
 
-  article.save(function (err) {
+  boundary.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(article);
+      res.json(boundary);
     }
   });
 };
 
 /**
- * Show the current article
+ * Show the current boundary
  */
 exports.read = function (req, res) {
-  res.json(req.article);
+  res.json(req.boundary);
 };
 
 /**
- * Update a article
+ * Update a boundary
  */
 exports.update = function (req, res) {
-  var article = req.article;
+  var boundary = req.boundary;
 
-  article.title = req.body.title;
-  article.content = req.body.content;
+  boundary.title = req.body.title;
+  boundary.content = req.body.content;
 
-  article.save(function (err) {
+  boundary.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(article);
+      res.json(boundary);
     }
   });
 };
 
 /**
- * Delete an article
+ * Delete an boundary
  */
 exports.delete = function (req, res) {
-  var article = req.article;
+  var boundary = req.boundary;
 
-  article.remove(function (err) {
+  boundary.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(article);
+      res.json(boundary);
     }
   });
 };
 
 /**
- * List of Articles
+ * List of boundarys
  */
 exports.list = function (req, res) {
-  Article.find().sort('-created').populate('user', 'displayName').exec(function (err, articles) {
+  Boundary.find().sort('-created').populate('user', 'displayName').exec(function (err, boundarys) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(articles);
+      res.json(boundarys);
     }
   });
 };
 
 /**
- * Article middleware
+ * Boundary middleware
  */
-exports.articleByID = function (req, res, next, id) {
+exports.boundaryByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Article is invalid'
+      message: 'Boundary is invalid'
     });
   }
 
-  Article.findById(id).populate('user', 'displayName').exec(function (err, article) {
+  Boundary.findById(id).populate('user', 'displayName').exec(function (err, boundary) {
     if (err) {
       return next(err);
-    } else if (!article) {
+    } else if (!boundary) {
       return res.status(404).send({
-        message: 'No article with that identifier has been found'
+        message: 'No boundary with that identifier has been found'
       });
     }
-    req.article = article;
+    req.boundary = boundary;
     next();
   });
 };
