@@ -84,6 +84,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);
+            
          },
         onEachFeature : function(feature, layer){
             if(feature.properties.kind !== 'county'){
@@ -91,11 +92,12 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     console.log(feature.properties.kind);
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
+                    $scope.address_test = '12345 SW Test St. Gainesville, FL 32601';
                     $rootScope.tempName = feature.properties.Name;
                     $rootScope.tempCoordss= feature.geometry.coordinates;
                     var popup = L.popup()
                         .setLatLng(e.latlng)
-                        .setContent($compile('<p><b>{{name_test}}</b><br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
+                        .setContent($compile('<p><b>{{name_test}}</b><br><br>{{address_test}}<br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
                         .openOn($scope.map);    
             });
