@@ -1,4 +1,6 @@
-
+.navbar {
+  border-bottom: 0;
+}
 .content {
   margin-top: 50px;
 }
@@ -30,10 +32,16 @@ a:hover .header-profile-image {
   display: inline;
 }
 .navbar-head{
-  background-color: #1C941C;
-  padding-right: 25px;
-  padding-left: 25px;
+  background-color: #3f6f83;
+  padding: 0 25px;}
+
+.userButton{
+  color: white;
+  text-shadow: none !important;
+  font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
 }
+
+
 .navbar-inverse .navbar-brand{
   color: white;
 }
@@ -44,7 +52,14 @@ a:hover .header-profile-image {
   color: black;
 }
 .navbar-inverse .navbar-nav > li > a:hover{
-  color: black;
+  color: white;
+}
+
+.navbar-brand{
+  /*color: black;*/
+  font-size: 22px;
+  font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
+  text-shadow: none !important;
 }
 section {
   height: 100%;
@@ -57,9 +72,52 @@ section > .map {
 }
 .leaflet-control-container{
   position: absolute;
-  top: 5rem;
+  top: 7rem;
+}
+
+.header-logo{
+  height: 34px;
+  /*width: auto;*/
+  margin-top: 8px;
+  margin-right: 60px;
+  filter: brightness(0) invert(1);
+  -webkit-filter: brightness(0) invert(1);
+
+}
+.header-logo-wordmark{
+  height: 34px;
+  /*width: auto;*/
+  margin-top: -6px;
+  margin-right: 60px;
+  filter: brightness(0) invert(1);
+  -webkit-filter: brightness(0) invert(1);
+
 }
 .button{
   position: absolute;
   bottom: 0;
+}
+
+.navbar-inverse{
+  padding: 5px 0;
+  background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);
+}
+
+.leaflet-popup-content {
+  color: black;
+  text-align: center;
+  /*font-size: 15px;*/
+  /*margin: 0px;*/
+  /*border: 0px;*/
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 2px 1px rgba(0,0,0,0.05);
+}
+
+@media screen and (max-width: 992px) {
+  .navbar-head{
+    padding: 0;
+  }
 }

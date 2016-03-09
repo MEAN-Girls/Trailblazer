@@ -1,0 +1,20 @@
+<section ng-controller="BoundarysController" ng-init="find()">
+  <div class="page-header">
+    <h1>Boundarys</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="boundary in boundarys" ui-sref="boundarys.view({boundaryId: boundary._id})" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="boundary.created | date:'mediumDate'"></span>
+        by
+        <span ng-bind="boundary.user.displayName"></span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
+      <p class="list-group-item-text" ng-bind="boundary.content"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="boundarys.$resolved && !boundarys.length">
+    No boundarys yet, why don't you <a ui-sref="boundarys.create">create one</a>?
+  </div>
+</section>
