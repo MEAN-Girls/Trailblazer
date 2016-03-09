@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+var GeoJSON = require('mongoose-geojson-schema');
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
@@ -10,25 +11,7 @@ var mongoose = require('mongoose'),
  * Boundary Schema
  */
 var BoundarySchema = new Schema({
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  title: {
-    type: String,
-    default: '',
-    trim: true,
-    required: 'Title cannot be blank'
-  },
-  content: {
-    type: String,
-    default: '',
-    trim: true
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
-  }
+  geoFeature:GeoJSON.Feature
 });
 
 mongoose.model('Boundary', BoundarySchema);

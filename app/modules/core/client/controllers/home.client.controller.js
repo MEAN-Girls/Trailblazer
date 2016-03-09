@@ -102,12 +102,12 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             }
         },
         expand : function(feature){
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature});
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature });
         }
          
     });
     
-    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
+    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/Alachua_mapapp.geojson').success(function(data, status) {
             angular.extend($scope, {
                 geojson: {
                     data: data,
