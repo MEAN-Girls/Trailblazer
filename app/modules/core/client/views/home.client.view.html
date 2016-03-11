@@ -1,11 +1,16 @@
+<head>
+	<style>
+			body { margin:0; padding:0; }
+	</style>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
+</head>
 
-<section>
-	<section class="map" ng-controller="HomeController">
-		<leaflet maxbounds="maxbounds" id="county" lf-center="alachua" controls="controls" geojson="geojson" width="100%" height="100%"></leaflet>
-		<div class="button">
-		<button type="button" ng-click="findUser()">Find Me</button>
-		</div>
+	<section>
+		<section class="map" ng-controller="HomeController">
+			<leaflet maxbounds="maxbounds" id="county" lf-center="alachua" controls="controls" geojson="geojson" width="100%" height="100%"></leaflet>
+			<div class="button">
+			<button type="button" ng-click="findUser()">Find Me</button>
+			</div>
+		</section>
 	</section>
-</section>
-
-<!-- Added maxbounds attribute... Not sure if I like it. Prevents panning out of bounds, but can still zoom in and out -->
