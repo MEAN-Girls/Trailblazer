@@ -7,8 +7,36 @@
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 
-<section>
-  <section class="map" ng-controller="BoundarysController">
-    <leaflet maxbounds="maxbounds" id="boundary" lf-center="alachua" controls="controls" geojson="geojson" width="100%" height="100%"></leaflet>
-  </section>
+<section class="map" ng-controller="BoundarysController">
+	<leaflet maxbounds="maxbounds" id="boundary" lf-center="alachua" controls="controls" geojson="geojson" width="100%" height="100%">
+	
+  </leaflet>
+  
+  <div ng-controller="BoundarysController" class="sidebar">
+			<div id="site-wrapper" off-canvas-menu ng-class="{'show-nav':isMenuOpen}">
+				<div id="site-canvas">
+					<div id="site-menu">
+						
+						<h2>Property</h2>
+						<ul>
+							<li>Address</li>
+							<li>Details</li>
+							<li>Yada</li>
+							<li>Yada</li>
+							<li>Yada</li>
+						</ul>
+					</div>
+					<div class="navbar-header-btn">
+						<button type="button" id="btn-yeah" class="toggle-nav btn btn-lg btn-primary" ng-click="toggleMenu()">
+							Info
+							</button> 
+					</div>  
+					
+					<h1 class="text-center"></h1>
+          <!-- #site-canvas -->
+        </div>
+        <!-- #site-wrapper> -->
+      </div>
+  </div>
+	
 </section>
