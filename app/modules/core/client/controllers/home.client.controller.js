@@ -31,9 +31,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 	angular.extend($scope, {
         maxbounds: regions.alachua, // Added maxbounds declaration
 		alachua: {
-			lat: 29.59599854794921,
-			lng: -82.24021911621094,
-			zoom: 14
+			lat: 29.671316,
+			lng: -82.327766,
+			zoom: 13
 			//autoDiscover: true
     	},
     	controls: {
@@ -100,10 +100,13 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         onEachFeature : function(feature, layer){
             if(feature.properties.kind !== 'county'){
                 layer.on('click', function(e){
+
                     console.log(feature.properties.kind);
 
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
+                    var poly = L.geoJson(feature);
+                    $scope.center = poly.getBounds().getCenter();
                     $scope.address_test = '12345 SW Test St. Gainesville, FL 32601';
                     var popup = L.popup()
                         .setLatLng(e.latlng)
@@ -115,7 +118,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             }
         },
         expand : function(feature){
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature });
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
 
     });

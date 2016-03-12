@@ -26,7 +26,8 @@ angular.module('boundarys').config(['$stateProvider',
         url: '/:boundaryName/',
         templateUrl: 'modules/boundarys/client/views/view-boundary.client.view.html',
         params: {
-          boundaryFeature: null
+          boundaryFeature: null,
+          center: null
         }
       })
       .state('boundarys.edit', {
