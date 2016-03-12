@@ -93,8 +93,6 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
                     $scope.address_test = '12345 SW Test St. Gainesville, FL 32601';
-                    $rootScope.tempName = feature.properties.Name;
-                    $rootScope.tempCoordss= feature.geometry.coordinates;
                     var popup = L.popup()
                         .setLatLng(e.latlng)
                         .setContent($compile('<p><b>{{name_test}}</b><br><br>{{address_test}}<br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
@@ -131,4 +129,17 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
 
 	}
-]);
+]).directive('offCanvasMenu', function ($stateParams) {
+  var bFeature = $stateParams.boundaryFeature;
+    return {
+        restrict: 'A',
+        replace: false,
+        link: function (scope, element) {
+            scope.isMenuOpen = false;
+            scope.toggleMenu = function () {
+                scope.isMenuOpen = !scope.isMenuOpen;
+            };
+        }
+    };
+});
+

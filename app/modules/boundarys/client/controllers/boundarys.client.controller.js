@@ -19,6 +19,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     */
 
     var boundaryFeature = $stateParams.boundaryFeature;
+    var bname = $stateParams.boundaryFeature.properties.Name;
 
     //reroute because we came here from somewhere other than home page
     if (boundaryFeature === null){
@@ -132,7 +133,8 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       });
     };
   }
-]).directive('offCanvasMenu', function () {
+]).directive('offCanvasMenu', function ($stateParams) {
+  var bFeature = $stateParams.boundaryFeature;
     return {
         restrict: 'A',
         replace: false,

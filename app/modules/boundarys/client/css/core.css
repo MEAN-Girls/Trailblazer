@@ -9,11 +9,12 @@ body {
   left: 0;
 }
 
-.btn-lg {
+#btn-yeah {
   width: 60px;
   font-size: 12px;
-   float:right;
-  top: 0;
+  float:right;
+  position: relative;
+  top: -60px; /* Use to move button */
 }
 
 #site-canvas{
@@ -37,6 +38,6 @@ body {
   position: absolute;
   top: 0;
   right: -300px;
-  background: #428bca;
+  background-color: white;
   padding: 15px;
 }

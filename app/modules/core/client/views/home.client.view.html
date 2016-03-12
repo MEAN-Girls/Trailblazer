@@ -5,6 +5,37 @@
 		<div class="button">
 		<button type="button" ng-click="findUser()">Find Me</button>
 		</div>
+		
+		
+	<div ng-controller="HomeController" class="home_sidebar">
+			<div id="home-site-wrapper" off-canvas-menu ng-class="{'home-show-nav':isMenuOpen}">
+				<div id="home-site-canvas">
+					<div id="home-site-menu">
+						
+						<h2>Search</h2>
+						<ul>
+							<li>Filter</li>
+							<li>Details</li>
+							<li>Yada</li>
+							<li>Yada</li>
+							<li>Yada</li>
+						</ul>
+					</div>
+					<div>
+						<button type="button" id="home-btn-yeah" class="home-toggle-nav btn btn-lg btn-primary" ng-click="toggleMenu()">
+							Info
+							</button> 
+					</div>  
+					
+					<h1 class="text-center"></h1>
+          <!-- #site-canvas -->
+        </div>
+        <!-- #site-wrapper> -->
+      </div>
+  </div>
+  
+  
+  
 	</section>
 </section>
 
