@@ -128,7 +128,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     switch (feature.properties.Name) {
                     case 'Prop6': return { color: 'orange', 'weight' : 2 };
                     case 'Prop5': return { color: 'blue', 'weight' : 2 };
-                    default: return { color: 'green', 'weight' : 2 };
+                    default: return { color: '#8AAAB5', 'weight' : 2 };
                     }
 
                     },
