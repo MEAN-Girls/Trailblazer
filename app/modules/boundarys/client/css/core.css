@@ -14,7 +14,7 @@ body {
   font-size: 12px;
   float:right;
   position: relative;
-  top: -60px; /* Use to move button */
+  top: -50px; /* Use to move button */
 }
 
 #site-canvas{

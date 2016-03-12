@@ -32,7 +32,8 @@ a:hover .header-profile-image {
   display: inline;
 }
 .navbar-head{
-  background-color: #3f6f83;
+  /*background-color: #3f6f83;*/
+  background-color: #ffffff;
   padding: 0 25px;}
 
 .userButton{
@@ -80,8 +81,8 @@ section > .map {
   /*width: auto;*/
   margin-top: 8px;
   margin-right: 60px;
-  filter: brightness(0) invert(1);
-  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0);
+  -webkit-filter: brightness(0);
 
 }
 .header-logo-wordmark{
@@ -89,18 +90,37 @@ section > .map {
   /*width: auto;*/
   margin-top: -6px;
   margin-right: 60px;
-  filter: brightness(0) invert(1);
-  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0);
+  -webkit-filter: brightness(0);
 
 }
 .button{
   position: absolute;
+  bottom: 10px;
+}
+
+.footer{
+  height: 15px;
+  width: 100%;
+  position: absolute;
   bottom: 0;
+  background-color: black;
+}
+
+.footer-text{
+  margin: 0 0 20px 0;
+  color: white;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  vertical-align: bottom;
 }
 
 .navbar-inverse{
-  padding: 5px 0;
-  background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);
+  padding-top: 10px;
+  /*background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);*/
+  background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);*/
+  
 }
 
 .leaflet-popup-content {
@@ -137,7 +157,7 @@ section > .map {
   font-size: 12px;
   float:right;
   position: relative;
-  top: -10px; /* Use to move button */
+  top: 0px; /* Use to move button */
 }
 
 #home-site-canvas{
