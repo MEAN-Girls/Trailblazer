@@ -32,7 +32,8 @@ a:hover .header-profile-image {
   display: inline;
 }
 .navbar-head{
-  background-color: #3f6f83;
+  /*background-color: #3f6f83;*/
+  background-color: #ffffff;
   padding: 0 25px;}
 
 .userButton{
@@ -80,8 +81,8 @@ section > .map {
   /*width: auto;*/
   margin-top: 8px;
   margin-right: 60px;
-  filter: brightness(0) invert(1);
-  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0);
+  -webkit-filter: brightness(0);
 
 }
 .header-logo-wordmark{
@@ -89,18 +90,37 @@ section > .map {
   /*width: auto;*/
   margin-top: -6px;
   margin-right: 60px;
-  filter: brightness(0) invert(1);
-  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0);
+  -webkit-filter: brightness(0);
 
 }
 .button{
   position: absolute;
+  bottom: 10px;
+}
+
+.footer{
+  height: 15px;
+  width: 100%;
+  position: absolute;
   bottom: 0;
+  background-color: black;
+}
+
+.footer-text{
+  margin: 0 0 20px 0;
+  color: white;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  vertical-align: bottom;
 }
 
 .navbar-inverse{
-  padding: 5px 0;
-  background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);
+  padding-top: 10px;
+  /*background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);*/
+  background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);*/
+  
 }
 
 .leaflet-popup-content {
@@ -111,7 +131,10 @@ section > .map {
   /*border: 0px;*/
 }
 
+
+
 .leaflet-popup-content-wrapper {
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 1px rgba(0,0,0,0.05);
 }
@@ -120,4 +143,45 @@ section > .map {
   .navbar-head{
     padding: 0;
   }
+}
+
+#county{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+#home-btn-yeah {
+  width: 60px;
+  font-size: 12px;
+  float:right;
+  position: relative;
+  top: 0px; /* Use to move button */
+}
+
+#home-site-canvas{
+  width: 0;
+  height: 100%;
+  position: fixed;
+  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
+  transition: 300ms ease all;
+  backface-visibility: hidden; 
+  padding: 5% 0;
+  right: 0;
+}
+.home-show-nav #home-site-canvas {
+  transform: translateX(-300px);
+  transform: translate3d(-300px, 0, 0);
+}
+#home-site-menu {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -300px;
+  background-color: white;
+  padding-top: 55px;
+  padding-left: 20px;
 }

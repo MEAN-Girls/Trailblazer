@@ -95,22 +95,24 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);
+            
          },
         onEachFeature : function(feature, layer){
             if(feature.properties.kind !== 'county'){
                 layer.on('click', function(e){
 
+                    console.log(feature.properties.kind);
+
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
                     var poly = L.geoJson(feature);
                     $scope.center = poly.getBounds().getCenter();
-                    console.log(e);
-                    $rootScope.tempName = feature.properties.Name;
-                    $rootScope.tempCoords = feature.geometry.coordinates;
+                    $scope.address_test = '12345 SW Test St. Gainesville, FL 32601';
                     var popup = L.popup()
                         .setLatLng(e.latlng)
-                        .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
-                        .openOn($scope.map);
+                        .setContent($compile('<p><b>{{name_test}}</b><br><br>{{address_test}}<br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
+                        //need to $compile to introduce ng directives
+                        .openOn($scope.map);    
 
             });
             }
@@ -131,7 +133,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     switch (feature.properties.Name) {
                     case 'Prop6': return { color: 'orange', 'weight' : 2 };
                     case 'Prop5': return { color: 'blue', 'weight' : 2 };
-                    default: return { color: '#9ABBB4', 'weight' : 2 };
+                    default: return { color: '#8AAAB5', 'weight' : 2 };
                     }
 
                     },
@@ -143,4 +145,17 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
 
 	}
-]);
+]).directive('offCanvasMenu', function ($stateParams) {
+  var bFeature = $stateParams.boundaryFeature;
+    return {
+        restrict: 'A',
+        replace: false,
+        link: function (scope, element) {
+            scope.isMenuOpen = false;
+            scope.toggleMenu = function () {
+                scope.isMenuOpen = !scope.isMenuOpen;
+            };
+        }
+    };
+});
+
