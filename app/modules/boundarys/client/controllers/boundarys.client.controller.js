@@ -19,6 +19,8 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     */
 
     var boundaryFeature = $stateParams.boundaryFeature;
+    var center = $stateParams.center;
+
 
     //reroute because we came here from somewhere other than home page
     if (boundaryFeature === null){
@@ -28,8 +30,8 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
     angular.extend($scope, {
       alachua: {
-        lat: 29.59599854794921,
-        lng: -82.24021911621094,
+        lat: center.lat,
+        lng: center.lng,
         zoom: 15
         },
         controls: {

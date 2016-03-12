@@ -31,9 +31,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 	angular.extend($scope, {
         maxbounds: regions.alachua, // Added maxbounds declaration
 		alachua: {
-			lat: 29.59599854794921,
-			lng: -82.24021911621094,
-			zoom: 14
+			lat: 29.671316,
+			lng: -82.327766,
+			zoom: 13
 			//autoDiscover: true
     	},
     	controls: {
@@ -99,21 +99,24 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         onEachFeature : function(feature, layer){
             if(feature.properties.kind !== 'county'){
                 layer.on('click', function(e){
-                    console.log(feature.properties.kind);
-                    console.log('test');
+
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
+                    var poly = L.geoJson(feature);
+                    $scope.center = poly.getBounds().getCenter();
+                    console.log(e);
                     $rootScope.tempName = feature.properties.Name;
                     $rootScope.tempCoords = feature.geometry.coordinates;
                     var popup = L.popup()
                         .setLatLng(e.latlng)
                         .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
                         .openOn($scope.map);
+
             });
             }
         },
         expand : function(feature){
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature });
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
 
     });
@@ -128,7 +131,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     switch (feature.properties.Name) {
                     case 'Prop6': return { color: 'orange', 'weight' : 2 };
                     case 'Prop5': return { color: 'blue', 'weight' : 2 };
-                    default: return { color: 'green', 'weight' : 2 };
+                    default: return { color: '#9ABBB4', 'weight' : 2 };
                     }
 
                     },
