@@ -17,7 +17,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     for now the geojson data dissapears everytime you refresh so we will reroute to home page. eventually the boundary
     id will be set in url so we won't have to worry about this and on refresh it will stay in solid state.
     */
-    if($state.current.name === 'boundarys.view') {
+    if($state.current.name === 'boundaries.view') {
       var boundaryFeature = $stateParams.boundaryFeature;
       var center = $stateParams.center;
       var bname = $stateParams.boundaryFeature.properties.Name;
@@ -88,7 +88,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
       // Redirect after save
       boundary.$save(function (response) {
-        $location.path('boundarys/' + response._id);
+        $location.path('boundaries/' + response._id);
 
         // Clear form fields
         $scope.title = '';
@@ -110,7 +110,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
         }
       } else {
         $scope.boundarys.$remove(function () {
-          $location.path('boundarys');
+          $location.path('boundaries');
         });
       }
     };
@@ -128,7 +128,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       var boundary = $scope.boundary;
 
       boundary.$update(function () {
-        $location.path('boundarys/' + boundary._id);
+        $location.path('boundaries/' + boundary._id);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
