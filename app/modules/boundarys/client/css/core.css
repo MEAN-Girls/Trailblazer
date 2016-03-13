@@ -16,7 +16,21 @@ body {
   position: relative;
   top: -50px; /* Use to move button */
 }
-
+.button{
+position: absolute;
+  top: 150px;
+  left: 9px;
+  background-color: white;
+  border-radius: 20px;
+}
+.footer-text{
+  margin: 0 0 20px 0;
+  color: white;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  vertical-align: bottom;
+}
 #site-canvas{
   width: 0;
   height: 100%;
