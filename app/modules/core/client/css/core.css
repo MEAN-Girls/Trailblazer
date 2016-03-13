@@ -127,19 +127,19 @@ section > .map {
   font-size: 11px;
   display: block;
   text-align: center;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
 }
 
 .navbar-inverse{
   padding-top: 10px;
   /*background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);*/
-  background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);*/
+  background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);
   
 }
 
 .social-media {
-  height: 66px;
-  width: 157px;
+  /*height: 66px;
+  width: 157px;*/
   display: inline;
   position: relative;
 

@@ -29,7 +29,7 @@ body {
   font-size: 11px;
   display: block;
   text-align: center;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
 }
 #site-canvas{
   width: 0;
