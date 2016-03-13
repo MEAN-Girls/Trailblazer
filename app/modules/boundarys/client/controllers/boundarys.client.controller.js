@@ -1,5 +1,5 @@
 'use strict';
-var boundarys = angular.module('boundarys, []);
+var boundarys = angular.module('boundarys', []);
 
 boundarys.directive('fileModel', [$parse, function ($parse) {
 	var bFeature = $stateParams.boundaryFeature;
