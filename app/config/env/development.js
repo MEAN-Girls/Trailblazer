@@ -32,7 +32,7 @@ module.exports = {
     }
   },
   app: {
-    title: defaultEnvConfig.app.title + ' - Development Environment'
+    title: defaultEnvConfig.app.title + ' - Find recreational opportunities in Alachua County'
   },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',

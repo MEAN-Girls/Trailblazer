@@ -20,7 +20,7 @@ module.exports = {
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
         'public/lib/leaflet/dist/leaflet.js',
-        'public/lib/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'
+        'public/lib/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js',
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

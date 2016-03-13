@@ -1,15 +1,15 @@
 'use strict';
 
 // Boundarys controller
-angular.module('boundarys').controller('BoundarysController', ['$scope', 
-                                                              '$stateParams', 
-                                                              '$rootScope', 
-                                                              '$location', 
-                                                              'Authentication', 
-                                                              'Boundarys', 
-                                                              '$state', 
-                                                              'leafletData', 
-                                                              
+angular.module('boundarys').controller('BoundarysController', ['$scope',
+                                                              '$stateParams',
+                                                              '$rootScope',
+                                                              '$location',
+                                                              'Authentication',
+                                                              'Boundarys',
+                                                              '$state',
+                                                              'leafletData',
+
   function ($scope, $stateParams, $rootScope, $location, Authentication, Boundarys, $state, leafletData) {
     $scope.authentication = Authentication;
 
@@ -17,9 +17,10 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     for now the geojson data dissapears everytime you refresh so we will reroute to home page. eventually the boundary
     id will be set in url so we won't have to worry about this and on refresh it will stay in solid state.
     */
-
-    var boundaryFeature = $stateParams.boundaryFeature;
-
+    if($state.current.name === 'boundaries.view') {
+      var boundaryFeature = $stateParams.boundaryFeature;
+      var center = $stateParams.center;
+  
     //reroute because we came here from somewhere other than home page
     if (boundaryFeature === null){
       console.log('rerouting');
@@ -28,8 +29,8 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
     angular.extend($scope, {
       alachua: {
-        lat: 29.59599854794921,
-        lng: -82.24021911621094, 
+        lat: center.lat,
+        lng: center.lng,
         zoom: 15
         },
         controls: {
@@ -45,16 +46,29 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
         }
     });
 
-    $scope.map = null; 
-
-    leafletData.getMap('boundary').then(function(map) {
-        $scope.map = map;
+    var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'meangurlz.pc7i20mi',
+      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
     });
 
+    $scope.map = null;
+
+    leafletData.getMap('boundary').then(function(map) {
+        mapboxTile.addTo(map);
+        $scope.map = map;
+    });
+  }
+
+
     /*
-    The queries below are the standard ones created with the generator. we may or may not need them for 
+    The queries below are the standard ones created with the generator. we may or may not need them for
     admin portal. i will leave them up for now in case we need them. Once we go into production, we can remove as needed
     */
+    else{
 
     // Create new Boundary
     $scope.create = function (isValid) {
@@ -74,7 +88,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
       // Redirect after save
       boundary.$save(function (response) {
-        $location.path('boundarys/' + response._id);
+        $location.path('boundaries/' + response._id);
 
         // Clear form fields
         $scope.title = '';
@@ -96,7 +110,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
         }
       } else {
         $scope.boundarys.$remove(function () {
-          $location.path('boundarys');
+          $location.path('boundaries');
         });
       }
     };
@@ -114,7 +128,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       var boundary = $scope.boundary;
 
       boundary.$update(function () {
-        $location.path('boundarys/' + boundary._id);
+        $location.path('boundaries/' + boundary._id);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -122,7 +136,9 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
     // Find a list of Boundarys
     $scope.find = function () {
-      $scope.boundarys = Boundarys.query();
+      Boundarys.query().$promise.then(function (res) {
+        $scope.boundarys = res;
+      });
     };
 
     // Find existing Boundary
@@ -132,4 +148,17 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       });
     };
   }
-]);
+}
+]).directive('offCanvasMenu', function ($stateParams) {
+  var bFeature = $stateParams.boundaryFeature;
+    return {
+        restrict: 'A',
+        replace: false,
+        link: function (scope, element) {
+            scope.isMenuOpen = false;
+            scope.toggleMenu = function () {
+                scope.isMenuOpen = !scope.isMenuOpen;
+            };
+        }
+    };
+});
