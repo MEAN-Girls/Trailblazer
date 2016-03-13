@@ -96,12 +96,18 @@ section > .map {
   -webkit-filter: brightness(0);
 
 }
-.button{
+.button i {
   position: absolute;
-  top: 150px;
-  left: 9px;
+  top: 180px;
+  left: 1rem;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 4px;
+  font-size: 17px;
+  padding: 5px;
+  width: 26px;
+  height: 26px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  z-index: 7;
 }
 
 .footer{
@@ -144,8 +150,6 @@ section > .map {
   /*border: 0px;*/
 }
 
-
-
 .leaflet-popup-content-wrapper {
   background-color: white;
   border-radius: 8px;
@@ -168,9 +172,9 @@ section > .map {
 #home-btn-yeah {
   width: 60px;
   font-size: 12px;
-  float:right;
   position: relative;
-  top: 0px; /* Use to move button */
+  top: -1rem; /* Use to move button */
+  right: 7rem;
 }
 
 #home-site-canvas{

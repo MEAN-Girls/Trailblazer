@@ -20,7 +20,6 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     if($state.current.name === 'boundaries.view') {
       var boundaryFeature = $stateParams.boundaryFeature;
       var center = $stateParams.center;
-      var bname = $stateParams.boundaryFeature.properties.Name;
   
     //reroute because we came here from somewhere other than home page
     if (boundaryFeature === null){
@@ -69,6 +68,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     The queries below are the standard ones created with the generator. we may or may not need them for
     admin portal. i will leave them up for now in case we need them. Once we go into production, we can remove as needed
     */
+    else{
 
     // Create new Boundary
     $scope.create = function (isValid) {
@@ -138,7 +138,6 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     $scope.find = function () {
       Boundarys.query().$promise.then(function (res) {
         $scope.boundarys = res;
-        console.log($scope.boundarys[0]);
       });
     };
 
@@ -149,6 +148,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       });
     };
   }
+}
 ]).directive('offCanvasMenu', function ($stateParams) {
   var bFeature = $stateParams.boundaryFeature;
     return {

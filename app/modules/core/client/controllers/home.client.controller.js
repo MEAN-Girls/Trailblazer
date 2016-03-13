@@ -116,7 +116,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             }
         },
         expand : function(feature){
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
+            $state.go('boundaries.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
 
     });
