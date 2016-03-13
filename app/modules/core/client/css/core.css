@@ -109,6 +109,9 @@ section > .map {
   box-shadow: 0 1px 5px rgba(0,0,0,0.65);
   z-index: 7;
 }
+.button i:hover {
+ background-color: #f2f2f2;
+}
 
 .footer{
   height: 15px;
