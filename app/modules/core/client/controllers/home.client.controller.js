@@ -61,13 +61,10 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
       id: 'meangurlz.pc7i20mi',
       accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
     });
-
     var marker;
     $scope.map = null;
 
     leafletData.getMap('county').then(function(map) {
-
-        mapboxTile.addTo(map); //added MapBox tile to Map
 
         $scope.map = map;
         $scope.map.locate({ setView : true, maxZoom : 13 });
@@ -77,6 +74,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             }
             marker = new L.marker(e.latlng).addTo($scope.map);
         });
+        mapboxTile.addTo(map); //added MapBox tile to Map
     });
 
    /*

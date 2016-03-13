@@ -34,7 +34,9 @@ a:hover .header-profile-image {
 .navbar-head{
   /*background-color: #3f6f83;*/
   background-color: #ffffff;
-  padding: 0 25px;}
+  padding: 0 25px;
+  width: 100%;
+}
 
 .userButton{
   color: white;
@@ -96,7 +98,10 @@ section > .map {
 }
 .button{
   position: absolute;
-  bottom: 10px;
+  top: 150px;
+  left: 9px;
+  background-color: white;
+  border-radius: 20px;
 }
 
 .footer{
@@ -121,6 +126,14 @@ section > .map {
   /*background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);*/
   background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);*/
   
+}
+
+.social-media {
+  height: 66px;
+  width: 157px;
+  display: inline;
+  position: relative;
+
 }
 
 .leaflet-popup-content {
