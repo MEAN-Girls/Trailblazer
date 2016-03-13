@@ -82,7 +82,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     */
 
     angular.extend($scope, {
-
+        tiles : mapboxTile,
         findUser : function(){
             $scope.map.locate({ setView : true, maxZoom : 13 });
             $scope.map.on('locationfound', $scope.onLocationFound);
