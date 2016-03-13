@@ -17,12 +17,10 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     for now the geojson data dissapears everytime you refresh so we will reroute to home page. eventually the boundary
     id will be set in url so we won't have to worry about this and on refresh it will stay in solid state.
     */
-
-    var boundaryFeature = $stateParams.boundaryFeature;
-    var center = $stateParams.center;
-    var bname = $stateParams.boundaryFeature.properties.Name;
-
-
+    if($state.current.name === 'boundaries.view') {
+      var boundaryFeature = $stateParams.boundaryFeature;
+      var center = $stateParams.center;
+  
     //reroute because we came here from somewhere other than home page
     if (boundaryFeature === null){
       console.log('rerouting');
@@ -63,11 +61,14 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
         mapboxTile.addTo(map);
         $scope.map = map;
     });
+  }
+
 
     /*
     The queries below are the standard ones created with the generator. we may or may not need them for
     admin portal. i will leave them up for now in case we need them. Once we go into production, we can remove as needed
     */
+    else{
 
     // Create new Boundary
     $scope.create = function (isValid) {
@@ -87,7 +88,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
       // Redirect after save
       boundary.$save(function (response) {
-        $location.path('boundarys/' + response._id);
+        $location.path('boundaries/' + response._id);
 
         // Clear form fields
         $scope.title = '';
@@ -109,7 +110,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
         }
       } else {
         $scope.boundarys.$remove(function () {
-          $location.path('boundarys');
+          $location.path('boundaries');
         });
       }
     };
@@ -127,7 +128,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       var boundary = $scope.boundary;
 
       boundary.$update(function () {
-        $location.path('boundarys/' + boundary._id);
+        $location.path('boundaries/' + boundary._id);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -135,7 +136,9 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
     // Find a list of Boundarys
     $scope.find = function () {
-      $scope.boundarys = Boundarys.query();
+      Boundarys.query().$promise.then(function (res) {
+        $scope.boundarys = res;
+      });
     };
 
     // Find existing Boundary
@@ -145,6 +148,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       });
     };
   }
+}
 ]).directive('offCanvasMenu', function ($stateParams) {
   var bFeature = $stateParams.boundaryFeature;
     return {

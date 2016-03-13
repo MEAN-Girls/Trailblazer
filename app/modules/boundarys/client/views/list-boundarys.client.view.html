@@ -1,14 +1,13 @@
 <section ng-controller="BoundarysController" ng-init="find()">
   <div class="page-header">
-    <h1>Boundarys</h1>
+    <h1>Boundaries</h1>
   </div>
   <div class="list-group">
-    <a ng-repeat="boundary in boundarys" ui-sref="boundarys.view({boundaryId: boundary._id})" class="list-group-item">
+    <a ng-repeat="boundary in boundarys" ui-sref="boundaries.view({boundaryId: boundary._id})" class="list-group-item">
+      <h4 ng-bind="boundary.properties.MANAME"></h4>
       <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="boundary.created | date:'mediumDate'"></span>
-        by
-        <span ng-bind="boundary.user.displayName"></span>
+        Boundary Id
+        <span ng-bind="boundary._id"></span>
       </small>
       <h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       <p class="list-group-item-text" ng-bind="boundary.content"></p>
