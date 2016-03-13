@@ -14,7 +14,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
         This is a simple rendering of our map.
     */
-
+   
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {

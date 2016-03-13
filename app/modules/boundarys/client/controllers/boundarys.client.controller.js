@@ -17,12 +17,11 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     for now the geojson data dissapears everytime you refresh so we will reroute to home page. eventually the boundary
     id will be set in url so we won't have to worry about this and on refresh it will stay in solid state.
     */
-
-    var boundaryFeature = $stateParams.boundaryFeature;
-    var center = $stateParams.center;
-    var bname = $stateParams.boundaryFeature.properties.Name;
-
-
+    if($state.current.name === 'boundarys.view') {
+      var boundaryFeature = $stateParams.boundaryFeature;
+      var center = $stateParams.center;
+      var bname = $stateParams.boundaryFeature.properties.Name;
+  
     //reroute because we came here from somewhere other than home page
     if (boundaryFeature === null){
       console.log('rerouting');
@@ -63,6 +62,8 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
         mapboxTile.addTo(map);
         $scope.map = map;
     });
+  }
+
 
     /*
     The queries below are the standard ones created with the generator. we may or may not need them for
@@ -135,7 +136,10 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
     // Find a list of Boundarys
     $scope.find = function () {
-      $scope.boundarys = Boundarys.query();
+      Boundarys.query().$promise.then(function (res) {
+        $scope.boundarys = res;
+        console.log($scope.boundarys[0]);
+      });
     };
 
     // Find existing Boundary
