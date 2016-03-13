@@ -16,7 +16,7 @@
           <label for="content">Content</label>
           <textarea name="content" ng-model="boundary.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
         </div>
-        <div class="form-group">
+			<div class="form-group">
           <input type="submit" value="Update" class="btn btn-default">
         </div>
         <div ng-show="error" class="text-danger">
@@ -24,5 +24,7 @@
         </div>
       </fieldset>
     </form>
+	<input type="file" file-model="boundaryFile"/>
+	<button ng-click="uploadFile()">Upload Boundary File</button>
   </div>
 </section>
