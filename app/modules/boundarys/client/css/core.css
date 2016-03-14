@@ -8,14 +8,30 @@ body {
   position: fixed;
   left: 0;
 }
-
 #btn-yeah {
   width: 60px;
   font-size: 12px;
-  float:right;
   position: relative;
-  top: -50px; /* Use to move button */
+  top: -4rem; /* Use to move button */
+  right: 7rem;
 }
+.footer{
+  height: 15px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: black;
+}
+.footer-text{
+  margin: 0 0 20px 0;
+  color: white;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  /*vertical-align: bottom;*/
+}
+
 .button{
 position: absolute;
   top: 150px;
