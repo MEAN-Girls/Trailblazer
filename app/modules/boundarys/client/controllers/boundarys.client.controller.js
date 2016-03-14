@@ -1,45 +1,26 @@
 'use strict';
 var boundarys = angular.module('boundarys', []);
 
-boundarys.directive('fileModel', [$parse, function ($parse) {
-	var bFeature = $stateParams.boundaryFeature;
-	return {
-		restrict: 'A',
-		link: function(scope, element, attrs) {
-			var model = $parse(attrs.fileModel);
-			var modelSetter = model.assign;
-			
-		element.bind('change' function(){
-			scope.$apply(function(){
-				modelSetter(scope, element[0].files[0]);
-				});
-			});
-			scope.isMenuOpen = false;
-            scope.toggleMenu = function () {
-                scope.isMenuOpen = !scope.isMenuOpen;
-		}
-	};
-}]);
-
-boundarys.service('fileUpload', ['$http', function($http) {
-	this.uploadFileToUrl = function(file, uploadUrl){
-		var fd = new FormData();
-		fd.append('file',file);
-		
-		$http.post(uploadUrl, fd {
-			transformRequest: angular.identity,
-			headers: {'Content-Type': undefined}
-		})
-		
-		.success(function(){
-		})
-		
-		.error(function(){
-		});
-	}]);
+boundarys.service('fileUpload', ['$http', function ($http) {
+            this.uploadFileToUrl = function(file, uploadUrl){
+               var fd = new FormData();
+               fd.append('file', file);
+            
+               $http.post(uploadUrl, fd, {
+                  transformRequest: angular.identity,
+                  headers: { 'Content-Type': undefined }
+               })
+            
+               .success(function(){
+               })
+            
+               .error(function(){
+               });
+            };
+         }]);
 	
 boundarys.controller('boundarysController', [	'$scope', 
-												fileUpload,
+												'fileUpload',
 												'$stateParams',
 												'$rootScope',
 												'$location',
@@ -189,9 +170,9 @@ function ($scope, fileUpload, $stateParams, $rootScope, $location, Authenticatio
 		var file = $scope.boundaryFile;
 		console.log('file: ');
 		console.dir(file);
-		var uploadUrl = "/uploads";
+		var uploadUrl = '/uploads';
 		fileUpload.uploadFileToUrl(file, uploadUrl);
-	}
+	};
   }
 }
 ]);

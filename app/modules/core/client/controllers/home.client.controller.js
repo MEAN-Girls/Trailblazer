@@ -89,7 +89,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             if(feature.properties.kind !== 'county'){
                 layer.on('click', function(e){
                     console.log(feature.properties.kind);
-                    console.log("test");
+                    console.log('test');
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
                     $rootScope.tempName = feature.properties.Name;
@@ -101,8 +101,8 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             });
             }
         },
-        expand : function(feature){
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature});
+        expand : function(feature){ 
+            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature });
         }
          
     });
