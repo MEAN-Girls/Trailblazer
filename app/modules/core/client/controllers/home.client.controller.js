@@ -14,7 +14,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
         This is a simple rendering of our map.
     */
-   
+
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
@@ -58,7 +58,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
     //Creating Mapbox Tile
     var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-      id: 'meangurlz.pc7i20mi',
+      id: 'meangurlz.cd22205e',
       accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
     });
     var marker;
@@ -93,7 +93,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);
-            
+
          },
         onEachFeature : function(feature, layer){
             if(feature.properties.kind !== 'county'){
@@ -110,7 +110,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                         .setLatLng(e.latlng)
                         .setContent($compile('<p><b>{{name_test}}</b><br><br>{{address_test}}<br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
-                        .openOn($scope.map);    
+                        .openOn($scope.map);
 
             });
             }
@@ -131,7 +131,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     switch (feature.properties.Name) {
                     case 'Prop6': return { color: 'orange', 'weight' : 2 };
                     case 'Prop5': return { color: 'blue', 'weight' : 2 };
-                    default: return { color: '#8AAAB5', 'weight' : 2 };
+                    default: return { color: '#8AAAB5', 'weight' : 2, 'fillOpacity' : 0 };
                     }
 
                     },
@@ -156,4 +156,3 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         }
     };
 });
-
