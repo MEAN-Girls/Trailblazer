@@ -20,6 +20,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
 
     if($state.current.name === 'boundaries.view') {
       var boundaryFeature = $stateParams.boundaryFeature;
+      $scope.bname = boundaryFeature.properties.Name;
       var center = $stateParams.center;
   
     //reroute because we came here from somewhere other than home page
@@ -149,7 +150,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       });
     };
   }
-
+}
 ]).directive('offCanvasMenu', function () {
     return {
         restrict: 'A',
