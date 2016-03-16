@@ -11,9 +11,9 @@ body {
 #btn-yeah {
   width: 60px;
   font-size: 12px;
-  position: relative;
-  top: -4rem; /* Use to move button */
-  right: 7rem;
+  position: absolute;
+  top: 5rem; /* Use to move button */
+  right: 1rem;
 }
 .footer{
   height: 15px;
