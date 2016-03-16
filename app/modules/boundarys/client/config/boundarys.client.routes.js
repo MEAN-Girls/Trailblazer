@@ -5,16 +5,16 @@ angular.module('boundarys').config(['$stateProvider',
   function ($stateProvider) {
     // Boundarys state routing
     $stateProvider
-      .state('boundarys', {
+      .state('boundaries', {
         abstract: true,
-        url: '/boundarys',
+        url: '/boundaries',
         template: '<ui-view/>'
       })
-      .state('boundarys.list', {
-        url: '',
+      .state('boundaries.list', {
+        url: '/list',
         templateUrl: 'modules/boundarys/client/views/list-boundarys.client.view.html'
       })
-      .state('boundarys.create', {
+      .state('boundaries.create', {
         url: '/create',
         templateUrl: 'modules/boundarys/client/views/create-boundary.client.view.html',
         data: {
@@ -22,14 +22,15 @@ angular.module('boundarys').config(['$stateProvider',
         }
       })
       //switch url to url: '/:boundaryId', when database is set up
-      .state('boundarys.view', {
+      .state('boundaries.view', {
         url: '/:boundaryName/',
         templateUrl: 'modules/boundarys/client/views/view-boundary.client.view.html',
         params: {
-          boundaryFeature: null
+          boundaryFeature: null,
+          center: null
         }
       })
-      .state('boundarys.edit', {
+      .state('boundaries.edit', {
         url: '/:boundaryId/edit',
         templateUrl: 'modules/boundarys/client/views/edit-boundary.client.view.html',
         data: {

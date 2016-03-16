@@ -32,16 +32,19 @@ a:hover .header-profile-image {
   display: inline;
 }
 .navbar-head{
-  background-color: #3f6f83;
-  padding: 0 25px;}
-
+  /*background-color: #3f6f83;*/
+  background-color: #ffffff;
+  padding: 0 25px;
+  width: 100%;
+}
+.leaflet-fullscreen-on{
+  top: 0;
+}
 .userButton{
   color: white;
   text-shadow: none !important;
   font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
 }
-
-
 .navbar-inverse .navbar-brand{
   color: white;
 }
@@ -80,8 +83,8 @@ section > .map {
   /*width: auto;*/
   margin-top: 8px;
   margin-right: 60px;
-  filter: brightness(0) invert(1);
-  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0);
+  -webkit-filter: brightness(0);
 
 }
 .header-logo-wordmark{
@@ -89,18 +92,57 @@ section > .map {
   /*width: auto;*/
   margin-top: -6px;
   margin-right: 60px;
-  filter: brightness(0) invert(1);
-  -webkit-filter: brightness(0) invert(1);
+  filter: brightness(0);
+  -webkit-filter: brightness(0);
 
 }
-.button{
+.button i {
   position: absolute;
+  bottom: 3rem;
+  right: 2rem;
+  background-color: white;
+  border-radius: 4px;
+  font-size: 17px;
+  padding: 5px;
+  width: 26px;
+  height: 26px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  z-index: 7;
+}
+.button i:hover {
+ background-color: #f2f2f2;
+}
+
+.footer{
+  height: 15px;
+  width: 100%;
+  position: fixed;
   bottom: 0;
+  background-color: black;
+}
+
+.footer-text{
+  margin: 0 0 20px 0;
+  color: white;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  /*vertical-align: bottom;*/
 }
 
 .navbar-inverse{
-  padding: 5px 0;
-  background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);
+  padding-top: 10px;
+  /*background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);*/
+  background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);
+  
+}
+
+.social-media {
+  /*height: 66px;
+  width: 157px;*/
+  display: inline;
+  position: relative;
+
 }
 
 .leaflet-popup-content {
@@ -112,6 +154,7 @@ section > .map {
 }
 
 .leaflet-popup-content-wrapper {
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 1px rgba(0,0,0,0.05);
 }
@@ -120,4 +163,45 @@ section > .map {
   .navbar-head{
     padding: 0;
   }
+}
+
+#county{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+#home-btn-yeah {
+  width: 60px;
+  font-size: 12px;
+  position: absolute;
+  top: 7rem; /* Use to move button */
+  right: 1rem;
+}
+
+#home-site-canvas{
+  width: 0;
+  height: 100%;
+  position: fixed;
+  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
+  transition: 300ms ease all;
+  backface-visibility: hidden; 
+  padding: 5% 0;
+  right: 0;
+}
+.home-show-nav #home-site-canvas {
+  transform: translateX(-300px);
+  transform: translate3d(-300px, 0, 0);
+}
+#home-site-menu {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -300px;
+  background-color: white;
+  padding-top: 55px;
+  padding-left: 20px;
 }

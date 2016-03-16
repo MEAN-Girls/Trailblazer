@@ -74,7 +74,7 @@ exports.delete = function (req, res) {
  * List of boundarys
  */
 exports.list = function (req, res) {
-  Boundary.find().sort('-created').populate('user', 'displayName').exec(function (err, boundarys) {
+  Boundary.find().exec(function (err, boundarys) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

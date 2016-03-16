@@ -4,15 +4,15 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
   function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
-    
+
     /*
-        Some quick references for leaflet use in the docs, 
+        Some quick references for leaflet use in the docs,
 
         L.Class = angular module. whenever you want to add some functionality
 
         Later on we will be adding factories to work with new classes.
 
-        This is a simple rendering of our map. 
+        This is a simple rendering of our map.
     */
 
     var regions = { //defines corner coordinates for maxboundary
@@ -31,9 +31,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 	angular.extend($scope, {
         maxbounds: regions.alachua, // Added maxbounds declaration
 		alachua: {
-			lat: 29.59599854794921,
-			lng: -82.24021911621094, 
-			zoom: 14
+			lat: 29.671316,
+			lng: -82.327766,
+			zoom: 13
 			//autoDiscover: true
     	},
     	controls: {
@@ -42,22 +42,30 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     		}
         },
 
-    }); 
 
-    
-    
+    });
+
+
+
     /*
     This polygon is drawn using Geojson.
     */
-    
 
-    /* 
+
+    /*
         Get Map data
     */
+
+    //Creating Mapbox Tile
+    var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      id: 'meangurlz.cd22205e',
+      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
+    });
     var marker;
-    $scope.map = null; 
+    $scope.map = null;
 
     leafletData.getMap('county').then(function(map) {
+
         $scope.map = map;
         $scope.map.locate({ setView : true, maxZoom : 13 });
         $scope.map.on('locationfound', function (e){
@@ -66,14 +74,15 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             }
             marker = new L.marker(e.latlng).addTo($scope.map);
         });
+        mapboxTile.addTo(map); //added MapBox tile to Map
     });
 
    /*
         Draw Markers
     */
-    
-    angular.extend($scope, {
 
+    angular.extend($scope, {
+        tiles : mapboxTile,
         findUser : function(){
             $scope.map.locate({ setView : true, maxZoom : 13 });
             $scope.map.on('locationfound', $scope.onLocationFound);
@@ -84,44 +93,49 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);
+
          },
         onEachFeature : function(feature, layer){
             if(feature.properties.kind !== 'county'){
                 layer.on('click', function(e){
+
                     console.log(feature.properties.kind);
-                    console.log('test');
+
                     $scope.feature = feature;
                     $scope.name_test = feature.properties.Name;
-                    $rootScope.tempName = feature.properties.Name;
-                    $rootScope.tempCoords = feature.geometry.coordinates;
+                    var poly = L.geoJson(feature);
+                    $scope.center = poly.getBounds().getCenter();
+                    $scope.address_test = '12345 SW Test St. Gainesville, FL 32601';
                     var popup = L.popup()
                         .setLatLng(e.latlng)
-                        .setContent($compile('<button type="button" ng-click="expand()">{{name_test}} - See More!!</button>')($scope)[0]) //need to $compile to introduce ng directives
-                        .openOn($scope.map);    
+                        .setContent($compile('<p><b>{{name_test}}</b><br><br>{{address_test}}<br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
+                        //need to $compile to introduce ng directives
+                        .openOn($scope.map);
+
             });
             }
         },
-        expand : function(feature){ 
-            $state.go('boundarys.view', { 'boundaryName': $scope.name_test, 'boundaryFeature':  $scope.feature });
+        expand : function(feature){
+            $state.go('boundaries.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
-         
+
     });
-    
+
     $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
             angular.extend($scope, {
                 geojson: {
                     data: data,
-                    style: 
+                    style:
                     function(feature){
-                    
+
                     switch (feature.properties.Name) {
                     case 'Prop6': return { color: 'orange', 'weight' : 2 };
                     case 'Prop5': return { color: 'blue', 'weight' : 2 };
-                    default: return { color: 'green', 'weight' : 2 };
+                    default: return { color: '#8AAAB5', 'weight' : 2, 'fillOpacity' : 0 };
                     }
-                    
+
                     },
-                    onEachFeature: $scope.onEachFeature            
+                    onEachFeature: $scope.onEachFeature
             }
             });
 
@@ -129,4 +143,16 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
 
 	}
-]);
+]).directive('offCanvasMenu', function ($stateParams) {
+  var bFeature = $stateParams.boundaryFeature;
+    return {
+        restrict: 'A',
+        replace: false,
+        link: function (scope, element) {
+            scope.isMenuOpen = false;
+            scope.toggleMenu = function () {
+                scope.isMenuOpen = !scope.isMenuOpen;
+            };
+        }
+    };
+});
