@@ -37,14 +37,14 @@ a:hover .header-profile-image {
   padding: 0 25px;
   width: 100%;
 }
-
+.leaflet-fullscreen-on{
+  top: 0;
+}
 .userButton{
   color: white;
   text-shadow: none !important;
   font-family: "myriad-pro-condensed-n4", "myriad-pro-condensed", sans-serif;
 }
-
-
 .navbar-inverse .navbar-brand{
   color: white;
 }
@@ -98,8 +98,8 @@ section > .map {
 }
 .button i {
   position: absolute;
-  top: 180px;
-  left: 1rem;
+  bottom: 3rem;
+  right: 2rem;
   background-color: white;
   border-radius: 4px;
   font-size: 17px;
@@ -175,9 +175,9 @@ section > .map {
 #home-btn-yeah {
   width: 60px;
   font-size: 12px;
-  position: relative;
-  top: -1rem; /* Use to move button */
-  right: 7rem;
+  position: absolute;
+  top: 7rem; /* Use to move button */
+  right: 1rem;
 }
 
 #home-site-canvas{
