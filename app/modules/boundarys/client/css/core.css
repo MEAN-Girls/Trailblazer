@@ -84,3 +84,7 @@ position: absolute;
   margin-top: 10px;
   border-top: dotted 5px;
 }
+
+.btn-group > .btn {
+  float: right;
+}
