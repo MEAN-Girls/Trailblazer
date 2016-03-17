@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile',
-  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundarys', 
+  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundarys) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -14,7 +14,27 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
         This is a simple rendering of our map.
     */
+    //$scope.find = function () {
+    Boundarys.query().$promise.then(function (res) {
+        $rootScope.boundarys = res;
+        console.log($rootScope.boundarys[0]);
+        L.geoJson($rootScope.boundarys, { 
+            style: 
+            function(feature){
 
+                    switch (feature.properties.Name) {
+                    case 'Prop6': return { color: 'orange', 'weight' : 2 };
+                    case 'Prop5': return { color: 'blue', 'weight' : 2 };
+                    default: return { color: '#8AAAB5', 'weight' : 2, 'fillOpacity' : 0 };
+                    }
+
+            },
+            onEachFeature: $scope.onEachFeature
+
+        }).addTo($scope.map);
+      });
+
+    //};
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
@@ -121,10 +141,10 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
     });
 
-    $http.get('https://raw.githubusercontent.com/cduica/geojsontest/master/PCP_combined.geojson').success(function(data, status) {
-            angular.extend($scope, {
+    //$http.get('').success(function(data, status) {
+            /*angular.extend($scope, {
                 geojson: {
-                    data: data,
+                    data: $scope.boundarys,
                     style:
                     function(feature){
 
@@ -137,10 +157,10 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     },
                     onEachFeature: $scope.onEachFeature
             }
-            });
+            });*/
 
-    });
-
+    //});
+    
 
 	}
 ]).directive('offCanvasMenu', function ($stateParams) {
