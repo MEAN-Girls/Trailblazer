@@ -19,6 +19,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
     */
     if($state.current.name === 'boundaries.view') {
       var boundaryFeature = $stateParams.boundaryFeature;
+      console.log(boundaryFeature);
       var center = $stateParams.center;
   
     //reroute because we came here from somewhere other than home page

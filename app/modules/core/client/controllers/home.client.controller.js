@@ -111,18 +111,20 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     console.log(feature.properties.kind);
 
                     $scope.feature = feature;
+                    $scope.boundaryId = $scope.feature._id;
+                    console.log($scope.boundaryId);
                     $scope.name = feature.properties.MANAME;
-                    $scope.area = feature.properties.TOTACRES + " acres";
+                    $scope.area = feature.properties.TOTACRES + ' acres';
                     $scope.type = feature.properties.MATYPE; 
                     $scope.managing_a = feature.properties.MANAGING_A;
-                    if(feature.properties.DESC2 !== "ZZ"){
+                    if(feature.properties.DESC2 !== 'ZZ'){
                         $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
                     }
-                    else if (feature.properties.DESC1 !== "ZZ"){
+                    else if (feature.properties.DESC1 !== 'ZZ'){
                         $scope.description = feature.properties.DESC1;
                     } 
                     else {
-                        $scope.description = "No description available. ";
+                        $scope.description = 'No description available. ';
                     }
                     
 
@@ -142,7 +144,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             }
         },
         expand : function(feature){
-            $state.go('boundaries.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
+            $state.go('boundaries.view', { 'boundaryId': $scope.boundaryId, 
+                                            'center': $scope.center, 
+                                            'boundaryFeature':  $scope.feature });
         }
 
     });

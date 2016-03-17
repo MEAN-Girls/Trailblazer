@@ -23,7 +23,7 @@ angular.module('boundarys').config(['$stateProvider',
       })
       //switch url to url: '/:boundaryId', when database is set up
       .state('boundaries.view', {
-        url: '/:boundaryName/',
+        url: '/:boundaryId/',
         templateUrl: 'modules/boundarys/client/views/view-boundary.client.view.html',
         params: {
           boundaryFeature: null,
