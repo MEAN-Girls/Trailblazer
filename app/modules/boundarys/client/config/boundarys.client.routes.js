@@ -31,7 +31,7 @@ angular.module('boundarys').config(['$stateProvider',
         }
       })
       .state('boundaries.edit', {
-        url: '/:boundaryId/edit',
+        url: '/edit',
         templateUrl: 'modules/boundarys/client/views/edit-boundary.client.view.html',
         data: {
           roles: ['user', 'admin']
