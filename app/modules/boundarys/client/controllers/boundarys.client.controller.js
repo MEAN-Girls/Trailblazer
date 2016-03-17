@@ -27,6 +27,22 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       $state.go('home');
     }
 
+    var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'meangurlz.cd22205e',
+      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
+    });
+
+    $scope.map = null;
+
+    leafletData.getMap('boundary').then(function(map) {
+        mapboxTile.addTo(map);
+        $scope.map = map;
+    });
+
     angular.extend($scope, {
       alachua: {
         lat: center.lat,
@@ -43,23 +59,8 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
           style: {
             color: 'red'
           }
-        }
-    });
-
-    var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-      maxZoom: 18,
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      id: 'meangurlz.pc7i20mi',
-      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
-    });
-
-    $scope.map = null;
-
-    leafletData.getMap('boundary').then(function(map) {
-        mapboxTile.addTo(map);
-        $scope.map = map;
+        }, 
+        tiles: mapboxTile
     });
   }
 
