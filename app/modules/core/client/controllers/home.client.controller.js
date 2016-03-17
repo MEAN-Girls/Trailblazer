@@ -65,17 +65,6 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
     });
 
-
-
-    /*
-    This polygon is drawn using Geojson.
-    */
-
-
-    /*
-        Get Map data
-    */
-
     //Creating Mapbox Tile
     var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
       id: 'meangurlz.cd22205e',
@@ -122,13 +111,30 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     console.log(feature.properties.kind);
 
                     $scope.feature = feature;
-                    $scope.name_test = feature.properties.Name;
+                    $scope.name = feature.properties.MANAME;
+                    $scope.area = feature.properties.TOTACRES + " acres";
+                    $scope.type = feature.properties.MATYPE; 
+                    $scope.managing_a = feature.properties.MANAGING_A;
+                    if(feature.properties.DESC2 !== "ZZ"){
+                        $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
+                    }
+                    else if (feature.properties.DESC1 !== "ZZ"){
+                        $scope.description = feature.properties.DESC1;
+                    } 
+                    else {
+                        $scope.description = "No description available. ";
+                    }
+                    
+
                     var poly = L.geoJson(feature);
                     $scope.center = poly.getBounds().getCenter();
-                    $scope.address_test = '12345 SW Test St. Gainesville, FL 32601';
-                    var popup = L.popup()
+                    var popup = L.popup(
+                    {
+                        minWidth: 200,
+                        maxHeight: 300
+                    })
                         .setLatLng(e.latlng)
-                        .setContent($compile('<p><b>{{name_test}}</b><br><br>{{address_test}}<br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
+                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
                         .openOn($scope.map);
 
@@ -140,27 +146,6 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         }
 
     });
-
-    //$http.get('').success(function(data, status) {
-            /*angular.extend($scope, {
-                geojson: {
-                    data: $scope.boundarys,
-                    style:
-                    function(feature){
-
-                    switch (feature.properties.Name) {
-                    case 'Prop6': return { color: 'orange', 'weight' : 2 };
-                    case 'Prop5': return { color: 'blue', 'weight' : 2 };
-                    default: return { color: '#8AAAB5', 'weight' : 2, 'fillOpacity' : 0 };
-                    }
-
-                    },
-                    onEachFeature: $scope.onEachFeature
-            }
-            });*/
-
-    //});
-    
 
 	}
 ]).directive('offCanvasMenu', function ($stateParams) {
