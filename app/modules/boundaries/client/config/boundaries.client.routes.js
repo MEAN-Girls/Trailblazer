@@ -31,13 +31,8 @@ angular.module('boundaries').config(['$stateProvider',
         }
       })
       .state('boundaries.edit', {
-<<<<<<< HEAD:app/modules/boundarys/client/config/boundarys.client.routes.js
         url: '/edit',
-        templateUrl: 'modules/boundarys/client/views/edit-boundary.client.view.html',
-=======
-        url: '/:boundaryId/edit',
         templateUrl: 'modules/boundaries/client/views/edit-boundary.client.view.html',
->>>>>>> 07fc7f16bd22aa1a1563f1ce814fc3d3921f271a:app/modules/boundaries/client/config/boundaries.client.routes.js
         data: {
           roles: ['user', 'admin']
         }

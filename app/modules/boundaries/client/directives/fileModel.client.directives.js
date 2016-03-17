@@ -1,6 +1,7 @@
+
 'use strict';
 
-angular.module('boundarys').directive('fileModel', ['$parse', function ($parse) {
+angular.module('boundaries').directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
