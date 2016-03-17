@@ -6,11 +6,11 @@ angular.module('boundarys').service('fileUpload', ['$http', function ($http) {
         fd.append('file', file);
         $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+            headers: { 'Content-Type': undefined }
         })
         .success(function(){
         })
         .error(function(){
         });
-    }
+    };
 }]);

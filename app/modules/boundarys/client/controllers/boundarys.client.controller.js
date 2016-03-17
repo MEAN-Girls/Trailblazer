@@ -150,13 +150,13 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       });
     };
 
-
-    $scope.uploadFile = function(){
+    $scope.uploadFile = function () {
         var file = $scope.myFile;
-        console.log('file is ' );
+        console.log('file is ');
         console.dir(file);
-        var uploadUrl = "/fileUpload";
-        fileUpload.uploadFileToUrl(file, uploadUrl);
+        var uploadUrl = '/fileUpload';
+        console.log(uploadUrl);
+        //fileUpload.uploadFileToUrl(file, uploadUrl);
     };
   }
 }
