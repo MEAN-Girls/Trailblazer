@@ -8,8 +8,9 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
                                                               'Boundarys',
                                                               '$state',
                                                               'leafletData',
+                                                              'fileUpload',
 
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundarys, $state, leafletData) {
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundarys, $state, leafletData, fileUpload) {
 
     $scope.authentication = Authentication;
 
@@ -166,14 +167,15 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
         boundaryId: $stateParams.boundaryId
       });
     };
-	
-	$scope.uploadFile = function(){
-		var file = $scope.boundaryFile;
-		console.log('file: ');
-		console.dir(file);
-		var uploadUrl = '/uploads';
-		fileUpload.uploadFileToUrl(file, uploadUrl);
-	};
+
+    $scope.uploadFile = function () {
+        var file = $scope.myFile;
+        console.log('file is ');
+        console.dir(file);
+        var uploadUrl = '/fileUpload';
+        console.log(uploadUrl);
+        //fileUpload.uploadFileToUrl(file, uploadUrl);
+    };
   }
 }
 ]).directive('offCanvasMenu', function ($stateParams) {
