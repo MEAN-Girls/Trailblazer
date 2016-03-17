@@ -116,7 +116,7 @@ section > .map {
 .footer{
   height: 15px;
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   background-color: black;
 }
