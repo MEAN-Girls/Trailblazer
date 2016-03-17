@@ -9,41 +9,41 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Boundarys Permissions
+ * Invoke Boundaries Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/boundarys',
+      resources: '/api/boundaries',
       permissions: '*'
     }, {
-      resources: '/api/boundarys/:boundaryId',
+      resources: '/api/boundaries/:boundaryId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/boundarys',
+      resources: '/api/boundaries',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/boundarys/:boundaryId',
+      resources: '/api/boundaries/:boundaryId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/boundarys',
+      resources: '/api/boundaries',
       permissions: ['get']
     }, {
-      resources: '/api/boundarys/:boundaryId',
+      resources: '/api/boundaries/:boundaryId',
       permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Boundarys Policy Allows
+ * Check If Boundaries Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];

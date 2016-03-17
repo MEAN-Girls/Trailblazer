@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundarys', 
-  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundarys) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 
+  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -15,10 +15,10 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         This is a simple rendering of our map.
     */
     //$scope.find = function () {
-    Boundarys.query().$promise.then(function (res) {
-        $rootScope.boundarys = res;
-        console.log($rootScope.boundarys[0]);
-        L.geoJson($rootScope.boundarys, { 
+    Boundaries.query().$promise.then(function (res) {
+        $rootScope.boundaries = res;
+        console.log($rootScope.boundaries[0]);
+        L.geoJson($rootScope.boundaries, { 
             style: 
             function(feature){
 

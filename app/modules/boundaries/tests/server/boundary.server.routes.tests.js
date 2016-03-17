@@ -69,7 +69,7 @@ describe('Boundary CRUD tests', function () {
         var userId = user.id;
 
         // Save a new boundary
-        agent.post('/api/boundarys')
+        agent.post('/api/boundaries')
           .send(boundary)
           .expect(200)
           .end(function (boundarySaveErr, boundarySaveRes) {
@@ -78,20 +78,20 @@ describe('Boundary CRUD tests', function () {
               return done(boundarySaveErr);
             }
 
-            // Get a list of boundarys
-            agent.get('/api/boundarys')
-              .end(function (boundarysGetErr, boundarysGetRes) {
+            // Get a list of boundaries
+            agent.get('/api/boundaries')
+              .end(function (boundariesGetErr, boundariesGetRes) {
                 // Handle boundary save error
-                if (boundarysGetErr) {
-                  return done(boundarysGetErr);
+                if (boundariesGetErr) {
+                  return done(boundariesGetErr);
                 }
 
                 // Get boundary list
-                var boundarys = boundarysGetRes.body;
+                var boundaries = boundariesGetRes.body;
 
                 // Set assertions
-                (boundarys[0].user._id).should.equal(userId);
-                (boundarys[0].title).should.match('Boundary Title');
+                (boundaries[0].user._id).should.equal(userId);
+                (boundaries[0].title).should.match('Boundary Title');
 
                 // Call the assertion callback
                 done();
@@ -101,7 +101,7 @@ describe('Boundary CRUD tests', function () {
   });
 
   it('should not be able to save an boundary if not logged in', function (done) {
-    agent.post('/api/boundarys')
+    agent.post('/api/boundaries')
       .send(boundary)
       .expect(403)
       .end(function (boundarySaveErr, boundarySaveRes) {
@@ -127,7 +127,7 @@ describe('Boundary CRUD tests', function () {
         var userId = user.id;
 
         // Save a new boundary
-        agent.post('/api/boundarys')
+        agent.post('/api/boundaries')
           .send(boundary)
           .expect(400)
           .end(function (boundarySaveErr, boundarySaveRes) {
@@ -154,7 +154,7 @@ describe('Boundary CRUD tests', function () {
         var userId = user.id;
 
         // Save a new boundary
-        agent.post('/api/boundarys')
+        agent.post('/api/boundaries')
           .send(boundary)
           .expect(200)
           .end(function (boundarySaveErr, boundarySaveRes) {
@@ -167,7 +167,7 @@ describe('Boundary CRUD tests', function () {
             boundary.title = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing boundary
-            agent.put('/api/boundarys/' + boundarySaveRes.body._id)
+            agent.put('/api/boundaries/' + boundarySaveRes.body._id)
               .send(boundary)
               .expect(200)
               .end(function (boundaryUpdateErr, boundaryUpdateRes) {
@@ -187,14 +187,14 @@ describe('Boundary CRUD tests', function () {
       });
   });
 
-  it('should be able to get a list of boundarys if not signed in', function (done) {
+  it('should be able to get a list of boundaries if not signed in', function (done) {
     // Create new boundary model instance
     var boundaryObj = new Boundary(boundary);
 
     // Save the boundary
     boundaryObj.save(function () {
-      // Request boundarys
-      request(app).get('/api/boundarys')
+      // Request boundaries
+      request(app).get('/api/boundaries')
         .end(function (req, res) {
           // Set assertion
           res.body.should.be.instanceof(Array).and.have.lengthOf(1);
@@ -212,7 +212,7 @@ describe('Boundary CRUD tests', function () {
 
     // Save the boundary
     boundaryObj.save(function () {
-      request(app).get('/api/boundarys/' + boundaryObj._id)
+      request(app).get('/api/boundaries/' + boundaryObj._id)
         .end(function (req, res) {
           // Set assertion
           res.body.should.be.instanceof(Object).and.have.property('title', boundary.title);
@@ -225,7 +225,7 @@ describe('Boundary CRUD tests', function () {
 
   it('should return proper error for single boundary with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
-    request(app).get('/api/boundarys/test')
+    request(app).get('/api/boundaries/test')
       .end(function (req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'Boundary is invalid');
@@ -237,7 +237,7 @@ describe('Boundary CRUD tests', function () {
 
   it('should return proper error for single boundary which doesnt exist, if not signed in', function (done) {
     // This is a valid mongoose Id but a non-existent boundary
-    request(app).get('/api/boundarys/559e9cd815f80b4c256a8f41')
+    request(app).get('/api/boundaries/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
         // Set assertion
         res.body.should.be.instanceof(Object).and.have.property('message', 'No boundary with that identifier has been found');
@@ -261,7 +261,7 @@ describe('Boundary CRUD tests', function () {
         var userId = user.id;
 
         // Save a new boundary
-        agent.post('/api/boundarys')
+        agent.post('/api/boundaries')
           .send(boundary)
           .expect(200)
           .end(function (boundarySaveErr, boundarySaveRes) {
@@ -271,7 +271,7 @@ describe('Boundary CRUD tests', function () {
             }
 
             // Delete an existing boundary
-            agent.delete('/api/boundarys/' + boundarySaveRes.body._id)
+            agent.delete('/api/boundaries/' + boundarySaveRes.body._id)
               .send(boundary)
               .expect(200)
               .end(function (boundaryDeleteErr, boundaryDeleteRes) {
@@ -300,7 +300,7 @@ describe('Boundary CRUD tests', function () {
     // Save the boundary
     boundaryObj.save(function () {
       // Try deleting boundary
-      request(app).delete('/api/boundarys/' + boundaryObj._id)
+      request(app).delete('/api/boundaries/' + boundaryObj._id)
         .expect(403)
         .end(function (boundaryDeleteErr, boundaryDeleteRes) {
           // Set message assertion

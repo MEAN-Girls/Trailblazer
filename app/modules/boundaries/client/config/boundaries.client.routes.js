@@ -1,9 +1,9 @@
 'use strict';
 
 // Setting up route
-angular.module('boundarys').config(['$stateProvider',
+angular.module('boundaries').config(['$stateProvider',
   function ($stateProvider) {
-    // Boundarys state routing
+    // Boundaries state routing
     $stateProvider
       .state('boundaries', {
         abstract: true,
@@ -12,11 +12,11 @@ angular.module('boundarys').config(['$stateProvider',
       })
       .state('boundaries.list', {
         url: '/list',
-        templateUrl: 'modules/boundarys/client/views/list-boundarys.client.view.html'
+        templateUrl: 'modules/boundaries/client/views/list-boundaries.client.view.html'
       })
       .state('boundaries.create', {
         url: '/create',
-        templateUrl: 'modules/boundarys/client/views/create-boundary.client.view.html',
+        templateUrl: 'modules/boundaries/client/views/create-boundary.client.view.html',
         data: {
           roles: ['user', 'admin']
         }
@@ -24,7 +24,7 @@ angular.module('boundarys').config(['$stateProvider',
       //switch url to url: '/:boundaryId', when database is set up
       .state('boundaries.view', {
         url: '/:boundaryId/',
-        templateUrl: 'modules/boundarys/client/views/view-boundary.client.view.html',
+        templateUrl: 'modules/boundaries/client/views/view-boundary.client.view.html',
         params: {
           boundaryFeature: null,
           center: null
@@ -32,7 +32,7 @@ angular.module('boundarys').config(['$stateProvider',
       })
       .state('boundaries.edit', {
         url: '/:boundaryId/edit',
-        templateUrl: 'modules/boundarys/client/views/edit-boundary.client.view.html',
+        templateUrl: 'modules/boundaries/client/views/edit-boundary.client.view.html',
         data: {
           roles: ['user', 'admin']
         }

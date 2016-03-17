@@ -1,16 +1,16 @@
 'use strict';
 
-// Boundarys controller
-angular.module('boundarys').controller('BoundarysController', ['$scope',
+// Boundaries controller
+angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               '$stateParams',
                                                               '$rootScope',
                                                               '$location',
                                                               'Authentication',
-                                                              'Boundarys',
+                                                              'Boundaries',
                                                               '$state',
                                                               'leafletData',
 
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundarys, $state, leafletData) {
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData) {
     $scope.authentication = Authentication;
 
     /*
@@ -83,7 +83,7 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       }
 
       // Create new  Boundary object
-      var boundary = new Boundarys({
+      var boundary = new Boundaries({
         title: this.title,
         content: this.content
       });
@@ -105,13 +105,13 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       if (boundary) {
         boundary.$remove();
 
-        for (var i in $scope.boundarys) {
-          if ($scope.boundarys[i] === boundary) {
-            $scope.boundarys.splice(i, 1);
+        for (var i in $scope.boundaries) {
+          if ($scope.boundaries[i] === boundary) {
+            $scope.boundaries.splice(i, 1);
           }
         }
       } else {
-        $scope.boundarys.$remove(function () {
+        $scope.boundaries.$remove(function () {
           $location.path('boundaries');
         });
       }
@@ -136,31 +136,19 @@ angular.module('boundarys').controller('BoundarysController', ['$scope',
       });
     };
 
-    // Find a list of Boundarys
+    // Find a list of Boundaries
     $scope.find = function () {
-      Boundarys.query().$promise.then(function (res) {
-        $scope.boundarys = res;
+      Boundaries.query().$promise.then(function (res) {
+        $scope.boundaries = res;
       });
     };
 
     // Find existing Boundary
     $scope.findOne = function () {
-      $scope.boundary = Boundarys.get({
+      $scope.boundary = Boundaries.get({
         boundaryId: $stateParams.boundaryId
       });
     };
   }
 }
-]).directive('offCanvasMenu', function ($stateParams) {
-  var bFeature = $stateParams.boundaryFeature;
-    return {
-        restrict: 'A',
-        replace: false,
-        link: function (scope, element) {
-            scope.isMenuOpen = false;
-            scope.toggleMenu = function () {
-                scope.isMenuOpen = !scope.isMenuOpen;
-            };
-        }
-    };
-});
+]);
