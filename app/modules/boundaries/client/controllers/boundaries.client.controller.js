@@ -168,7 +168,21 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     };
 
     $scope.showContent = function($fileContent){
-        $scope.content = $fileContent;
+      $scope.content = $fileContent;
+      var previewData = JSON.parse($scope.content);
+      angular.extend($scope, {
+        center: {
+            lat: 29.671316,
+            lng: -82.327766,
+            zoom: 10
+        },
+        geojson: {
+          data: previewData,
+          style: {
+            color: 'red'
+          }
+        }
+      });
     };
   }
 }
