@@ -98,8 +98,8 @@ section > .map {
 }
 .button i {
   position: absolute;
-/*  bottom: 3rem;
-  right: 2rem;*/
+  bottom: 3rem;
+  right: 2rem;
   background-color: white;
   border-radius: 4px;
   font-size: 17px;

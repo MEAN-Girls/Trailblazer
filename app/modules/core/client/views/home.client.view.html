@@ -26,7 +26,7 @@
 						</div>
 						<ul>
 							<select id="manager-filter" ng-model="filters.MGRINST">
-								<option ng-click="filters.MGRINST = ''">Clear</option>
+								<option ng-click="filters.MGRINST = ''" ></option>
 								<li>
 								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
