@@ -190,6 +190,7 @@ section > .map {
   backface-visibility: hidden; 
   padding: 5% 0;
   right: 0;
+  
 }
 .home-show-nav #home-site-canvas {
   transform: translateX(-300px);
@@ -206,4 +207,5 @@ section > .map {
   padding-left: 20px;
   margin-top: 60px;
   border-top: dotted 5px;
+  overflow: scroll;
 }
