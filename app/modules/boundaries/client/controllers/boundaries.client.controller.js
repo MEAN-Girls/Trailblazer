@@ -25,9 +25,10 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       var center = $stateParams.center;
   
     //reroute because we came here from somewhere other than home page
-      if (boundaryId === null){
-        console.log('rerouting');
+      if (boundaryFeature === null && boundaryId !== null){
         $state.go('home');
+        //boundaryFeature = $scope.findOne();
+        //console.log(boundaryFeature);
       }
 
       var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
@@ -65,6 +66,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         }, 
         tiles: mapboxTile
       });
+
     }
     //end of boundary map log
 

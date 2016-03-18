@@ -1,16 +1,10 @@
 
-<section ng-controller="BoundariesController">
+<section ng-controller="BoundariesController" ng-init="findOne()">
 <div class="page-header">
    <h1>Edit Boundary</h1>
 </div>
-  <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-4">
-    <div>
-      <button ng-click="findOne()">upload me</button>
-    </div>
-  </div>
-<div class="page-header">
-   <h1>Select text file</h1>
-</div>
+    <h4>{{boundary.properties.MANAME}}</h4>
+    <h6>{{boundary._id}}</h6>
     <input type="file" on-read-file="showContent($fileContent)"/>
     <div ng-if="content">
         <h2>File content is:</h2>
