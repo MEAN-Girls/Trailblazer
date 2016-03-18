@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundarys', 
-  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundarys) {
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 
+  function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -15,10 +15,10 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         This is a simple rendering of our map.
     */
     //$scope.find = function () {
-    Boundarys.query().$promise.then(function (res) {
-        $rootScope.boundarys = res;
-        console.log($rootScope.boundarys[0]);
-        L.geoJson($rootScope.boundarys, { 
+    Boundaries.query().$promise.then(function (res) {
+        $rootScope.boundaries = res;
+        console.log($rootScope.boundaries[0]);
+        L.geoJson($rootScope.boundaries, { 
             style: 
             function(feature){
 
@@ -111,18 +111,20 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     console.log(feature.properties.kind);
 
                     $scope.feature = feature;
+                    $scope.boundaryId = $scope.feature._id;
+                    console.log($scope.boundaryId);
                     $scope.name = feature.properties.MANAME;
-                    $scope.area = feature.properties.TOTACRES + " acres";
+                    $scope.area = feature.properties.TOTACRES + ' acres';
                     $scope.type = feature.properties.MATYPE; 
                     $scope.managing_a = feature.properties.MANAGING_A;
-                    if(feature.properties.DESC2 !== "ZZ"){
+                    if(feature.properties.DESC2 !== 'ZZ'){
                         $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
                     }
-                    else if (feature.properties.DESC1 !== "ZZ"){
+                    else if (feature.properties.DESC1 !== 'ZZ'){
                         $scope.description = feature.properties.DESC1;
                     } 
                     else {
-                        $scope.description = "No description available. ";
+                        $scope.description = 'No description available. ';
                     }
                     
 
@@ -142,6 +144,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             }
         },
         expand : function(feature){
+
 
             $state.go('boundaries.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
 

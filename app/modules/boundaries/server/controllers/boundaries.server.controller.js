@@ -71,16 +71,16 @@ exports.delete = function (req, res) {
 };
 
 /**
- * List of boundarys
+ * List of boundaries
  */
 exports.list = function (req, res) {
-  Boundary.find().exec(function (err, boundarys) {
+  Boundary.find().exec(function (err, boundaries) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(boundarys);
+      res.json(boundaries);
     }
   });
 };
