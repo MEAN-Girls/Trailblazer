@@ -163,8 +163,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     });
 
 	}
-]).directive('offCanvasMenu', function ($stateParams) {
-  var bFeature = $stateParams.boundaryFeature;
+]).directive('offCanvasMenu', function () {
     return {
         restrict: 'A',
         replace: false,

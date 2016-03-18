@@ -31,6 +31,33 @@ body {
   text-align: center;
   /*vertical-align: bottom;*/
 }
+
+.button{
+position: absolute;
+  top: 150px;
+  left: 9px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.footer{
+  height: 15px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: black;
+}
+
+.footer-text{
+  margin: 0 0 20px 0;
+  color: white;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  vertical-align: bottom;
+}
+
 #site-canvas{
   width: 0;
   height: 100%;
@@ -54,4 +81,10 @@ body {
   right: -300px;
   background-color: white;
   padding: 15px;
+  margin-top: 10px;
+  border-top: dotted 5px;
+}
+
+.btn-group > .btn {
+  float: right;
 }
