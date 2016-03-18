@@ -156,10 +156,9 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         var file = $scope.myFile;
         console.log('file is ');
         console.dir(file);
-        var uploadUrl = '/fileUpload';
-        console.log(uploadUrl);
-        //fileUpload.uploadFileToUrl(file, uploadUrl);
+        fileUpload.uploadFileToUrl(file);
     };
+
   }
 }
 ]);
