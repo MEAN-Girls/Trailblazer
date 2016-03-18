@@ -35,6 +35,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
       });
 
     //};
+    
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
@@ -46,6 +47,16 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 lng: -83.00308227539062
             }
         }
+    };
+
+    $scope.focusBoundary = function(boundary){
+
+        var poly = L.geoJson(boundary);
+        var center = poly.getBounds().getCenter();
+       // console.log(center);
+        //openPopup(boundary);
+        openPopup(boundary, center);
+
     };
 
 	angular.extend($scope, {
@@ -89,24 +100,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
    /*
         Draw Markers
     */
-
-    angular.extend($scope, {
-        tiles : mapboxTile,
-        findUser : function(){
-            $scope.map.locate({ setView : true, maxZoom : 13 });
-            $scope.map.on('locationfound', $scope.onLocationFound);
-        },
-
-        onLocationFound : function(e){
-            if(marker){
-                $scope.map.removeLayer(marker);
-            }
-            marker = new L.marker(e.latlng).addTo($scope.map);
-
-         },
-        onEachFeature : function(feature, layer){
-            if(feature.properties.kind !== 'county'){
-                layer.on('click', function(e){
+    function openPopup(feature, latlng){
 
                     console.log(feature.properties.kind);
 
@@ -135,13 +129,30 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                         minWidth: 200,
                         maxHeight: 300
                     })
-                        .setLatLng(e.latlng)
+                        .setLatLng(latlng)
                         .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
                         .openOn($scope.map);
 
-            });
+    }
+    angular.extend($scope, {
+        tiles : mapboxTile,
+        findUser : function(){
+            $scope.map.locate({ setView : true, maxZoom : 13 });
+            $scope.map.on('locationfound', $scope.onLocationFound);
+        },
+
+        onLocationFound : function(e){
+            if(marker){
+                $scope.map.removeLayer(marker);
             }
+            marker = new L.marker(e.latlng).addTo($scope.map);
+
+         },
+        onEachFeature : function(feature, layer){
+            
+                layer.on('click', function(e) {openPopup(feature, e.latlng); console.log(e);});
+            
         },
         expand : function(feature){
             $state.go('boundaries.view', { 'boundaryId': $scope.boundaryId, 

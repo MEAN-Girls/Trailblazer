@@ -13,19 +13,18 @@
 		<div class="button">
 			<button type="button" ng-click="findUser()"><i class="fa fa-location-arrow"></i></button>
 		</div>	
-	<div ng-controller="HomeController" class="home_sidebar">
+	<div class="home_sidebar">
 			<div id="home-site-wrapper" off-canvas-menu ng-class="{'home-show-nav':isMenuOpen}">
 				<div id="home-site-canvas">
 					<div id="home-site-menu">
 						
-						<h2>Search</h2>
-						<ul>
-							<li>Filter</li>
-							<li>Details</li>
-							<li>Yada</li>
-							<li>Yada</li>
-							<li>Yada</li>
-						</ul>
+						<div class="list-group">
+    					<a ng-repeat="boundary in boundaries" ng-click="focusBoundary(boundary)" class="list-group-item">
+      					<h4 ng-bind="boundary.properties.MANAME"></h4>
+      					<h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
+      					<p class="list-group-item-text" ng-bind="boundary.content"></p>
+    					</a>
+  						</div>
 					</div>
 					<div>
 						<button type="button" id="home-btn-yeah" class="home-toggle-nav btn btn-lg btn-primary" ng-click="toggleMenu()">
