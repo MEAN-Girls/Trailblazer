@@ -160,6 +160,10 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         console.log(uploadUrl);
         //fileUpload.uploadFileToUrl(file, uploadUrl);
     };
+	
+	$scope.showContent = function($fileContent){
+        $scope.content = $fileContent;
+    };
   }
 }
 ]);
