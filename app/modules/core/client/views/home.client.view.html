@@ -19,13 +19,16 @@
 				<div id="home-site-canvas">
 					<div id="home-site-menu">
 						
-						<h2>Search</h2>
+						<div class="searchBar">
+							<input type="text" class="form-control" placeholder="Search" ng-model="searchingBar" style="background-color:white">
+						</div>
 						<ul>
-							<li>Filter</li>
-							<li>Details</li>
-							<li>Yada</li>
-							<li>Yada</li>
-							<li>Yada</li>
+							<select id="manager-filter" ng-model="filters.MGRINST">
+								<option ng-click="filters.MGRINST = ''">Clear</option>
+								<li>
+								<option ng-repeat="boundary in boundarys">{{boundary.properties.MGRINST}}</option>
+								</li>
+								</select>
 						</ul>
 					</div>
 					<div>
