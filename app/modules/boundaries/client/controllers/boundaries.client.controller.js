@@ -149,7 +149,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     $scope.findOne = function () {
       Boundaries.query().$promise.then(function (res) {
         $scope.boundaries = res;
-        for ( var i = 0; i < $scope.boundaries.length; i++) {
+        for (var i = 0; i < $scope.boundaries.length; i++) {
           if ($scope.boundaries[i]._id === $stateParams.boundaryId) { 
             $scope.boundary = $scope.boundaries[i];
             console.log($scope.boundary);
