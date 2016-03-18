@@ -28,13 +28,13 @@
 							<select id="manager-filter" ng-model="filters.MGRINST">
 								<option ng-click="filters.MGRINST = ''">Clear</option>
 								<li>
-								<option ng-repeat="boundary in boundarys">{{boundary.properties.MGRINST}}</option>
+								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
 								</select>
 						</ul>
 
 						<div class="list-group">
-    					<a ng-repeat="boundary in boundaries" ng-click="focusBoundary(boundary)" class="list-group-item">
+    					<a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>
       					<h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       					<p class="list-group-item-text" ng-bind="boundary.content"></p>
