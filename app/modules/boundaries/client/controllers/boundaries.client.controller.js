@@ -159,6 +159,9 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         fileUpload.uploadFileToUrl(file);
     };
 
+	$scope.showContent = function($fileContent){
+        $scope.content = $fileContent;
+    };
   }
 }
 ]);

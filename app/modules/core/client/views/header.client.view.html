@@ -48,7 +48,17 @@
             <a ui-sref="settings.password">Change Password</a>
           </li>
           <li class="divider"></li>
-          <li>
+          <li ui-sref-active="active">
+            <a ui-sref="buondaries.edit">Edit Boundaries</a>
+          </li>
+		  <li ui-sref-active="active">
+            <a ui-sref="boundaries.create">Create Boundaries</a>
+          </li>
+		  <li ui-sref-active="active">
+            <a ui-sref="boundaries.list">List Boundaries</a>
+          </li>
+          <li class="divider"></li>
+		  <li>
             <a href="/api/auth/signout" target="_self">Signout</a>
           </li>
           <li>
