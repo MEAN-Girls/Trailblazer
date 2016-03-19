@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 
+
+
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
@@ -11,6 +13,7 @@ var mongoose = require('mongoose'),
  * Boundary Schema
  */
 var BoundarySchema = new Schema({
+
  type: String,
  properties: {
    AREA: Number, 
@@ -42,7 +45,9 @@ var BoundarySchema = new Schema({
    OWNERTYPES: String,
    ESTMT_HOLD: String
  },
+
  geometry: Object 
+
 });
 
 mongoose.model('Boundary', BoundarySchema);

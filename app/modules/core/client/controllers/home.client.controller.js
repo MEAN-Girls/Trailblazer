@@ -35,17 +35,40 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
       });
 
     //};
+    
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
-                lat: 30.00965233044293,
-                lng: -81.89071655273438
+                /*lat: 30.02065233044293,
+                lng: -82.90171655273438*/
+                /*lat: 30.147827, 
+                lng: -81.648200*/
+                lat: 30.349500, 
+                lng: -81.510871
             },
             southWest: {
-                lat: 29.3642238956322,
-                lng: -83.00308227539062
+                /*lat: 29.3742238956322,
+                lng: -83.01408227539062*/
+                /*lat: 29.222027, 
+                lng: -82.845709*/
+                lat: 29.181269, 
+                lng: -82.928107
             }
         }
+    };
+
+    $scope.focusBoundary = function(boundary){
+
+        var poly = L.geoJson(boundary);
+        var center = poly.getBounds().getCenter();
+       // console.log(center);
+        //openPopup(boundary);
+        openPopup(boundary, center);
+        var panCoords = center;
+        panCoords.lat = center.lat + 0.03;
+        $scope.map.setView(panCoords);
+        $scope.toggleMenu();
+
     };
 
 	angular.extend($scope, {
@@ -89,24 +112,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
    /*
         Draw Markers
     */
-
-    angular.extend($scope, {
-        tiles : mapboxTile,
-        findUser : function(){
-            $scope.map.locate({ setView : true, maxZoom : 13 });
-            $scope.map.on('locationfound', $scope.onLocationFound);
-        },
-
-        onLocationFound : function(e){
-            if(marker){
-                $scope.map.removeLayer(marker);
-            }
-            marker = new L.marker(e.latlng).addTo($scope.map);
-
-         },
-        onEachFeature : function(feature, layer){
-            if(feature.properties.kind !== 'county'){
-                layer.on('click', function(e){
+    function openPopup(feature, latlng){
 
                     console.log(feature.properties.kind);
 
@@ -130,30 +136,55 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
                     var poly = L.geoJson(feature);
                     $scope.center = poly.getBounds().getCenter();
+                    
                     var popup = L.popup(
                     {
                         minWidth: 200,
                         maxHeight: 300
                     })
-                        .setLatLng(e.latlng)
+                        .setLatLng(latlng)
                         .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
                         .openOn($scope.map);
 
-            });
+    }
+    angular.extend($scope, {
+        tiles : mapboxTile,
+        findUser : function(){
+            $scope.map.locate({ setView : true, maxZoom : 13 });
+            $scope.map.on('locationfound', $scope.onLocationFound);
+        },
+
+        onLocationFound : function(e){
+            if(marker){
+                $scope.map.removeLayer(marker);
             }
+            marker = new L.marker(e.latlng).addTo($scope.map);
+
+         },
+        onEachFeature : function(feature, layer){
+            
+                layer.on('click', function(e) {
+                    openPopup(feature, e.latlng); 
+                    console.log(e);
+                    var clickCoords = e.latlng;
+                    clickCoords.lat = clickCoords.lat + 0.04;
+                    $scope.map.setView(clickCoords);
+
+                });
+            
         },
         expand : function(feature){
-            $state.go('boundaries.view', { 'boundaryId': $scope.boundaryId, 
-                                            'center': $scope.center, 
-                                            'boundaryFeature':  $scope.feature });
+
+
+            $state.go('boundaries.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
+
         }
 
     });
 
 	}
-]).directive('offCanvasMenu', function ($stateParams) {
-  var bFeature = $stateParams.boundaryFeature;
+]).directive('offCanvasMenu', function () {
     return {
         restrict: 'A',
         replace: false,

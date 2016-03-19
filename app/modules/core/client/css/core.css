@@ -116,7 +116,7 @@ section > .map {
  background-color: #f2f2f2;
 }
 
-.footer{
+.home-footer{
   height: 15px;
   width: 100%;
   position: fixed;
@@ -124,7 +124,7 @@ section > .map {
   background-color: black;
 }
 
-.footer-text{
+.home-footer-text{
   margin: 0 0 20px 0;
   color: white;
   font-size: 11px;
@@ -141,8 +141,8 @@ section > .map {
 }
 
 .social-media {
-  /*height: 66px;
-  width: 157px;*/
+  height: 66px;
+  width: 157px;
   display: inline;
   position: relative;
 
@@ -193,6 +193,7 @@ section > .map {
   backface-visibility: hidden; 
   padding: 5% 0;
   right: 0;
+  
 }
 .home-show-nav #home-site-canvas {
   transform: translateX(-300px);
@@ -205,6 +206,16 @@ section > .map {
   top: 0;
   right: -300px;
   background-color: white;
-  padding-top: 55px;
+  padding-top: 10px;
   padding-left: 20px;
+  padding-right: 10px;
+  margin-top: 60px;
+  border-top: dotted 5px;
+  overflow: scroll;
+}
+
+.filter-bar {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

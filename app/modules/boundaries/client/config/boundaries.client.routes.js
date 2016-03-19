@@ -22,7 +22,7 @@ angular.module('boundaries').config(['$stateProvider',
         }
       })
       .state('boundaries.view', {
-        url: '/:boundaryId/',
+        url: '/:boundaryId',
         templateUrl: 'modules/boundaries/client/views/view-boundary.client.view.html',
         params: {
           boundaryFeature: null,
