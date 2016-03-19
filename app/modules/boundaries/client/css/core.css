@@ -31,13 +31,21 @@ body {
   text-align: center;
   /*vertical-align: bottom;*/
 }
-
-.button{
-position: absolute;
-  top: 150px;
-  left: 9px;
+.button i {
+  position: absolute;
+  bottom: 3rem;
+  right: 2rem;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 4px;
+  font-size: 17px;
+  padding: 5px;
+  width: 26px;
+  height: 26px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  z-index: 7;
+}
+.button i:hover {
+ background-color: #f2f2f2;
 }
 
 .footer{
