@@ -24,15 +24,15 @@
 						<div class="searchBar">
 							<input type="text" class="form-control" placeholder="Search" ng-model="searchingBar" style="background-color:white">
 						</div>
-						<ul>
-							<select id="manager-filter" ng-model="filters.MGRINST">
+						<div>
+							<select class="filter-bar" id="manager-filter" ng-model="filters.MGRINST">
 								<option ng-click="filters.MGRINST = ''" ></option>
 								<li>
 								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
-								</select>
-						</ul>
-
+							</select>
+						
+						</div>
 						<div class="list-group">
     					<a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>

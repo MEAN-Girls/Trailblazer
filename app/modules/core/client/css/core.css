@@ -205,7 +205,14 @@ section > .map {
   background-color: white;
   padding-top: 10px;
   padding-left: 20px;
+  padding-right: 10px;
   margin-top: 60px;
   border-top: dotted 5px;
   overflow: scroll;
+}
+
+.filter-bar {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
