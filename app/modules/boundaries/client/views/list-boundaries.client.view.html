@@ -21,8 +21,8 @@
 	   <option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 	 </li>
   </select>
-  <div class="list-group">
-    <div ng-hide="loading">
+  <div class="list-group" ng-hide="loading">
+    <div>
        <h3>Click on a property to edit details</h3>
     </div>
       <a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ui-sref="boundaries.edit({boundaryId: boundary._id, bounaryFeature: boundary})" class="list-group-item">
