@@ -17,9 +17,10 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     for now the geojson data dissapears everytime you refresh so we will reroute to home page. eventually the boundary
     id will be set in url so we won't have to worry about this and on refresh it will stay in solid state.
     */
+
     if($state.current.name === 'boundaries.view') {
       var boundaryFeature = $stateParams.boundaryFeature;
-      console.log(boundaryFeature);
+      $scope.bname = boundaryFeature.properties.Name;
       var center = $stateParams.center;
   
     //reroute because we came here from somewhere other than home page
@@ -151,4 +152,16 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     };
   }
 }
-]);
+]).directive('offCanvasMenu', function () {
+    return {
+        restrict: 'A',
+        replace: false,
+        link: function (scope, element) {
+            scope.isMenuOpen = false;
+            scope.toggleMenu = function () {
+                scope.isMenuOpen = !scope.isMenuOpen;
+            };
+        }
+    };
+});
+
