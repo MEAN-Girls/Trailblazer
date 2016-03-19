@@ -1,28 +1,24 @@
+
 <section ng-controller="BoundariesController" ng-init="findOne()">
-  <div class="page-header">
-    <h1>Edit Boundary</h1>
-  </div>
-  <div class="col-md-12">
-    <form name="boundaryForm" class="form-horizontal" ng-submit="update(boundaryForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label for="title">Title</label>
-          <input name="title" type="text" ng-model="boundary.title" id="title" class="form-control" placeholder="Title" required>
-          <div ng-messages="boundaryForm.title.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Boundary title is required.</p>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="content">Content</label>
-          <textarea name="content" ng-model="boundary.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
-        </div>
-        <div class="form-group">
-          <input type="submit" value="Update" class="btn btn-default">
-        </div>
-        <div ng-show="error" class="text-danger">
-          <strong ng-bind="error"></strong>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+<div class="page-header">
+   <h1>Edit Boundary</h1>
+</div>
+    <div class="load" ng-show="loading">
+      <img ng-src="/modules/core/client/img/loaders/loader.gif">
+    </div>
+    <div ng-hide="loading">
+      <h4>{{boundary.properties.MANAME}}</h4>
+      <h6>{{boundary._id}}</h6>
+      <hr>
+      <h3> Edit Coordinates </h3>
+      <input type="file" on-read-file="showContent($fileContent)"/>
+    </div>
+    <div ng-if="content">
+        <hr>
+        <h2>Preview: </h2>
+        <section class="preview">
+        <leaflet geojson="geojson" center="center" width="100%" height="100%"></leaflet>
+        </section>
+    </div>
+</div>
 </section>

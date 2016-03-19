@@ -21,7 +21,6 @@ angular.module('boundaries').config(['$stateProvider',
           roles: ['user', 'admin']
         }
       })
-      //switch url to url: '/:boundaryId', when database is set up
       .state('boundaries.view', {
         url: '/:boundaryId',
         templateUrl: 'modules/boundaries/client/views/view-boundary.client.view.html',
@@ -33,6 +32,9 @@ angular.module('boundaries').config(['$stateProvider',
       .state('boundaries.edit', {
         url: '/:boundaryId/edit',
         templateUrl: 'modules/boundaries/client/views/edit-boundary.client.view.html',
+        params: {
+          boundaryFeature: null,
+        },
         data: {
           roles: ['user', 'admin']
         }

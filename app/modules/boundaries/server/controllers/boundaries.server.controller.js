@@ -95,8 +95,8 @@ exports.boundaryByID = function (req, res, next, id) {
       message: 'Boundary is invalid'
     });
   }
-
-  Boundary.findById(id).populate('user', 'displayName').exec(function (err, boundary) {
+  
+  Boundary.findById(id).exec(function (err, boundary) {
     if (err) {
       return next(err);
     } else if (!boundary) {
