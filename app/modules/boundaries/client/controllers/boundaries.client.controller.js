@@ -15,7 +15,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
   function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, fileUpload) {
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
-
+    $scope.loading = true;
     /*
       Map logic
     */
@@ -144,6 +144,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     $scope.find = function () {
       Boundaries.query().$promise.then(function (res) {
         $scope.boundaries = res;
+        $scope.loading = false;
       });
     };
 
@@ -155,6 +156,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           if ($scope.boundaries[i]._id === $stateParams.boundaryId) { 
             $scope.boundary = $scope.boundaries[i];
             console.log($scope.boundary);
+            $scope.loading = false;
           }
         }
       });

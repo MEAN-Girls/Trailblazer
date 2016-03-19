@@ -60,4 +60,8 @@ section .preview {
   height: 500px;
   padding-bottom: 20px;
 }
+.load{
+  position: relative;
+  left: 50%;
+}
 

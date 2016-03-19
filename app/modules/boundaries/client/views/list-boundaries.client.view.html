@@ -3,6 +3,12 @@
     <h1>Boundaries</h1>
   </div>
   <div class="list-group">
+    <div class="load" ng-show="loading">
+      <img ng-src="/modules/core/client/img/loaders/loader.gif">
+    </div>
+    <div ng-hide="loading">
+       <h3>Click on a property to edit details</h3>
+    </div>
     <a ng-repeat="boundary in boundaries" ui-sref="boundaries.edit({boundaryId: boundary._id, bounaryFeature: boundary})" class="list-group-item">
       <h4 ng-bind="boundary.properties.MANAME"></h4>
       <small class="list-group-item-text">

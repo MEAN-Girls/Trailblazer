@@ -3,11 +3,16 @@
 <div class="page-header">
    <h1>Edit Boundary</h1>
 </div>
-    <h4>{{boundary.properties.MANAME}}</h4>
-    <h6>{{boundary._id}}</h6>
-    <hr>
-    <h3> Edit Coordinates </h3>
-    <input type="file" on-read-file="showContent($fileContent)"/>
+    <div class="load" ng-show="loading">
+      <img ng-src="/modules/core/client/img/loaders/loader.gif">
+    </div>
+    <div ng-hide="loading">
+      <h4>{{boundary.properties.MANAME}}</h4>
+      <h6>{{boundary._id}}</h6>
+      <hr>
+      <h3> Edit Coordinates </h3>
+      <input type="file" on-read-file="showContent($fileContent)"/>
+    </div>
     <div ng-if="content">
         <hr>
         <h2>Preview: </h2>
