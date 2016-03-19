@@ -25,7 +25,7 @@
     <div>
        <h3>Click on a property to edit details</h3>
     </div>
-      <a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ui-sref="boundaries.edit({boundaryId: boundary._id, bounaryFeature: boundary})" class="list-group-item">
+    <a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ui-sref="boundaries.edit({boundaryId: boundary._id, bounaryFeature: boundary})" class="list-group-item">
       <h4 ng-bind="boundary.properties.MANAME"></h4>
       <small class="list-group-item-text">
         Boundary Id

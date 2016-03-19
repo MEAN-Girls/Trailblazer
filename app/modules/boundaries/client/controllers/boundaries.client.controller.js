@@ -9,10 +9,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               'Boundaries',
                                                               '$state',
                                                               'leafletData',
-                                                              'fileUpload',
-
-
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, fileUpload) {
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData) {
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
     $scope.loading = true;
@@ -161,13 +158,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
         }
       });
-    };
-
-    $scope.uploadFile = function () {
-        var file = $scope.myFile;
-        console.log('file is ');
-        console.dir(file);
-        fileUpload.uploadFileToUrl(file);
     };
 
     $scope.showContent = function($fileContent){
