@@ -61,7 +61,7 @@ a:hover .header-profile-image {
   color: black;
 }
 .navbar-inverse .navbar-nav > li > a:hover{
-  color: gray;
+  color: black;
 }
 .dropdown-toggle .user-header-dropdown-toggle{
     background-color: white !important;
@@ -144,7 +144,7 @@ section > .map {
 .navbar-inverse{
   padding-top: 10px;
   /*background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);*/
-  /*background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);*/
+  background-image: linear-gradient(to bottom, #000 0%, #000 100%);
   background-color: black;
 }
 
@@ -186,7 +186,7 @@ section > .map {
 #home-btn-yeah {
   /*padding-top: 10px;*/
   height: 50px;
-  width: 80px;
+  width: 50px;
   font-size: 12px;
   position: absolute;
   top: 10px; /* Use to move button */
@@ -203,10 +203,10 @@ section > .map {
 
 }
 
-.fa-search {
+.fa-bars {
   /*color: red;*/
   text-shadow: none !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
 }
 
 #home-btn-yeah:active {
