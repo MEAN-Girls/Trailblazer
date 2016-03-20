@@ -11,15 +11,15 @@
 	<section class="map" ng-controller="HomeController">
 		<leaflet maxbounds="maxbounds" tiles="tiles" id="county" lf-center="alachua" controls="controls" geojson="geojson" width="100%" height="100%"></leaflet>
 		<div class="button">
-		<button type="button" ng-click="findUser()"><i class="fa fa-location-arrow"></i></button>
-		</div>	
+			<button type="button" ng-click="findUser()"><i class="fa fa-location-arrow"></i></button>
+		</div>
 
 	<div class="home_sidebar">
 
 			<div id="home-site-wrapper" off-canvas-menu ng-class="{'home-show-nav':isMenuOpen}">
 				<div id="home-site-canvas">
 					<div id="home-site-menu">
-						
+
 
 						<div class="searchBar">
 							<input type="text" class="form-control" placeholder="Search" ng-model="searchingBar" style="background-color:white">
@@ -31,7 +31,7 @@
 								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
 							</select>
-						
+
 						</div>
 						<div class="list-group">
     					<a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ng-click="focusBoundary(boundary)" class="list-group-item">
@@ -44,10 +44,10 @@
 					</div>
 					<div>
 						<button type="button" id="home-btn-yeah" class="home-toggle-nav btn btn-lg btn-primary" ng-click="toggleMenu()">
-							Info
-						</button> 
-					</div>  
-					
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
+
 					<h1 class="text-center"></h1>
           <!-- #site-canvas -->
         </div>
@@ -58,5 +58,3 @@
  			<span class = "home-footer-text">Made with <i style="color: #FF4D40;" class="fa fa-heart pulse"> </i> in Gainesville</span>
  		</div>
 	</section>
-
-
