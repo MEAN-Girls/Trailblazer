@@ -19,8 +19,16 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     if($state.current.name === 'boundaries.view') {
       var boundaryFeature = $stateParams.boundaryFeature;
       var boundaryId = $stateParams.boundaryId;
-      $scope.bname = boundaryFeature.properties.Name;
       var center = $stateParams.center;
+      $scope.b_maname = boundaryFeature.properties.MANAME;
+      $scope.b_mgrinst = boundaryFeature.properties.MGRINST;
+      $scope.b_owner = boundaryFeature.properties.OWNER;
+      $scope.b_ma_website = boundaryFeature.properties.MA_WEBSITE;
+      $scope.b_manager = boundaryFeature.properties.MANAGER;
+      $scope.b_ownertypes = boundaryFeature.properties.OWNERTYPES;
+      $scope.b_area = boundaryFeature.properties.AREA;
+      $scope.b_totacres = boundaryFeature.properties.TOTACRES;
+
   
     //reroute because we came here from somewhere other than home page
       if (boundaryFeature === null && boundaryId !== null){
@@ -64,6 +72,44 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         }, 
         tiles: mapboxTile
       });
+
+     $scope.showChilds = function(item){
+        item.active = !item.active;
+      };
+      
+      $scope.boundary_items = [
+          {
+              name: "Managing Information",
+              subItems: [
+                  {desc: "Managing Institution:"},
+                  {name: $scope.b_mgrinst},
+                  {desc: "Manager:"},
+                  {name: $scope.b_manager},
+                  {desc: "Manager Website:"},
+                  {name: $scope.b_ma_website}
+              ]
+          },
+          {
+              name: "Owner Information",
+              subItems: [
+                  {desc: "Owner:"},
+                  {name: $scope.b_owner},
+                  {desc: "Owner Type:"},
+                  {name: $scope.b_ownertypes}
+              ]
+          },
+          {
+              name: "Property Sizing",
+              subItems: [
+                  {desc: "Area:"},
+                  {name: $scope.b_area},
+                  {desc: "Total Acres:"},
+                  {name: $scope.b_totacres}
+              ]
+          }
+      ];
+
+
 
     }
     //end of boundary map log
@@ -143,6 +189,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       Boundaries.query().$promise.then(function (res) {
         $scope.boundaries = res;
         $scope.loading = false;
+        console.log("EXECUTED FIND");
       });
     };
 
@@ -153,6 +200,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         for (var i = 0; i < $scope.boundaries.length; i++) {
           if ($scope.boundaries[i]._id === $stateParams.boundaryId) { 
             $scope.boundary = $scope.boundaries[i];
+            console.log("FOUND BOUNDARY");
             console.log($scope.boundary);
             $scope.loading = false;
           }

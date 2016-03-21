@@ -105,4 +105,17 @@ section .preview {
   position: relative;
   left: 50%;
 }
+#sidebar_maname{
+  font-size: 25px;
+}
+#sidebar_titles {
+  font-size: 16px;
+  cursor: pointer;
+}
+#sidebar_subtitles{
+  font-size: 14px;
+}
+#sidebar_subitems{
+  font-size: 12px;
+}
 
