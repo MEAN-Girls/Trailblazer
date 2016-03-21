@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 
+angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries',
   function ($scope, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
@@ -18,8 +18,8 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
         console.log($rootScope.boundaries[0]);
-        L.geoJson($rootScope.boundaries, { 
-            style: 
+        L.geoJson($rootScope.boundaries, {
+            style:
             function(feature){
 
                     switch (feature.properties.Name) {
@@ -35,23 +35,23 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
       });
 
     //};
-    
+
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
                 /*lat: 30.02065233044293,
                 lng: -82.90171655273438*/
-                /*lat: 30.147827, 
+                /*lat: 30.147827,
                 lng: -81.648200*/
-                lat: 30.349500, 
+                lat: 30.349500,
                 lng: -81.510871
             },
             southWest: {
                 /*lat: 29.3742238956322,
                 lng: -83.01408227539062*/
-                /*lat: 29.222027, 
+                /*lat: 29.222027,
                 lng: -82.845709*/
-                lat: 29.181269, 
+                lat: 29.181269,
                 lng: -82.928107
             }
         }
@@ -121,22 +121,22 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                     console.log($scope.boundaryId);
                     $scope.name = feature.properties.MANAME;
                     $scope.area = feature.properties.TOTACRES + ' acres';
-                    $scope.type = feature.properties.MATYPE; 
+                    $scope.type = feature.properties.MATYPE;
                     $scope.managing_a = feature.properties.MANAGING_A;
                     if(feature.properties.DESC2 !== 'ZZ'){
                         $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
                     }
                     else if (feature.properties.DESC1 !== 'ZZ'){
                         $scope.description = feature.properties.DESC1;
-                    } 
+                    }
                     else {
                         $scope.description = 'No description available. ';
                     }
-                    
+
 
                     var poly = L.geoJson(feature);
                     $scope.center = poly.getBounds().getCenter();
-                    
+
                     var popup = L.popup(
                     {
                         minWidth: 200,
@@ -155,6 +155,12 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             $scope.map.on('locationfound', $scope.onLocationFound);
         },
 
+        homeView : function(){
+          var alachuaZoom = L.latLng(29.651300, -82.326752)
+            $scope.map.setView(alachuaZoom, 10);
+
+        },
+
         onLocationFound : function(e){
             if(marker){
                 $scope.map.removeLayer(marker);
@@ -163,16 +169,16 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
 
          },
         onEachFeature : function(feature, layer){
-            
+
                 layer.on('click', function(e) {
-                    openPopup(feature, e.latlng); 
+                    openPopup(feature, e.latlng);
                     console.log(e);
                     var clickCoords = e.latlng;
                     clickCoords.lat = clickCoords.lat + 0.04;
                     $scope.map.setView(clickCoords);
 
                 });
-            
+
         },
         expand : function(feature){
 
