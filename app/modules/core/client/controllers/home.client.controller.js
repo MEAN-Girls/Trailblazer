@@ -22,10 +22,8 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
             style: 
             function(feature){
 
-                    switch (feature.properties.Name) {
-                    case 'Prop6': return { color: 'orange', 'weight' : 2 };
-                    case 'Prop5': return { color: 'blue', 'weight' : 2 };
-                    default: return { color: '#8AAAB5', 'weight' : 2, 'fillOpacity' : 0 };
+                    switch (feature.properties.MANAME) {
+                    default: return { color: '#8AAAB5', 'weight' : 2 };
                     }
 
             },
@@ -63,11 +61,17 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         var center = poly.getBounds().getCenter();
        // console.log(center);
         //openPopup(boundary);
+        
         openPopup(boundary, center);
         var panCoords = center;
         panCoords.lat = center.lat + 0.03;
         $scope.map.setView(panCoords);
         $scope.toggleMenu();
+        function onZoom(e) {
+            $scope.map.closePopup();
+        }
+        $scope.map.once('zoomstart', onZoom);
+        
 
     };
 
@@ -99,6 +103,7 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     leafletData.getMap('county').then(function(map) {
 
         $scope.map = map;
+        $scope.map.options.minZoom = 10;
         $scope.map.locate({ setView : true, maxZoom : 13 });
         $scope.map.on('locationfound', function (e){
             if(marker){
@@ -167,9 +172,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 layer.on('click', function(e) {
                     openPopup(feature, e.latlng); 
                     console.log(e);
-                    var clickCoords = e.latlng;
-                    clickCoords.lat = clickCoords.lat + 0.04;
-                    $scope.map.setView(clickCoords);
+                    // var clickCoords = e.latlng;
+                    // clickCoords.lat = clickCoords.lat + 0.04;
+                    // $scope.map.setView(clickCoords);
 
                 });
             
