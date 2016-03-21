@@ -81,30 +81,30 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           {
               name: "Managing Information",
               subItems: [
-                  {desc: "Managing Institution:"},
-                  {name: $scope.b_mgrinst},
-                  {desc: "Manager:"},
-                  {name: $scope.b_manager},
-                  {desc: "Manager Website:"},
-                  {name: $scope.b_ma_website}
+                  { desc: "Managing Institution:" },
+                  { name: $scope.b_mgrinst },
+                  { desc: "Manager:" },
+                  { name: $scope.b_manager },
+                  { desc: "Manager Website:" },
+                  { name: $scope.b_ma_website }
               ]
           },
           {
               name: "Owner Information",
               subItems: [
-                  {desc: "Owner:"},
-                  {name: $scope.b_owner},
-                  {desc: "Owner Type:"},
-                  {name: $scope.b_ownertypes}
+                  { desc: "Owner:" },
+                  { name: $scope.b_owner },
+                  { desc: "Owner Type:" },
+                  { name: $scope.b_ownertypes }
               ]
           },
           {
               name: "Property Sizing",
               subItems: [
-                  {desc: "Area:"},
-                  {name: $scope.b_area},
-                  {desc: "Total Acres:"},
-                  {name: $scope.b_totacres}
+                  { desc: "Area:" },
+                  { name: $scope.b_area },
+                  { desc: "Total Acres:" },
+                  { name: $scope.b_totacres }
               ]
           }
       ];
