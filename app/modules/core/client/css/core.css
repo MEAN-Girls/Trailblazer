@@ -1,5 +1,10 @@
 .navbar {
   border-bottom: 0;
+  padding-bottom: 0;
+  z-index: 1;
+  -webkit-box-shadow: 0px 0px 9px -1px rgba(0,0,0,0.32);
+  -moz-box-shadow: 0px 0px 9px -1px rgba(0,0,0,0.32);
+  box-shadow: 0px 0px 9px -1px rgba(0,0,0,0.32);
 }
 .content {
   margin-top: 50px;
@@ -56,7 +61,7 @@ a:hover .header-profile-image {
   color: black;
 }
 .navbar-inverse .navbar-nav > li > a:hover{
-  color: gray;
+  color: black;
 }
 .dropdown-toggle .user-header-dropdown-toggle{
     background-color: white !important;
@@ -73,7 +78,8 @@ section {
 section > .map {
   position: absolute;
   left: 0;
-  right: 0;
+  /*right: 100px;*/
+  width: 100vw;
   top: 0;
 }
 .leaflet-control-container{
@@ -101,8 +107,10 @@ section > .map {
 }
 .button i {
   position: absolute;
+  /*bottom: 3rem;
+  right: 2rem;*/
   bottom: 3rem;
-  right: 2rem;
+  left: 1rem;
   background-color: white;
   border-radius: 4px;
   font-size: 17px;
@@ -136,8 +144,8 @@ section > .map {
 .navbar-inverse{
   padding-top: 10px;
   /*background-image: linear-gradient(to bottom, #3f6f83 0%, #3f6f83 100%);*/
-  background-image: linear-gradient(to bottom, #000000 0%, #ffffff 100%);
-  
+  background-image: linear-gradient(to bottom, #000 0%, #000 100%);
+  background-color: black;
 }
 
 .social-media {
@@ -169,18 +177,40 @@ section > .map {
 }
 
 #county{
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   position: fixed;
   left: 0;
 }
 
 #home-btn-yeah {
-  width: 60px;
+  /*padding-top: 10px;*/
+  height: 50px;
+  width: 50px;
   font-size: 12px;
   position: absolute;
-  top: 7rem; /* Use to move button */
-  right: 1rem;
+  top: 10px; /* Use to move button */
+  right: 0rem;
+  border-radius: 0;
+  /*background-color: #407186;*/
+  background-color: black;
+
+  background-image: none;
+  border: 0;
+
+  outline: none;
+  border-left: 2px green !important;
+
+}
+
+.fa-bars {
+  /*color: red;*/
+  text-shadow: none !important;
+  font-size: 16px !important;
+}
+
+#home-btn-yeah:active {
+  outline: none !important;
 }
 
 #home-site-canvas{
@@ -189,16 +219,26 @@ section > .map {
   position: fixed;
   transform: translateX(0);
   transform: translate3d(0, 0, 0);
-  transition: 300ms ease all;
-  backface-visibility: hidden; 
+  transition: 500ms ease all;
+  backface-visibility: hidden;
   padding: 5% 0;
   right: 0;
-  
+  top: 0;
+  bottom: 0;
+  z-index: 2
+
+
 }
 .home-show-nav #home-site-canvas {
   transform: translateX(-300px);
   transform: translate3d(-300px, 0, 0);
+  /*width: 100% !important;*/
 }
+
+/*.home-show-nav #home-site-canvas #county{
+  width: 50% !important;
+}*/
+
 #home-site-menu {
   width: 300px;
   height: 100%;
@@ -206,12 +246,16 @@ section > .map {
   top: 0;
   right: -300px;
   background-color: white;
+  background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 10px;
-  margin-top: 60px;
-  border-top: dotted 5px;
+  /*margin-top: 60px;*/
   overflow: scroll;
+  z-index: 2;
+  -webkit-box-shadow: inset 83px 0px 21px -81px rgba(0,0,0,0.32);
+-moz-box-shadow: inset 83px 0px 21px -81px rgba(0,0,0,0.32);
+box-shadow: inset 83px 0px 21px -81px rgba(0,0,0,0.32);
 }
 
 .filter-bar {
