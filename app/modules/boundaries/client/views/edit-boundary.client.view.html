@@ -1,24 +1,35 @@
 
 <section ng-controller="BoundariesController" ng-init="findOne()">
 <div class="page-header">
-   <h1>Edit Boundary</h1>
+   <h1>Boundary Details</h1>
 </div>
     <div class="load" ng-show="loading">
       <img ng-src="/modules/core/client/img/loaders/loader.gif">
     </div>
     <div ng-hide="loading">
-      <h4>{{boundary.properties.MANAME}}</h4>
-      <h6>{{boundary._id}}</h6>
+      <a class="btn btn-primary" ng-click="remove()">
+        <i class="glyphicon glyphicon-trash"></i> &nbsp; Delete
+      </a>
       <hr>
-      <h3> Edit Coordinates </h3>
-      <input type="file" on-read-file="showContent($fileContent)"/>
-    </div>
-    <div ng-if="content">
-        <hr>
-        <h2>Preview: </h2>
+      <h3> Mangement: {{boundary.properties.MANAME}}</h3>
+      <h6> Managing Area: {{boundary.properties.MANAGING_A}}</h6> 
+      <h6> Owner: {{boundary.properties.OWNER}}</h6> 
+      <h6> Manager: {{boundary.properties.MANAGER}}</h6> 
+      <h6> Managing Institution: {{boundary.properties.MGRINST}}</h6> 
+      <h6> Managing City: {{boundary.properties.MGRCITY}}</h6> 
+      <h6> Managing Phone: {{boundary.properties.MGRPHONE}}</h6> 
+      <h6> Descriptionn 1: {{boundary.properties.COMMENTS1}}</h6> 
+      <h6> Description 2: {{boundary.properties.COMMENTS2}}</h6> 
+      <h6> Data Source: {{boundary.properties.DIG_COM}}</h6> 
+      <h6> Management Website: {{boundary.properties.MA_WEBSITE}}</h6> 
+      <hr>
+      <h3> Geometry </h3>
+      <div>
         <section class="preview">
-        <leaflet geojson="geojson" center="center" width="100%" height="100%"></leaflet>
+        <leaflet geojson="geojson" lf-center="preview" width="100%" height="100%"></leaflet>
         </section>
+      </div>
+       <hr>
     </div>
 </div>
 </section>

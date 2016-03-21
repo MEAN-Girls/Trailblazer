@@ -23,9 +23,9 @@
   </select>
   <div class="list-group" ng-hide="loading">
     <div>
-       <h3>Click on a property to edit details</h3>
+       <h3>Click on a property to view details</h3>
     </div>
-    <a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ui-sref="boundaries.edit({boundaryId: boundary._id, bounaryFeature: boundary})" ui-sref="boundaries.edit" class="list-group-item"> <!-- boundary edit link needs to be added to routes, need access to database to properly do that -->
+    <a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ui-sref="boundaries.edit({boundaryId: boundary._id, bounaryFeature: boundary})" class="list-group-item"> 
       <h4 ng-bind="boundary.properties.MANAME"></h4>
       <small class="list-group-item-text">
         Boundary Id
