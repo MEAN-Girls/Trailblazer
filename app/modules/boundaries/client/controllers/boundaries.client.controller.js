@@ -21,7 +21,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       var boundaryId = $stateParams.boundaryId;
       $scope.bname = boundaryFeature.properties.Name;
       var center = $stateParams.center;
-  
+
     //reroute because we came here from somewhere other than home page
       if (boundaryFeature === null && boundaryId !== null){
         $state.go('home');
@@ -43,13 +43,37 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       leafletData.getMap('boundary').then(function(map) {
         mapboxTile.addTo(map);
         $scope.map = map;
+        var firstMarker = $stateParams.boundaryFeature.geometry.coordinates[0];
+        console.log(firstMarker);
+        var secondMarker = $stateParams.boundaryFeature.geometry.coordinates[$stateParams.boundaryFeature.geometry.coordinates.length - 1];
+        console.log(secondMarker);
+        var group = new L.featureGroup([firstMarker, secondMarker]);
+        //$scope.map.fitBounds(group.getBounds());
+        //$scope.map.fitBounds(group.getBounds());
       });
+      
+      var setZoom = function(){
 
+        if($stateParams.boundaryFeature.properties.TOTACRES >= 10000){
+           return 12;
+        }
+        else if ($stateParams.boundaryFeature.properties.TOTACRES >= 5000){
+           return 13;
+        }
+        else if ($stateParams.boundaryFeature.properties.TOTACRES >= 2500){
+           return 14;
+        }
+        else {
+           return 15;
+        }
+
+
+      };
       angular.extend($scope, {
         alachua: {
           lat: center.lat,
           lng: center.lng,
-          zoom: 15
+          zoom: setZoom()
         },
         controls: {
           fullscreen: {
@@ -59,7 +83,10 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         geojson: {
           data: boundaryFeature,
           style: {
-            color: 'red'
+            
+                  color: '#8AAAB5', 'weight' : 2
+          
+            
           }
         }, 
         tiles: mapboxTile
@@ -67,8 +94,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
     }
     //end of boundary map log
-
-
+    
     /*
       Admin logic
     */
