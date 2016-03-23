@@ -106,31 +106,31 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       
       $scope.boundary_items = [
           {
-              name: "Managing Information",
+              name: 'Managing Information',
               subItems: [
-                  { desc: "Managing Institution:" },
+                  { desc: 'Managing Institution:' },
                   { name: $scope.b_mgrinst },
-                  { desc: "Manager:" },
+                  { desc: 'Manager:' },
                   { name: $scope.b_manager },
-                  { desc: "Manager Website:" },
+                  { desc: 'Manager Website:' },
                   { name: $scope.b_ma_website }
               ]
           },
           {
-              name: "Owner Information",
+              name: 'Owner Information',
               subItems: [
-                  { desc: "Owner:" },
+                  { desc: 'Owner:' },
                   { name: $scope.b_owner },
-                  { desc: "Owner Type:" },
+                  { desc: 'Owner Type:' },
                   { name: $scope.b_ownertypes }
               ]
           },
           {
-              name: "Property Sizing",
+              name: 'Property Sizing',
               subItems: [
-                  { desc: "Area:" },
+                  { desc: 'Area:' },
                   { name: $scope.b_area },
-                  { desc: "Total Acres:" },
+                  { desc: 'Total Acres:' },
                   { name: $scope.b_totacres }
               ]
           }
@@ -234,7 +234,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
       });
 
-      Boundaries.get({ boundaryId: $stateParams.boundaryId})
+      Boundaries.get({ boundaryId: $stateParams.boundaryId })
         .$promise.then(function (res) {
             $scope.boundary = res;
             console.log($scope.boundary);
