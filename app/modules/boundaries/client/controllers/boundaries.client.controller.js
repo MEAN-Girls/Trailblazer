@@ -130,18 +130,20 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
     // Remove existing Boundary
     $scope.remove = function (boundary) {
-      if (boundary) {
-        boundary.$remove();
+      if (confirm('Are you sure you want to delete this user?')) {
+        if (boundary) {
+          boundary.$remove();
 
-        for (var i in $scope.boundaries) {
-          if ($scope.boundaries[i] === boundary) {
-            $scope.boundaries.splice(i, 1);
+          for (var i in $scope.boundaries) {
+            if ($scope.boundaries[i] === boundary) {
+              $scope.boundaries.splice(i, 1);
+            }
           }
+        } else {
+          $scope.boundaries.$remove(function () {
+            $state.go('boundaries.list');
+          });
         }
-      } else {
-        $scope.boundaries.$remove(function () {
-          $location.path('boundaries');
-        });
       }
     };
 
@@ -156,9 +158,12 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       }
 
       var boundary = $scope.boundary;
+      console.log(boundary);
 
       boundary.$update(function () {
-        $location.path('boundaries/' + boundary._id);
+        $state.go('boundaries.list' , {
+          boundaryId: boundary._id
+        });
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -174,15 +179,29 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
     // Find existing Boundary
     $scope.findOne = function () {
-      Boundaries.query().$promise.then(function (res) {
-        $scope.boundaries = res;
-        for (var i = 0; i < $scope.boundaries.length; i++) {
-          if ($scope.boundaries[i]._id === $stateParams.boundaryId) { 
-            $scope.boundary = $scope.boundaries[i];
-            console.log($scope.boundary);
-            $scope.loading = false;
+      angular.extend($scope, {
+          preview: {
+                lat: 29.671316,
+                lng: -82.327766,
+                zoom: 10
           }
-        }
+      });
+
+      Boundaries.get({ boundaryId: $stateParams.boundaryId})
+        .$promise.then(function (res) {
+            $scope.boundary = res;
+            console.log($scope.boundary);
+            var previewData = $scope.boundary.geometry;
+            
+            angular.extend($scope, {
+              geojson: {
+                data: previewData,
+                style: {
+                  color: 'green'
+                }
+              }
+            });
+         $scope.loading = false;
       });
     };
 

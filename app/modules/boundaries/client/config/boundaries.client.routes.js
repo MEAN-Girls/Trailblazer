@@ -11,7 +11,7 @@ angular.module('boundaries').config(['$stateProvider',
         template: '<ui-view/>'
       })
       .state('boundaries.list', {
-        url: '/list',
+        url: '',
         templateUrl: 'modules/boundaries/client/views/list-boundaries.client.view.html'
       })
       .state('boundaries.create', {
@@ -30,7 +30,7 @@ angular.module('boundaries').config(['$stateProvider',
         }
       })
       .state('boundaries.edit', {
-        url: '/:boundaryId/edit',
+        url: '/edit/:boundaryId',
         templateUrl: 'modules/boundaries/client/views/edit-boundary.client.view.html',
         params: {
           boundaryFeature: null,
