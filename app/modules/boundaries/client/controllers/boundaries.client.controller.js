@@ -174,15 +174,11 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
     // Find existing Boundary
     $scope.findOne = function () {
-      Boundaries.query().$promise.then(function (res) {
-        $scope.boundaries = res;
-        for (var i = 0; i < $scope.boundaries.length; i++) {
-          if ($scope.boundaries[i]._id === $stateParams.boundaryId) { 
-            $scope.boundary = $scope.boundaries[i];
-            console.log($scope.boundary);
-            $scope.loading = false;
-          }
-        }
+      Boundaries.get({ boundaryId: $stateParams.boundaryId})
+                .$promise.then(function (res) {
+                  $scope.boundary = res;
+                  console.log($scope.boundary);
+                  $scope.loading = false;
       });
     };
 
