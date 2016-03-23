@@ -63,9 +63,13 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         //openPopup(boundary);
         
         openPopup(boundary, center);
-        var panCoords = center;
-        panCoords.lat = center.lat + 0.03;
-        $scope.map.setView(panCoords);
+        $scope.map.setView(center, 13, 
+            {
+                pan: { animate: true, duration: 1 }
+            });
+//        var panCoords = center;
+//        panCoords.lat = center.lat + 0.03;
+//        $scope.map.setView(panCoords);
         $scope.toggleMenu();
         function onZoom(e) {
             $scope.map.closePopup();
@@ -138,21 +142,22 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                         $scope.description = 'No description available. ';
                     }
                     
-
                     var poly = L.geoJson(feature);
                     $scope.center = poly.getBounds().getCenter();
-                    
+//                    $scope.map.setView(latlng, 13);
                     var popup = L.popup(
                     {
                         minWidth: 200,
                         maxHeight: 300
                     })
                         .setLatLng(latlng)
-                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
+                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
                         .openOn($scope.map);
-
+                    
+                   
     }
+    
     angular.extend($scope, {
         tiles : mapboxTile,
         findUser : function(){
@@ -172,9 +177,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 layer.on('click', function(e) {
                     openPopup(feature, e.latlng); 
                     console.log(e);
-                    // var clickCoords = e.latlng;
-                    // clickCoords.lat = clickCoords.lat + 0.04;
-                    // $scope.map.setView(clickCoords);
+//                    var clickCoords = e.latlng;
+//                    clickCoords.lat = clickCoords.lat + 0.04;
+//                    $scope.map.setView(clickCoords);
 
                 });
             

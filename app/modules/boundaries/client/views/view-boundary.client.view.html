@@ -8,13 +8,30 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
-<section class="map" ng-controller="BoundariesController">
+<section class="map" ng-controller="BoundariesController" >
 	<leaflet maxbounds="maxbounds" id="boundary" tiles="tiles" lf-center="alachua" controls="controls" geojson="geojson" width="100%" height="100%"></leaflet>
 
   <div ng-controller="BoundariesController" class="sidebar">
 			<div id="site-wrapper" off-canvas-menu ng-class="{'show-nav':isMenuOpen}">
 				<div id="site-canvas">
-					<div id="site-menu">
+					<div id="site-menu" >
+					
+					<div id="sidebar_maname">
+						{{b_maname}}
+					</div>
+
+					<ul>
+				        <li ng-repeat="item in boundary_items" ng-click="showChilds(item)">
+				            <span id="sidebar_titles">{{item.name}}</span>
+				            <ul>
+				                <li ng-repeat="subItem in item.subItems" ng-show="item.active">
+				                	<span id="sidebar_subtitles">{{subItem.desc}}</span>
+				                    <span id="sidebar_subitems">{{subItem.name}}</span>
+				                </li>
+				            </ul>
+				        </li>
+				    </ul>
+					
 					</div>
 					<div class="navbar-header-btn">
 						<button type="button" id="btn-yeah" class="toggle-nav btn btn-lg btn-primary" ng-click="toggleMenu()">
