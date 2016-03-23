@@ -9,11 +9,21 @@ body {
   left: 0;
 }
 #btn-yeah {
-  width: 60px;
+  height: 50px;
+  width: 50px;
   font-size: 12px;
   position: absolute;
-  top: 5rem; /* Use to move button */
-  right: 1rem;
+  top: 10px; /* Use to move button */
+  right: 0rem;
+  border-radius: 0;
+  /*background-color: #407186;*/
+  background-color: black;
+
+  background-image: none;
+  border: 0;
+
+  outline: none;
+  border-left: 2px green !important;
 }
 .footer{
   height: 15px;
@@ -48,6 +58,11 @@ body {
  background-color: #f2f2f2;
 }
 
+.leaflet-control-container{
+  position: absolute;
+  top: 7rem;
+}
+
 .footer{
   height: 15px;
   width: 100%;
@@ -72,7 +87,7 @@ body {
   position: fixed;
   transform: translateX(0);
   transform: translate3d(0, 0, 0);
-  transition: 300ms ease all;
+  transition: 500ms ease all;
   backface-visibility: hidden; 
   padding: 5% 0;
   right: 0;

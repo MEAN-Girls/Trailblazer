@@ -13,7 +13,7 @@ module.exports = function (app) {
     .post(boundaries.create);
 
   // Single boundary routes
-  app.route('/api/boundaries/:boundaryId').all(boundariesPolicy.isAllowed)
+  app.route('/api/boundaries/:boundaryId')
     .get(boundaries.read)
     .put(boundaries.update)
     .delete(boundaries.delete);

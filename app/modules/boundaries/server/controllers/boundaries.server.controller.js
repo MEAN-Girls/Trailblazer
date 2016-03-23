@@ -39,8 +39,8 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var boundary = req.boundary;
 
-  boundary.title = req.body.title;
-  boundary.content = req.body.content;
+  //For security purposes only merge these parameters
+  boundary.properties.MANNAME = req.body.properties.MANNAME;
 
   boundary.save(function (err) {
     if (err) {
