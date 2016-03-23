@@ -81,6 +81,7 @@ section > .map {
   /*right: 100px;*/
   width: 100vw;
   top: 0;
+  
 }
 .leaflet-control-container{
   position: absolute;
@@ -119,6 +120,7 @@ section > .map {
   height: 26px;
   box-shadow: 0 1px 5px rgba(0,0,0,0.65);
   z-index: 7;
+  cursor: pointer;
 }
 .button i:hover {
  background-color: #f2f2f2;
