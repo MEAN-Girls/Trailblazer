@@ -4,10 +4,10 @@
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 
-<section ng-controller="BoundariesController" ng-init="find()">
+<section ng-controller="TrailsController" ng-init="find()">
 
   <div class="page-header">
-    <h1>Boundaries</h1>
+    <h1>Trails</h1>
   </div>
   <div class="load" ng-show="loading">
       <img ng-src="/modules/core/client/img/loaders/loader.gif">
@@ -25,17 +25,16 @@
     <div>
        <h3>Click on a property to view details</h3>
     </div>
-    <a ng-repeat="boundary in boundaries | filter:searchingBar | filter:filters.MGRINST" ui-sref="boundaries.edit({boundaryId: boundary._id, bounaryFeature: boundary})" class="list-group-item"> 
-      <h4 ng-bind="boundary.properties.MANAME"></h4>
+    <a ng-repeat="trail in trails| filter:searchingBar | filter:filters.MGRINST" ui-sref="trails.edit({trail: trail._id})" class="list-group-item"> 
       <small class="list-group-item-text">
-        Boundary Id
-        <span ng-bind="boundary._id"></span>
+        Trail Id
+        <span ng-bind="trail._id"></span>
       </small>
       <h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       <p class="list-group-item-text" ng-bind="boundary.content"></p>
     </a>
   </div>
-  <div class="alert alert-warning text-center" ng-if="boundaries.$resolved && !boundaries.length">
-    No boundaries yet, why don't you <a ui-sref="boundaries.create">create one</a>?
+  <div class="alert alert-warning text-center" ng-if="trails.$resolved && !trails.length">
+    No trails yet, why don't you <a ui-sref="trails.create">create one</a>?
   </div>
 </section>

@@ -27,7 +27,7 @@ angular.module('trails').config(['$stateProvider',
       })
       .state('trails.edit', {
         url: '/edit/:trailId',
-        templateUrl: 'modules/trails/client/views/edit-trail.client.view.html'
+        templateUrl: 'modules/trails/client/views/edit-trail.client.view.html',
         data: {
           roles: ['user', 'admin']
         }

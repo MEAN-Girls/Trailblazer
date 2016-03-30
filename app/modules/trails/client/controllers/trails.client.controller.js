@@ -87,7 +87,7 @@ angular.module('trails').controller('TrailsController', ['$scope',
       Trails.query().$promise.then(function (res) {
         $scope.trails = res;
         $scope.loading = false;
-        console.log("EXECUTED FIND");
+        console.log('EXECUTED FIND');
       });
     };
 
@@ -136,7 +136,6 @@ angular.module('trails').controller('TrailsController', ['$scope',
         }
       });
     };
-  }
 }
 ]);
 
