@@ -136,11 +136,16 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     //
     // })
 
+    $scope.acreSize = {};
+
     $scope.acreSize = function(minSize, maxSize) {
+      console.log(minSize);
+
       if (minSize === undefined) minSize = 0;
       if (maxSize === undefined) maxSize = 1000;
 
       return function predicateFunc(item) {
+
         console.log(item.properties.TOTACRES);
         return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
       };

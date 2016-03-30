@@ -24,15 +24,16 @@
 						</div>
 						<div class="filter">
 							<div class="col-sm-4 filter-button">
-								<button type="button" class="acres filter-left" ng-click="findUser()"><i class="fa fa-leaf"></i></button>
+								<button type="" class="acres filter-left" ng-click="acreSizing.type = 0"><i class="fa fa-leaf"></i></button>
 							</div>
 							<div class="col-sm-4 filter-button">
-								<button type="button" class="acres" ng-click="findUser()"><i class="fa fa-pagelines"></i></button>
+								<button type="" class="acres" ng-click="acreSizing.type = 50"><i class="fa fa-pagelines"></i></button>
 							</div>
 							<div class="col-sm-4 filter-button">
-								<button type="button" class="acres filter-right" ng-click="findUser()"><i class="fa fa-tree"></i></button>
+								<button type="" class="acres filter-right" ng-click="acreSizing.type = 100"><i class="fa fa-tree"></i></button>
 							</div>
 						</div>
+
 						<div>
 							<select class="filter-bar" id="manager-filter" ng-model="filters.MGRINST">
 								<option ng-click="filters.MGRINST = ''" ></option>
@@ -45,7 +46,7 @@
 
 
 						<div class="list-group">
-    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(0, 100)" ng-click="focusBoundary(boundary)" class="list-group-item">
+    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(acreSizing.type, 200)" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>
       					<h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       					<p class="list-group-item-text" ng-bind="boundary.content"></p>
