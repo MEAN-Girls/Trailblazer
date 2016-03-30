@@ -155,26 +155,33 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.acreSize = function(chosen) {
       // console.log(minSize);
       console.log(chosen);
-      var minSize = 0;
-      var maxSize = 10001;
-      if(chosen.large === 1){
-        minSize = 1000;
-        maxSize = 10000;
-      }
+      if(chosen === undefined){
+        console.log("No size initialized");
+        var minSize = 0;
+        var maxSize = 10001;
+      } else {
+        var minSize = 0;
+        var maxSize = 10001;
+        if(chosen.large === 1){
+          minSize = 1000;
+          maxSize = 10000;
+        }
 
-      if(chosen.medium === 1){
-        minSize = 400;
-        if(maxSize !== 10000) {
-          maxSize = 999;
+        if(chosen.medium === 1){
+          minSize = 400;
+          if(maxSize !== 10000) {
+            maxSize = 999;
+          }
+        }
+
+        if(chosen.small === 1){
+          minSize = 0;
+          if(maxSize === 10001){
+            maxSize = 399;
+          }
         }
       }
 
-      if(chosen.small === 1){
-        minSize = 0;
-        if(maxSize === 10001){
-          maxSize = 399;
-        }
-      }
 
       // if (minSize === undefined) minSize = 0;
       // if (maxSize === undefined) maxSize = 1000;

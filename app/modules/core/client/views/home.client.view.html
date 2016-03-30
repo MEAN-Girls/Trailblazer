@@ -22,26 +22,26 @@
 						<div class="searchBar">
 							<input type="text" class="form-control" placeholder="Search" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
 						</div>
+
 						<div class="filter">
-							<!-- <div class="col-sm-4 filter-button">
-								<input type="radio" class="acres filter-left" ng-click="acreSizing.type = 0"><i class="fa fa-leaf"></i></input>
+							<!-- <h5>Yo yo yo </h5> -->
+							<div class="col-sm-4 filter-button acres filter-left">
+								<label>
+									<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0"><span class="fa fa-leaf"></span>
+								</label>
 							</div>
-							<div class="col-sm-4 filter-button">
-								<input type="radio" class="acres" ng-click="acreSizing.type = 50"><i class="fa fa-pagelines"></i></input>
+							<div class="col-sm-4 filter-button acres">
+								<label>
+									<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0"><span class="fa fa-pagelines"></span>
+								</label>
 							</div>
-							<div class="col-sm-4 filter-button">
-								<input type="radio" class="acres filter-right" ng-click="acreSizing.type = 100"><i class="fa fa-tree"></i></input>
-							</div> -->
-							<div class="col-sm-4 filter-button">
-								<input type="checkbox" ng-model="checkBoxAcres.small" class="acres filter-left" ng-true-value="1" ng-false-value="0"><i class="fa fa-leaf"></i></input>
-							</div>
-							<div class="col-sm-4 filter-button">
-								<input type="checkbox" ng-model="checkBoxAcres.medium" class="acres" ng-true-value="1" ng-false-value="0"><i class="fa fa-pagelines"></i></input>
-							</div>
-							<div class="col-sm-4 filter-button">
-								<input type="checkbox" ng-model="checkBoxAcres.large" class="acres filter-right" ng-true-value="1" ng-false-value="0"><i class="fa fa-tree"></i></input>
+							<div class="col-sm-4 filter-button acres filter-right">
+								<label>
+									<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0"><span class="fa fa-tree"></span>
+								</label>
 							</div>
 						</div>
+
 
 						<div>
 							<select class="filter-bar" id="manager-filter" ng-model="filters.MGRINST">
@@ -50,8 +50,8 @@
 								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
 							</select>
-
 						</div>
+
 
 
 						<div class="list-group">
