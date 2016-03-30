@@ -100,7 +100,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         tiles: mapboxTile
       });
 
-     $scope.showChilds = function(item){
+     $scope.showChildren = function(item){
         item.active = !item.active;
       };
       
@@ -132,6 +132,12 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                   { name: $scope.b_area },
                   { desc: 'Total Acres:' },
                   { name: $scope.b_totacres }
+              ]
+          },
+          {
+              name: 'Images',
+              subItems: [
+                  { desc: 'Maybe' }
               ]
           }
       ];
@@ -220,7 +226,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       Boundaries.query().$promise.then(function (res) {
         $scope.boundaries = res;
         $scope.loading = false;
-        console.log("EXECUTED FIND");
       });
     };
 

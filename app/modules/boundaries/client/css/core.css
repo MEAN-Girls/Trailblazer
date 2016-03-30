@@ -102,7 +102,7 @@ body {
   position: absolute;
   top: 0;
   right: -300px;
-  background-color: white;
+  background-color: #FFD5B1;
   padding: 15px;
   margin-top: 10px;
   border-top: dotted 5px;
@@ -122,15 +122,47 @@ section .preview {
 }
 #sidebar_maname{
   font-size: 25px;
+  text-align: center;
+  padding-bottom: 30px;
 }
-#sidebar_titles {
+.dropbtn {
   font-size: 16px;
-  cursor: pointer;
+  overflow: auto;
+  font-size: 16px;
+  background-color: #4CAF50;
+  /*padding: 10px 0;*/
+  margin: 10px 0;
 }
+
 #sidebar_subtitles{
   font-size: 14px;
+  padding-left: 20px;
+
 }
 #sidebar_subitems{
   font-size: 12px;
+  padding-left: 25px;
 }
 
+.sidebar_subclass{
+  background-color: #FFA35B;
+  text-align: left;
+  width: 100%;
+  /*padding: 3px 0;*/
+}
+
+.dropdown{
+  /*background-color: #5CFF63;*/
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  /*padding: 10px 0;*/
+}
+.headings{
+  padding: 10px 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}

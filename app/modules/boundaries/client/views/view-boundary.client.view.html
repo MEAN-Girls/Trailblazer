@@ -20,17 +20,17 @@
 						{{b_maname}}
 					</div>
 
-					<ul>
-				        <li ng-repeat="item in boundary_items" ng-click="showChilds(item)">
-				            <span id="sidebar_titles">{{item.name}}</span>
-				            <ul>
-				                <li ng-repeat="subItem in item.subItems" ng-show="item.active">
+					<div class="dropdown">
+				        <div ng-repeat="item in boundary_items" ng-click="showChildren(item)" class="dropbtn">
+				            <h4 class="headings">{{item.name}}</h4>
+				            
+				                <div ng-repeat="subItem in item.subItems" ng-show="item.active" class="sidebar_subclass">
 				                	<span id="sidebar_subtitles">{{subItem.desc}}</span>
 				                    <span id="sidebar_subitems">{{subItem.name}}</span>
-				                </li>
-				            </ul>
-				        </li>
-				    </ul>
+				                </div>
+				            
+				        </div>
+				    </div>
 					
 					</div>
 					<div class="navbar-header-btn">
