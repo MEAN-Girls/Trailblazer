@@ -17,7 +17,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     //$scope.find = function () {
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
-        console.log($rootScope.boundaries[0]);
+        // console.log($rootScope.boundaries[0]);
         L.geoJson($rootScope.boundaries, {
             style:
             function(feature){
@@ -138,19 +138,64 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
     $scope.acreSize = {};
 
-    $scope.acreSize = function(minSize, maxSize) {
-      console.log(minSize);
+    // $scope.acreSize = function(minSize, maxSize) {
+    //   // console.log(minSize);
+    //
+    //   if (minSize === undefined) minSize = 0;
+    //   if (maxSize === undefined) maxSize = 1000;
+    //
+    //   return function predicateFunc(item) {
+    //
+    //     // console.log(item.properties.TOTACRES);
+    //     return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
+    //   };
+    //
+    // };
 
-      if (minSize === undefined) minSize = 0;
-      if (maxSize === undefined) maxSize = 1000;
+    $scope.acreSize = function(chosen) {
+      // console.log(minSize);
+      console.log(chosen);
+      var minSize = 0;
+      var maxSize = 10001;
+      if(chosen.large === 1){
+        minSize = 1000;
+        maxSize = 10000;
+      }
+
+      if(chosen.medium === 1){
+        minSize = 400;
+        if(maxSize !== 10000) {
+          maxSize = 999;
+        }
+      }
+
+      if(chosen.small === 1){
+        minSize = 0;
+        if(maxSize === 10001){
+          maxSize = 399;
+        }
+      }
+
+      // if (minSize === undefined) minSize = 0;
+      // if (maxSize === undefined) maxSize = 1000;
 
       return function predicateFunc(item) {
 
-        console.log(item.properties.TOTACRES);
+        // console.log(item.properties.TOTACRES);
         return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
+        // return item;
       };
 
     };
+    var lastChecked = -1;
+  $scope.uncheck = function (event) {
+    if(event.target.value === lastChecked){
+      delete $scope.forms.selected;
+      lastChecked = -1;
+    }else{
+      lastChecked = event.target.value;
+    }
+  };
 
 
    /*
@@ -158,11 +203,11 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     */
     function openPopup(feature, latlng){
 
-                    console.log(feature.properties.kind);
+                    // console.log(feature.properties.kind);
 
                     $scope.feature = feature;
                     $scope.boundaryId = $scope.feature._id;
-                    console.log($scope.boundaryId);
+                    // console.log($scope.boundaryId);
                     $scope.name = feature.properties.MANAME;
                     $scope.area = feature.properties.TOTACRES + ' acres';
                     $scope.type = feature.properties.MATYPE;
@@ -211,7 +256,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
                 layer.on('click', function(e) {
                     openPopup(feature, e.latlng);
-                    console.log(e);
+                    // console.log(e);
 //                    var clickCoords = e.latlng;
 //                    clickCoords.lat = clickCoords.lat + 0.04;
 //                    $scope.map.setView(clickCoords);

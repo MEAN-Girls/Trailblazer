@@ -23,14 +23,23 @@
 							<input type="text" class="form-control" placeholder="Search" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
 						</div>
 						<div class="filter">
-							<div class="col-sm-4 filter-button">
-								<button type="" class="acres filter-left" ng-click="acreSizing.type = 0"><i class="fa fa-leaf"></i></button>
+							<!-- <div class="col-sm-4 filter-button">
+								<input type="radio" class="acres filter-left" ng-click="acreSizing.type = 0"><i class="fa fa-leaf"></i></input>
 							</div>
 							<div class="col-sm-4 filter-button">
-								<button type="" class="acres" ng-click="acreSizing.type = 50"><i class="fa fa-pagelines"></i></button>
+								<input type="radio" class="acres" ng-click="acreSizing.type = 50"><i class="fa fa-pagelines"></i></input>
 							</div>
 							<div class="col-sm-4 filter-button">
-								<button type="" class="acres filter-right" ng-click="acreSizing.type = 100"><i class="fa fa-tree"></i></button>
+								<input type="radio" class="acres filter-right" ng-click="acreSizing.type = 100"><i class="fa fa-tree"></i></input>
+							</div> -->
+							<div class="col-sm-4 filter-button">
+								<input type="checkbox" ng-model="checkBoxAcres.small" class="acres filter-left" ng-true-value="1" ng-false-value="0"><i class="fa fa-leaf"></i></input>
+							</div>
+							<div class="col-sm-4 filter-button">
+								<input type="checkbox" ng-model="checkBoxAcres.medium" class="acres" ng-true-value="1" ng-false-value="0"><i class="fa fa-pagelines"></i></input>
+							</div>
+							<div class="col-sm-4 filter-button">
+								<input type="checkbox" ng-model="checkBoxAcres.large" class="acres filter-right" ng-true-value="1" ng-false-value="0"><i class="fa fa-tree"></i></input>
 							</div>
 						</div>
 
@@ -46,7 +55,7 @@
 
 
 						<div class="list-group">
-    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(acreSizing.type, 200)" ng-click="focusBoundary(boundary)" class="list-group-item">
+    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(checkBoxAcres)" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>
       					<h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       					<p class="list-group-item-text" ng-bind="boundary.content"></p>
