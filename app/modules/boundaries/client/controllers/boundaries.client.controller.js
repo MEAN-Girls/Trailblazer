@@ -133,12 +133,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                   { desc: 'Total Acres:' },
                   { name: $scope.b_totacres }
               ]
-          },
-          {
-              name: 'Images',
-              subItems: [
-                  { desc: 'Maybe' }
-              ]
           }
       ];
 
