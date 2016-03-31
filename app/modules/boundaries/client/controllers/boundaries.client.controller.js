@@ -9,7 +9,8 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               'Boundaries',
                                                               '$state',
                                                               'leafletData',
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData) {
+                                                              '$http',
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http) {
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
     $scope.loading = true;
@@ -90,11 +91,8 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         },
         geojson: {
           data: boundaryFeature,
-          style: {
-            
-                  color: '#8AAAB5', 'weight' : 2
-          
-            
+          style: {         
+                  color: '#8AAAB5', 'weight' : 2       
           }
         }, 
         tiles: mapboxTile
@@ -147,28 +145,14 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     else {
 
     // Create new Boundary
-    $scope.create = function (isValid) {
+    $scope.create = function (boundary) {
       $scope.error = null;
 
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'boundaryForm');
-
-        return false;
-      }
-
       // Create new  Boundary object
-      var boundary = new Boundaries({
-        title: this.title,
-        content: this.content
-      });
 
       // Redirect after save
       boundary.$save(function (response) {
-        $location.path('boundaries/' + response._id);
-
-        // Clear form fields
-        $scope.title = '';
-        $scope.content = '';
+        $state.go('boundaries.list');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -197,12 +181,9 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       }
 
       var boundary = $scope.boundary;
-      console.log(boundary);
 
       boundary.$update(function () {
-        $state.go('boundaries.list' , {
-          boundaryId: boundary._id
-        });
+        $state.go('boundaries.list');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -220,7 +201,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     // Find existing Boundary
     $scope.findOne = function () {
       angular.extend($scope, {
-          preview: {
+          edit: {
                 lat: 29.671316,
                 lng: -82.327766,
                 zoom: 10
@@ -231,13 +212,20 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         .$promise.then(function (res) {
             $scope.boundary = res;
             console.log($scope.boundary);
-            var previewData = $scope.boundary.geometry;
-            
+            var previewData = $scope.boundary;
+            var poly = L.geoJson($scope.boundary);
+            var center = poly.getBounds().getCenter();
+            console.log(center);
             angular.extend($scope, {
+              edit: {
+                  lat: center.lat,
+                  lng: center.lng,
+                  zoom: 14
+              },
               geojson: {
                 data: previewData,
                 style: {
-                  color: 'green'
+                  color: 'red'
                 }
               }
             });
@@ -261,6 +249,8 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
         }
       });
+
+      console.log(previewData);
     };
   }
 }

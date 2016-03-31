@@ -10,6 +10,37 @@
       <a class="btn btn-primary" ng-click="remove()">
         <i class="glyphicon glyphicon-trash"></i> &nbsp; Delete
       </a>
+ <hr>
+      <form name="boundaryForm" class="form-horizontal" ng-submit="update(boundaryForm.$valid)">
+        <fieldset>
+        
+          <div class="form-group" show-errors>
+            <label for="management">Mangement</label>
+            <input name="management" type="text" ng-model="boundary.properties.MANAME" editable-text="boundary.properties.MANAME" id="management" class="form-control" placeholder="Management" required>
+            <div ng-messages="boundaryForm.name.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Management name is required</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="owner">Owner:</label>
+            <input name="owner" type="text" ng-model="boundary.properties.OWNER" id="owner" class="form-control" placeholder="Owner" required>
+            <div ng-messages="boundaryForm.code.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Owner is required</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-default">
+          </div>
+          <div ng-show="error" class="text-danger">
+            <strong ng-bind="error"></strong>
+          </div>
+        </fieldset>
+      </form>
+
+
+
       <hr>
       <h3> Mangement: {{boundary.properties.MANAME}}</h3>
       <h6> Managing Area: {{boundary.properties.MANAGING_A}}</h6> 
@@ -26,7 +57,7 @@
       <h3> Geometry </h3>
       <div>
         <section class="preview">
-        <leaflet geojson="geojson" lf-center="preview" width="100%" height="100%"></leaflet>
+        <leaflet geojson="geojson" lf-center="edit" width="100%" height="100%"></leaflet>
         </section>
       </div>
        <hr>

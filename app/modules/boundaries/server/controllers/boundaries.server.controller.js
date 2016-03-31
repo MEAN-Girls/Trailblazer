@@ -40,7 +40,8 @@ exports.update = function (req, res) {
   var boundary = req.boundary;
 
   //For security purposes only merge these parameters
-  boundary.properties.MANNAME = req.body.properties.MANNAME;
+  boundary.properties.MANAME = req.body.properties.MANAME;
+  boundary.properties.OWNER = req.body.properties.OWNER;
 
   boundary.save(function (err) {
     if (err) {
