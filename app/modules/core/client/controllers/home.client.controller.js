@@ -63,14 +63,18 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         //openPopup(boundary);
         
         openPopup(boundary, center);
-        var panCoords = center;
-        panCoords.lat = center.lat + 0.03;
-        $scope.map.setView(panCoords);
+        /*$scope.map.setView(center, 13, 
+            {
+                pan: { animate: true, duration: 1 }
+            });*/
+//        var panCoords = center;
+//        panCoords.lat = center.lat + 0.03;
+//        $scope.map.setView(panCoords);
         $scope.toggleMenu();
-        function onZoom(e) {
+        /*function onZoom(e) {
             $scope.map.closePopup();
         }
-        $scope.map.once('zoomstart', onZoom);
+        $scope.map.once('zoomstart', onZoom);*/
         
 
     };
@@ -98,6 +102,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
       accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
     });
     var marker;
+    var innerCircle;
+    var outerCircle;
+    var radiusCircle;
     $scope.map = null;
 
     leafletData.getMap('county').then(function(map) {
@@ -106,12 +113,52 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         $scope.map.options.minZoom = 10;
         $scope.map.locate({ setView : true, maxZoom : 13 });
         $scope.map.on('locationfound', function (e){
-            if(marker){
+            /*if(marker){
             $scope.map.removeLayer(marker);
             }
-            marker = new L.marker(e.latlng).addTo($scope.map);
+            marker = new L.marker(e.latlng).addTo($scope.map);*/
+            if(radiusCircle){
+                $scope.map.removeLayer(radiusCircle);
+            }
+            
+            radiusCircle = L.circle(e.latlng, e.accuracy, {
+                stroke: false,
+                fillColor: 'blue',
+                opacity: 0.2,
+                fillOpacity: 0.2
+        
+            }).addTo($scope.map);
+            if(outerCircle){
+                $scope.map.removeLayer(outerCircle);
+            }
+            
+            outerCircle = L.circleMarker(e.latlng, {
+                fillColor: 'blue',
+                opacity: 0.5,
+                weight: 1,
+                fillOpacity: 0.5
+        
+            }).setRadius(10).addTo($scope.map);
+            if(innerCircle){
+                $scope.map.removeLayer(innerCircle);
+            }
+            
+            innerCircle = L.circleMarker(e.latlng, {
+                fillColor: 'blue',
+                color: 'white',
+                opacity: 1,
+                weight: 2,
+                fillOpacity: 1
+        
+            }).setRadius(7).addTo($scope.map);
+            
         });
         mapboxTile.addTo(map); //added MapBox tile to Map
+        $scope.map.on('popupopen', function(e) {
+        var px = $scope.map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
+        px.y -= e.popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+        $scope.map.panTo($scope.map.unproject(px),{ animate: true }); // pan to new center
+        });
     });
 
    /*
@@ -138,21 +185,22 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                         $scope.description = 'No description available. ';
                     }
                     
-
                     var poly = L.geoJson(feature);
                     $scope.center = poly.getBounds().getCenter();
-                    
+//                    $scope.map.setView(latlng, 13);
                     var popup = L.popup(
                     {
                         minWidth: 200,
                         maxHeight: 300
                     })
                         .setLatLng(latlng)
-                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand()">See More...</button></p>')($scope)[0])
+                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
                         .openOn($scope.map);
-
+                    
+                   
     }
+    
     angular.extend($scope, {
         tiles : mapboxTile,
         findUser : function(){
@@ -161,10 +209,45 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         },
 
         onLocationFound : function(e){
-            if(marker){
+            /*if(marker){
                 $scope.map.removeLayer(marker);
             }
-            marker = new L.marker(e.latlng).addTo($scope.map);
+            marker = new L.marker(e.latlng).addTo($scope.map);*/
+            if(outerCircle){
+                $scope.map.removeLayer(radiusCircle);
+            }
+            
+            radiusCircle = L.circle(e.latlng, e.accuracy, {
+                stroke: false,
+                fillColor: 'blue',
+                opacity: 0.2,
+                fillOpacity: 0.2
+        
+            }).addTo($scope.map);
+            if(outerCircle){
+                $scope.map.removeLayer(outerCircle);
+            }
+            
+            outerCircle = L.circleMarker(e.latlng, {
+                fillColor: 'blue',
+                opacity: 0.5,
+                weight: 1,
+                fillOpacity: 0.5
+        
+            }).setRadius(10).addTo($scope.map);
+            if(innerCircle){
+                $scope.map.removeLayer(innerCircle);
+            }
+            
+            innerCircle = L.circleMarker(e.latlng, {
+                fillColor: 'blue',
+                color: 'white',
+                opacity: 1,
+                weight: 2,
+                fillOpacity: 1 
+        
+            }).setRadius(7).addTo($scope.map);
+            
 
          },
         onEachFeature : function(feature, layer){
@@ -172,9 +255,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
                 layer.on('click', function(e) {
                     openPopup(feature, e.latlng); 
                     console.log(e);
-                    // var clickCoords = e.latlng;
-                    // clickCoords.lat = clickCoords.lat + 0.04;
-                    // $scope.map.setView(clickCoords);
+//                    var clickCoords = e.latlng;
+//                    clickCoords.lat = clickCoords.lat + 0.04;
+//                    $scope.map.setView(clickCoords);
 
                 });
             
