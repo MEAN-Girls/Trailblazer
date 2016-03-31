@@ -175,22 +175,15 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     };
 
     // Remove existing Boundary
-    $scope.remove = function (boundary) {
+    $scope.remove = function () {
       if (confirm('Are you sure you want to delete this user?')) {
-        if (boundary) {
-          boundary.$remove();
-
-          for (var i in $scope.boundaries) {
-            if ($scope.boundaries[i] === boundary) {
-              $scope.boundaries.splice(i, 1);
-            }
-          }
-        } else {
-          $scope.boundaries.$remove(function () {
-            $state.go('boundaries.list');
-          });
+        Boundaries.delete({ boundaryId: $stateParams.boundaryId })
+              .$promise.then(function (res) {
+                    $state.go('boundaries.list');
+              }, function(error) {
+                $scope.error = 'Unable to remove listing!\n' + error;
+              });
         }
-      }
     };
 
     // Update existing Boundary
@@ -220,7 +213,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       Boundaries.query().$promise.then(function (res) {
         $scope.boundaries = res;
         $scope.loading = false;
-        console.log("EXECUTED FIND");
+        console.log('EXECUTED FIND');
       });
     };
 
