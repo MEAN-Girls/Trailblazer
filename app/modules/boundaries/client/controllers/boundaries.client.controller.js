@@ -145,13 +145,12 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     else {
 
     // Create new Boundary
-    $scope.create = function (boundary) {
+    $scope.create = function (content) {
       $scope.error = null;
+      var boundary = new Boundaries(JSON.parse(content));
 
-      // Create new  Boundary object
-
-      // Redirect after save
-      boundary.$save(function (response) {
+      boundary.$save( function (response) {
+        alert('Boundary succesfully added!');
         $state.go('boundaries.list');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
@@ -163,6 +162,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       if (confirm('Are you sure you want to delete this user?')) {
         Boundaries.delete({ boundaryId: $stateParams.boundaryId })
               .$promise.then(function (res) {
+                    alert('Boundary succesfully deleted!');
                     $state.go('boundaries.list');
               }, function(error) {
                 $scope.error = 'Unable to remove listing!\n' + error;
@@ -249,8 +249,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
         }
       });
-
-      console.log(previewData);
     };
   }
 }

@@ -13,7 +13,6 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var boundary = new Boundary(req.body);
-  boundary.user = req.user;
 
   boundary.save(function (err) {
     if (err) {

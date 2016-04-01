@@ -7,6 +7,8 @@
     <div ng-if="content">
         <hr>
         <h2>Preview: </h2>
+        <a class="btn btn-primary" ng-click="create(content)">Save</a>
+        <hr>
         <section class="preview">
         <leaflet geojson="geojson" center="center" width="100%" height="100%"></leaflet>
         </section>
