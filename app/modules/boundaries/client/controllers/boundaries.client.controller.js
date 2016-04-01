@@ -14,6 +14,8 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
     $scope.loading = true;
+    $scope.success = false;
+    $scope.statusMessage = '!';
     /*
       Map logic
     */
@@ -150,8 +152,9 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       var boundary = new Boundaries(JSON.parse(content));
 
       boundary.$save( function (response) {
-        alert('Boundary succesfully added!');
-        $state.go('boundaries.list');
+        $scope.success = true;
+        $scope.success = true;
+        $scope.statusMessage = 'Added';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -162,8 +165,8 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       if (confirm('Are you sure you want to delete this user?')) {
         Boundaries.delete({ boundaryId: $stateParams.boundaryId })
               .$promise.then(function (res) {
-                    alert('Boundary succesfully deleted!');
-                    $state.go('boundaries.list');
+                    $scope.success = true;
+                    $scope.statusMessage = 'Deleted';
               }, function(error) {
                 $scope.error = 'Unable to remove listing!\n' + error;
               });
@@ -176,14 +179,15 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'boundaryForm');
-
         return false;
       }
 
       var boundary = $scope.boundary;
 
       boundary.$update(function () {
-        $state.go('boundaries.list');
+        $scope.success = true;
+        $scope.statusMessage = 'Updated';
+        //$state.go('boundaries.list');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });

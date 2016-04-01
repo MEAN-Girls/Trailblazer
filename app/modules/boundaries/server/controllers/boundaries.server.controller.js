@@ -41,6 +41,13 @@ exports.update = function (req, res) {
   //For security purposes only merge these parameters
   boundary.properties.MANAME = req.body.properties.MANAME;
   boundary.properties.OWNER = req.body.properties.OWNER;
+  boundary.properties.MGRINST = req.body.properties.MGRINST;
+  boundary.properties.MANAGER = req.body.properties.MANAGER;
+  boundary.properties.MGRCITY = req.body.properties.MGRCITY;
+  boundary.properties.MGRPHONE = req.body.properties.MGRPHONE;   
+  boundary.properties.COMMENTS1 = req.body.properties.COMMENTS1;
+  boundary.properties.COMMENTS2 = req.body.properties.COMMENTS2;
+  boundary.properties.MA_WEBSITE = req.body.properties.MA_WEBSITE;
 
   boundary.save(function (err) {
     if (err) {

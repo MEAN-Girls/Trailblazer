@@ -2,7 +2,11 @@
   <div class="page-header">
     <h1>New Boundary</h1>
   </div>
-  <div class="col-md-12">
+  <div ng-show="success" ng-model="statusMessage" class="alert alert-success">
+    <strong>Boundary Successfully {{statusMessage}}!</strong>&nbsp; 
+    <a ui-sref="boundaries.list"> Return to View Boundaries</a>
+  </div>
+  <div class="col-md-12" ng-hide="success">
       <input type="file" on-read-file="showContent($fileContent)"/>
     <div ng-if="content">
         <hr>

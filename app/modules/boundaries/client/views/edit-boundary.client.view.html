@@ -7,18 +7,30 @@
       <img ng-src="/modules/core/client/img/loaders/loader.gif">
     </div>
     <div ng-hide="loading">
-      <a class="btn btn-primary" ng-click="remove()">
+      <a ng-hide="success" class="btn btn-primary" ng-click="remove()">
         <i class="glyphicon glyphicon-trash"></i> &nbsp; Delete
       </a>
- <hr>
-      <form name="boundaryForm" class="form-horizontal" ng-submit="update(boundaryForm.$valid)">
+      <div ng-show="success" ng-model="statusMessage" class="alert alert-success">
+        <strong>Boundary Successfully {{statusMessage}}!</strong>&nbsp; 
+        <a ui-sref="boundaries.list"> Return to View Boundaries</a>
+      </div>
+      <hr ng-hide="success">
+      <form ng-hide="success" name="boundaryForm" class="form-horizontal" ng-submit="update(boundaryForm.$valid)">
         <fieldset>
-        
+
           <div class="form-group" show-errors>
-            <label for="management">Mangement</label>
-            <input name="management" type="text" ng-model="boundary.properties.MANAME" editable-text="boundary.properties.MANAME" id="management" class="form-control" placeholder="Management" required>
+            <label for="management">Mangement:</label>
+            <input name="management" type="text" ng-model="boundary.properties.MANAME" id="management" class="form-control" placeholder="Management" required>
             <div ng-messages="boundaryForm.name.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Management name is required</p>
+              <p class="help-block error-text" ng-message="required">Management is required</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="manager">Manger(s):</label>
+            <input name="manager" type="text" ng-model="boundary.properties.MANAGER" id="manager" class="form-control" placeholder="Manager(s)" required>
+            <div ng-messages="boundaryForm.name.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Manager is required</p>
             </div>
           </div>
 
@@ -30,37 +42,66 @@
             </div>
           </div>
 
+          <div class="form-group" show-errors>
+            <label for="institution">Managing Institution:</label>
+            <input name="institution" type="text" ng-model="boundary.properties.MGRINST" id="institution" class="form-control" placeholder="Managing Institution" required>
+            <div ng-messages="boundaryForm.code.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Institution is required</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="city">Managing City:</label>
+            <input name="city" type="text" ng-model="boundary.properties.MGRCITY" id="city" class="form-control" placeholder="Managing City" required>
+            <div ng-messages="boundaryForm.code.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">City is required</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="phone">Managing Phone:</label>
+            <input name="phone" type="text" ng-model="boundary.properties.MGRPHONE" id="phone" class="form-control" placeholder="Managing Phone" required>
+            <div ng-messages="boundaryForm.code.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Phone is required</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="website">Managing Website:</label>
+            <input name="website" type="text" ng-model="boundary.properties.MA_WEBSITE" id="website" class="form-control" placeholder="Managing Website" required>
+            <div ng-messages="boundaryForm.code.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Phone is required</p>
+            </div>
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="d1">Description 1:</label>
+            <input name="d1" type="text" ng-model="boundary.properties.COMMENTS1" id="d1" class="form-control" placeholder="Description">
+          </div>
+
+          <div class="form-group" show-errors>
+            <label for="d2">Description 2:</label>
+            <input name="d2" type="text" ng-model="boundary.properties.COMMENTS2" id="d2" class="form-control" placeholder="Description">
+          </div>
+
           <div class="form-group">
-            <input type="submit" class="btn btn-default">
+            <input type="submit" class="btn btn-primary">
           </div>
           <div ng-show="error" class="text-danger">
             <strong ng-bind="error"></strong>
           </div>
         </fieldset>
       </form>
-
-
-
-      <hr>
-      <h3> Mangement: {{boundary.properties.MANAME}}</h3>
-      <h6> Managing Area: {{boundary.properties.MANAGING_A}}</h6> 
-      <h6> Owner: {{boundary.properties.OWNER}}</h6> 
-      <h6> Manager: {{boundary.properties.MANAGER}}</h6> 
-      <h6> Managing Institution: {{boundary.properties.MGRINST}}</h6> 
-      <h6> Managing City: {{boundary.properties.MGRCITY}}</h6> 
-      <h6> Managing Phone: {{boundary.properties.MGRPHONE}}</h6> 
-      <h6> Descriptionn 1: {{boundary.properties.COMMENTS1}}</h6> 
-      <h6> Description 2: {{boundary.properties.COMMENTS2}}</h6> 
-      <h6> Data Source: {{boundary.properties.DIG_COM}}</h6> 
-      <h6> Management Website: {{boundary.properties.MA_WEBSITE}}</h6> 
-      <hr>
-      <h3> Geometry </h3>
-      <div>
-        <section class="preview">
-        <leaflet geojson="geojson" lf-center="edit" width="100%" height="100%"></leaflet>
-        </section>
-      </div>
+      <div ng-hide="success">
+        <hr>
+        <h3> Geometry </h3>
+        <div>
+          <section class="preview">
+          <leaflet geojson="geojson" lf-center="edit" width="100%" height="100%"></leaflet>
+          </section>
+        </div>
        <hr>
+      </div>
     </div>
 </div>
 </section>
