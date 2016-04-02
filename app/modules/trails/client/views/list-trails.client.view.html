@@ -25,10 +25,10 @@
     <div>
        <h3>Click on a trail to view details</h3>
     </div>
-    <a ng-repeat="trail in trails| orderBy:'properties.NAME' | filter:searchingBar | filter:filters.MGRINST" ui-sref="trails.edit({trailId: trail._id})" class="list-group-item"> 
+    <a ng-repeat="trail in trails| orderBy:'properties.Name' | filter:searchingBar | filter:filters.MGRINST" ui-sref="trails.edit({trailId: trail._id})" class="list-group-item"> 
       <small class="list-group-item-text">
-        Trail type
-        <span ng-bind="trail.properties.Name"></span>
+        Trail type:
+        <strong ng-bind="trail.properties.Name"></strong>
       </small>
     </a>
   </div>
