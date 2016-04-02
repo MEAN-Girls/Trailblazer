@@ -23,15 +23,13 @@
   </select>
   <div class="list-group" ng-hide="loading">
     <div>
-       <h3>Click on a property to view details</h3>
+       <h3>Click on a trail to view details</h3>
     </div>
-    <a ng-repeat="trail in trails| filter:searchingBar | filter:filters.MGRINST" ui-sref="trails.edit({trail: trail._id})" class="list-group-item"> 
+    <a ng-repeat="trail in trails| orderBy:'properties.NAME' | filter:searchingBar | filter:filters.MGRINST" ui-sref="trails.edit({trailId: trail._id})" class="list-group-item"> 
       <small class="list-group-item-text">
-        Trail Id
-        <span ng-bind="trail._id"></span>
+        Trail type
+        <span ng-bind="trail.properties.Name"></span>
       </small>
-      <h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
-      <p class="list-group-item-text" ng-bind="boundary.content"></p>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="trails.$resolved && !trails.length">

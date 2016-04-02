@@ -1,12 +1,20 @@
-<section ng-controller="BoundariesController">
+<section ng-controller="TrailsController">
   <div class="page-header">
-    <h1>New Boundary</h1>
+    <h1>New Trail</h1>
   </div>
-  <div class="col-md-12">
+   <div ng-show="success" ng-model="statusMessage" class="alert alert-success">
+    <strong>Trail Successfully {{statusMessage}}!</strong>&nbsp; 
+    <a ui-sref="trails.list"> Return to View Trails</a>
+  </div>
+  <div class="col-md-12" ng-hide="success">
+    <span>To create a new trail, upload a file
+      <br><br>
       <input type="file" on-read-file="showContent($fileContent)"/>
     <div ng-if="content">
         <hr>
         <h2>Preview: </h2>
+        <a class="btn btn-primary" ng-click="create(content)">Save</a>
+        <hr>
         <section class="preview">
         <leaflet geojson="geojson" center="center" width="100%" height="100%"></leaflet>
         </section>

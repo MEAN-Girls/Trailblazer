@@ -151,8 +151,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       $scope.error = null;
       var boundary = new Boundaries(JSON.parse(content));
 
-      boundary.$save( function (response) {
-        $scope.success = true;
+      boundary.$save(function (response) {
         $scope.success = true;
         $scope.statusMessage = 'Added';
       }, function (errorResponse) {
@@ -168,7 +167,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                     $scope.success = true;
                     $scope.statusMessage = 'Deleted';
               }, function(error) {
-                $scope.error = 'Unable to remove listing!\n' + error;
+                $scope.error = 'Unable to remove boundary\n' + error;
               });
         }
     };

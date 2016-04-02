@@ -11,31 +11,18 @@ angular.module('trails').controller('TrailsController', ['$scope',
                                                               'leafletData',
   function ($scope, $stateParams, $rootScope, $location, Authentication, Trails, $state, leafletData) {
     $scope.authentication = Authentication;
+    $scope.loading = true;
     
-
     // Create new Trail
-    $scope.create = function (isValid) {
+    $scope.create = function (content) {
       $scope.error = null;
+      var trail = new Trails(JSON.parse(content));
 
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'trailForm');
+      console.log(trail);
 
-        return false;
-      }
-
-      // Create new  Trail object
-      var trail = new Trails({
-        title: this.title,
-        content: this.content
-      });
-
-      // Redirect after save
       trail.$save(function (response) {
-        $location.path('trails/' + response._id);
-
-        // Clear form fields
-        $scope.title = '';
-        $scope.content = '';
+        $scope.success = true;
+        $scope.statusMessage = 'Added';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -44,20 +31,14 @@ angular.module('trails').controller('TrailsController', ['$scope',
     // Remove existing Trail
     $scope.remove = function (trail) {
       if (confirm('Are you sure you want to delete this user?')) {
-        if (trail) {
-          trail.$remove();
-
-          for (var i in $scope.trails) {
-            if ($scope.trails[i] === trail) {
-              $scope.trails.splice(i, 1);
-            }
-          }
-        } else {
-          $scope.trails.$remove(function () {
-            $state.go('trails.list');
-          });
-        }
-      }
+        Trails.delete({ trailId: $stateParams.trailId })
+              .$promise.then(function (res) {
+                    $scope.success = true;
+                    $scope.statusMessage = 'Deleted';
+              }, function(error) {
+                $scope.error = 'Unable to remove trail!\n' + error;
+              });
+        }    
     };
 
     // Update existing trail
@@ -66,17 +47,14 @@ angular.module('trails').controller('TrailsController', ['$scope',
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'trailForm');
-
         return false;
       }
 
       var trail = $scope.trail;
-      console.log(trail);
 
       trail.$update(function () {
-        $state.go('trails.list' , {
-          trailId: trail._id
-        });
+        $scope.success = true;
+        $scope.statusMessage = 'Updated';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -94,7 +72,7 @@ angular.module('trails').controller('TrailsController', ['$scope',
     // Find existing trail
     $scope.findOne = function () {
       angular.extend($scope, {
-          preview: {
+          edit: {
                 lat: 29.671316,
                 lng: -82.327766,
                 zoom: 10
@@ -105,13 +83,20 @@ angular.module('trails').controller('TrailsController', ['$scope',
         .$promise.then(function (res) {
             $scope.trail = res;
             console.log($scope.trail);
-            var previewData = $scope.trail.geometry;
-            
+            var previewData = $scope.trail;
+            var poly = L.geoJson($scope.trail);
+            var center = poly.getBounds().getCenter();
+            console.log(center);
             angular.extend($scope, {
+              edit: {
+                  lat: center.lat,
+                  lng: center.lng,
+                  zoom: 14
+              },
               geojson: {
                 data: previewData,
                 style: {
-                  color: 'green'
+                  color: 'red'
                 }
               }
             });

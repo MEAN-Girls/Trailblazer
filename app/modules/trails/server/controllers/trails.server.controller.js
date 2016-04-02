@@ -39,7 +39,7 @@ exports.update = function (req, res) {
   var trail = req.trail;
 
   //For security purposes only merge these parameters
-  trail.properties.MANNAME = req.body.properties.MANNAME;
+  trail.properties.Name = req.body.properties.Name;
 
   trail.save(function (err) {
     if (err) {
