@@ -13,17 +13,39 @@
 		<div class="button">
 			<span class="button" ng-click="findUser()"><i class="fa fa-location-arrow"></i></span>
 		</div>
+		<div class="button">
+ 			<span type="button" ng-click="homeView()"><i class="fa fa-home" style="bottom: 7rem;"></i></span>
+ 		</div>
 
 	<div class="home_sidebar">
 
 			<div id="home-site-wrapper" off-canvas-menu ng-class="{'home-show-nav':isMenuOpen}">
 				<div id="home-site-canvas">
 					<div id="home-site-menu">
-
-
 						<div class="searchBar">
 							<input type="text" class="form-control" placeholder="Search" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
 						</div>
+
+						<div class="filter">
+							<!-- <h5>Yo yo yo </h5> -->
+							<div class="col-sm-4 filter-button acres filter-left">
+								<label>
+									<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0"><span class="fa fa-leaf"></span>
+								</label>
+							</div>
+							<div class="col-sm-4 filter-button acres">
+								<label>
+									<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0"><span class="fa fa-pagelines"></span>
+								</label>
+							</div>
+							<div class="col-sm-4 filter-button acres filter-right">
+								<label>
+									<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0"><span class="fa fa-tree"></span>
+								</label>
+							</div>
+						</div>
+
+
 						<div>
 							<select class="filter-bar" id="manager-filter" ng-model="filters.MGRINST">
 								<option ng-click="filters.MGRINST = ''" ></option>
@@ -31,13 +53,15 @@
 								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
 							</select>
+
 							
   							<label><input type="checkbox" ng-model="checked" ng-change="showAll(checked)">Show Private Properties</label>
 							
 						</div>
 						
+
 						<div class="list-group">
-    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST" ng-click="focusBoundary(boundary)" class="list-group-item">
+    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(checkBoxAcres)" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>
       					<h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       					<p class="list-group-item-text" ng-bind="boundary.content"></p>

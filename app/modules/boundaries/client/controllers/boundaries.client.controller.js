@@ -9,10 +9,13 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               'Boundaries',
                                                               '$state',
                                                               'leafletData',
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData) {
+                                                              '$http',
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http) {
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
     $scope.loading = true;
+    $scope.success = false;
+    $scope.statusMessage = '!';
     /*
       Map logic
     */
@@ -29,6 +32,15 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       $scope.b_ownertypes = boundaryFeature.properties.OWNERTYPES;
       $scope.b_area = boundaryFeature.properties.AREA;
       $scope.b_totacres = boundaryFeature.properties.TOTACRES;
+      if(boundaryFeature.properties.DESC2 !== 'ZZ'){
+          $scope.b_desc = boundaryFeature.properties.DESC1 + boundaryFeature.properties.DESC2;
+      }
+      else if (boundaryFeature.properties.DESC1 !== 'ZZ'){
+          $scope.b_desc = boundaryFeature.properties.DESC1;
+      } 
+      else {
+          $scope.b_desc = 'No description available. ';
+      }
 
     //reroute because we came here from somewhere other than home page
       if (boundaryFeature === null && boundaryId !== null){
@@ -90,17 +102,14 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         },
         geojson: {
           data: boundaryFeature,
-          style: {
-            
-                  color: '#8AAAB5', 'weight' : 2
-          
-            
+          style: {         
+                  color: '#8AAAB5', 'weight' : 2       
           }
         }, 
         tiles: mapboxTile
       });
 
-     $scope.showChilds = function(item){
+     $scope.showChildren = function(item){
         item.active = !item.active;
       };
       
@@ -133,6 +142,13 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                   { desc: 'Total Acres:' },
                   { name: $scope.b_totacres }
               ]
+          },
+          {
+              name: 'About',
+              subItems: [
+                  { desc: 'Description:' },
+                  { name: $scope.b_desc }
+              ]
           }
       ];
 
@@ -147,50 +163,29 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     else {
 
     // Create new Boundary
-    $scope.create = function (isValid) {
+    $scope.create = function (content) {
       $scope.error = null;
+      var boundary = new Boundaries(JSON.parse(content));
 
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'boundaryForm');
-
-        return false;
-      }
-
-      // Create new  Boundary object
-      var boundary = new Boundaries({
-        title: this.title,
-        content: this.content
-      });
-
-      // Redirect after save
       boundary.$save(function (response) {
-        $location.path('boundaries/' + response._id);
-
-        // Clear form fields
-        $scope.title = '';
-        $scope.content = '';
+        $scope.success = true;
+        $scope.statusMessage = 'Added';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
 
     // Remove existing Boundary
-    $scope.remove = function (boundary) {
+    $scope.remove = function () {
       if (confirm('Are you sure you want to delete this user?')) {
-        if (boundary) {
-          boundary.$remove();
-
-          for (var i in $scope.boundaries) {
-            if ($scope.boundaries[i] === boundary) {
-              $scope.boundaries.splice(i, 1);
-            }
-          }
-        } else {
-          $scope.boundaries.$remove(function () {
-            $state.go('boundaries.list');
-          });
+        Boundaries.delete({ boundaryId: $stateParams.boundaryId })
+              .$promise.then(function (res) {
+                    $scope.success = true;
+                    $scope.statusMessage = 'Deleted';
+              }, function(error) {
+                $scope.error = 'Unable to remove boundary\n' + error;
+              });
         }
-      }
     };
 
     // Update existing Boundary
@@ -199,17 +194,15 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'boundaryForm');
-
         return false;
       }
 
       var boundary = $scope.boundary;
-      console.log(boundary);
 
       boundary.$update(function () {
-        $state.go('boundaries.list' , {
-          boundaryId: boundary._id
-        });
+        $scope.success = true;
+        $scope.statusMessage = 'Updated';
+        //$state.go('boundaries.list');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -220,14 +213,13 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       Boundaries.query().$promise.then(function (res) {
         $scope.boundaries = res;
         $scope.loading = false;
-        console.log("EXECUTED FIND");
       });
     };
 
     // Find existing Boundary
     $scope.findOne = function () {
       angular.extend($scope, {
-          preview: {
+          edit: {
                 lat: 29.671316,
                 lng: -82.327766,
                 zoom: 10
@@ -238,13 +230,20 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         .$promise.then(function (res) {
             $scope.boundary = res;
             console.log($scope.boundary);
-            var previewData = $scope.boundary.geometry;
-            
+            var previewData = $scope.boundary;
+            var poly = L.geoJson($scope.boundary);
+            var center = poly.getBounds().getCenter();
+            console.log(center);
             angular.extend($scope, {
+              edit: {
+                  lat: center.lat,
+                  lng: center.lng,
+                  zoom: 14
+              },
               geojson: {
                 data: previewData,
                 style: {
-                  color: 'green'
+                  color: 'red'
                 }
               }
             });

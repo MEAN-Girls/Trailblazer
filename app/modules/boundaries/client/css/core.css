@@ -102,7 +102,8 @@ body {
   position: absolute;
   top: 0;
   right: -300px;
-  background-color: white;
+  background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");
+  /*background-color: #FFD5B1;*/
   padding: 15px;
   margin-top: 10px;
   border-top: dotted 5px;
@@ -122,15 +123,47 @@ section .preview {
 }
 #sidebar_maname{
   font-size: 25px;
+  text-align: center;
+  padding-bottom: 30px;
 }
-#sidebar_titles {
+.dropbtn {
   font-size: 16px;
-  cursor: pointer;
+  overflow: auto;
+  font-size: 16px;
+  /*margin: 10px 0;*/
 }
+
 #sidebar_subtitles{
   font-size: 14px;
+
 }
 #sidebar_subitems{
   font-size: 12px;
+  padding-left: 20px;
+  display: inline-block;
 }
 
+.sidebar_subclass{
+  background: rgba(255,0,0,0);
+  text-align: left;
+  width: 100%;
+  padding-left: 30px;
+  /*padding: 3px 0;*/
+}
+
+.dropdown{
+  /*background-color: #5CFF63;*/
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  /*padding: 10px 0;*/
+}
+.headings{
+  padding: 10px 0;
+  background-color: #4CAF50;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}

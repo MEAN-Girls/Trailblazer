@@ -1,0 +1,30 @@
+
+<section ng-controller="TrailsController" ng-init="findOne()">
+  <div class="page-header">
+    <h1>Trail Details</h1>
+  </div>
+    <div class="load" ng-show="loading">
+      <img ng-src="/modules/core/client/img/loaders/loader.gif">
+    </div>
+    <div ng-hide="loading">
+      <a ng-hide="success" class="btn btn-primary" ng-click="remove()">
+        <i class="glyphicon glyphicon-trash"></i> &nbsp; Delete
+      </a>
+      <div ng-show="success" ng-model="statusMessage" class="alert alert-success">
+        <strong>Trail Successfully {{statusMessage}}!</strong>&nbsp; 
+        <a ui-sref="trails.list"> Return to View Trails</a>
+      </div>
+      <div ng-hide="success">
+        <hr>
+        <h3> Trail: {{trail.properties.Name}}</h3>    
+        <hr>
+        <h3> Geometry </h3>
+        <div>
+          <section class="preview">
+          <leaflet geojson="geojson" lf-center="edit" width="100%" height="100%"></leaflet>
+          </section>
+        </div>
+        <hr>
+      </div>
+    </div>
+</section>
