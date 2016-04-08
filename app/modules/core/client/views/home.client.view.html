@@ -16,7 +16,7 @@
 		<div class="button">
  			<span type="button" ng-click="homeView()"><i class="fa fa-home" style="bottom: 7rem;"></i></span>
  		</div>
-		<div class="button">
+		<!-- <div class="button">
 			<span type="button" ng-click="changeTiles('light')"><i class="fa fa-home" style="bottom: 10rem;"></i></span>
 		</div>
 		<div class="button">
@@ -24,9 +24,24 @@
 		</div>
 		<div class="button">
 			<span type="button" ng-click="changeTiles('dark')"><i class="fa fa-home" style="bottom: 16rem;"></i></span>
-		</div>
+		</div> -->
 
-
+		<div class="dropdown" style="top: 100px;">
+			<div class="button">
+				<button class="dropbtn">Dropdown</button>
+			</div>
+			  <div class="dropdown-content">
+					<div class="button">
+						<span type="button" ng-click="changeTiles('light')"><i class="fa fa-home" style="top: 10rem;"></i></span>
+					</div>
+					<div class="button">
+						<span type="button" ng-click="changeTiles('street')"><i class="fa fa-home" style="top: 13rem;"></i></span>
+					</div>
+					<div class="button">
+						<span type="button" ng-click="changeTiles('dark')"><i class="fa fa-home" style="top: 16rem;"></i></span>
+					</div>
+			  </div>
+			</div>
     <!-- <button ng-click="changeTiles('opencyclemap')" class="btn btn-default">OpenCycleMaps</button>
     <button ng-click="changeTiles('openstreetmap')" class="btn btn-default">OpenStreetMaps</button> -->
 
