@@ -32,6 +32,15 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       $scope.b_ownertypes = boundaryFeature.properties.OWNERTYPES;
       $scope.b_area = boundaryFeature.properties.AREA;
       $scope.b_totacres = boundaryFeature.properties.TOTACRES;
+      if(boundaryFeature.properties.DESC2 !== 'ZZ'){
+          $scope.b_desc = boundaryFeature.properties.DESC1 + boundaryFeature.properties.DESC2;
+      }
+      else if (boundaryFeature.properties.DESC1 !== 'ZZ'){
+          $scope.b_desc = boundaryFeature.properties.DESC1;
+      } 
+      else {
+          $scope.b_desc = 'No description available. ';
+      }
 
     //reroute because we came here from somewhere other than home page
       if (boundaryFeature === null && boundaryId !== null){
@@ -100,7 +109,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         tiles: mapboxTile
       });
 
-     $scope.showChilds = function(item){
+     $scope.showChildren = function(item){
         item.active = !item.active;
       };
       
@@ -132,6 +141,13 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                   { name: $scope.b_area },
                   { desc: 'Total Acres:' },
                   { name: $scope.b_totacres }
+              ]
+          },
+          {
+              name: 'About',
+              subItems: [
+                  { desc: 'Description:' },
+                  { name: $scope.b_desc }
               ]
           }
       ];
@@ -197,7 +213,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       Boundaries.query().$promise.then(function (res) {
         $scope.boundaries = res;
         $scope.loading = false;
-        console.log('EXECUTED FIND');
       });
     };
 
