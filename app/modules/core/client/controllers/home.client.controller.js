@@ -5,6 +5,27 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
+    var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      id: 'meangurlz.cd22205e',
+      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
+    });
+
+    var mapboxSatellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      id: 'mapbox.satellite',
+      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
+    });
+
+    var mapboxDark = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+      id: 'mapbox.dark',
+      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
+    });
+
+    var tilesDict = {
+      street: mapboxSatellite,
+      light: mapboxTile,
+      dark: mapboxDark
+    }
+
     /*
         Some quick references for leaflet use in the docs,
 
@@ -85,21 +106,35 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 			lng: -82.327766,
 			zoom: 13
 			//autoDiscover: true
-    	},
-    	controls: {
-    		fullscreen: {
-    			position: 'topleft'
-    		}
-        },
+    },
+    tiles: mapboxTile
+    	// controls: {
+    	// 	fullscreen: {
+    	// 		position: 'topleft'
+    	// 	},
+      //   layers: {
+      //     position: 'bottomright'
+      //   }
+      // },
 
 
     });
+
+    // var baseMaps = {
+    //     "mapbox.streets": defaultMap,
+    //     "meangurlz.cd22205e": customMap
+    // };
+
 
     //Creating Mapbox Tile
-    var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-      id: 'meangurlz.cd22205e',
-      accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
-    });
+
+    // var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    //   id: 'meangurlz.cd22205e',
+    //   accessToken: 'pk.eyJ1IjoibWVhbmd1cmx6IiwiYSI6ImNpa2g1cnF4YjAxNGx2dGttcGFmcm5nc3MifQ.ftvskKymYXv1VfqJPU9tnQ'
+    // });
+
+
+
     var marker;
     var innerCircle;
     var outerCircle;
@@ -152,6 +187,8 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             }).setRadius(7).addTo($scope.map);
 
         });
+
+        // L.control.addTo(map);
         mapboxTile.addTo(map); //added MapBox tile to Map
         $scope.map.on('popupopen', function(e) {
         var px = $scope.map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
@@ -160,46 +197,26 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         });
     });
 
-    // $scope.filter('acre_space', function() {
-    //   return function(acres) {
-    //     var out = [];
-    //
-    //     angular.forEach(acres, function() {
-    //
-    //
-    //
-    //     })
-    //
-    //     return out;
-    //   }
-    //
-    //
-    //
-    // })
+    $scope.changeTiles = function(tiles) {
+      console.log(tiles)
+      $scope.map.removeLayer(mapboxTile)
+      $scope.map.removeLayer(mapboxSatellite)
+      $scope.map.removeLayer(mapboxDark)
+
+      tilesDict[tiles].addTo($scope.map);
+    };
+
+
 
     $scope.acreSize = {};
 
-    // $scope.acreSize = function(minSize, maxSize) {
-    //   // console.log(minSize);
-    //
-    //   if (minSize === undefined) minSize = 0;
-    //   if (maxSize === undefined) maxSize = 1000;
-    //
-    //   return function predicateFunc(item) {
-    //
-    //     // console.log(item.properties.TOTACRES);
-    //     return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
-    //   };
-    //
-    // };
-
     $scope.acreSize = function(chosen) {
       // console.log(minSize);
-      console.log(chosen);
+      // console.log(chosen);
       var minSize;
       var maxSize;
       if(chosen === undefined){
-        console.log("No size initialized");
+        // console.log("No size initialized");
         minSize = 0;
         maxSize = 10001;
       } else {
@@ -296,7 +313,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
 
         homeView : function(){
-          var alachuaZoom = L.latLng(29.651300, -82.326752)
+          var alachuaZoom = L.latLng(29.651300, -82.326752);
             $scope.map.setView(alachuaZoom, 10);
 
         },
