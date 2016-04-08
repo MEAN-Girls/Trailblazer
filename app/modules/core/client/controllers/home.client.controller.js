@@ -330,7 +330,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
 
         homeView : function(){
-          var alachuaZoom = L.latLng(29.651300, -82.326752)
+          var alachuaZoom = L.latLng(29.651300, -82.326752);
             $scope.map.setView(alachuaZoom, 10);
 
         },
