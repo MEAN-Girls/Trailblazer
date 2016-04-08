@@ -17,18 +17,29 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     //$scope.find = function () {
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
-        console.log($rootScope.boundaries[0]);
-        L.geoJson($rootScope.boundaries, {
-            style: {
-                color: '#8AAAB5',
-                weight : 2
-            },
-            onEachFeature: $scope.onEachFeature
+
+        $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+            return setFilter(feature);
+            }
 
         }).addTo($scope.map);
       });
 
     //};
+
+    var setFilter = function(feature){
+        if(feature.properties.OWNER === 'Private Individual(s)'){
+            return false;
+        }
+        else{
+            return true;
+        }
+    };
+    
 
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
@@ -76,6 +87,31 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.once('zoomstart', onZoom);*/
 
 
+    };
+    $scope.filterPrivate = '!Private Individual(s)';
+    $scope.showAll = function(){
+            $scope.map.removeLayer($scope.geoLayer);
+            //L.geoJson.addData($rootScope.boundaries);
+            console.log($scope.checked);
+            if($scope.checked === false){
+            $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+            return setFilter(feature);
+            }
+            }).addTo($scope.map);
+            $scope.filterPrivate = '!Private Individual(s)';
+            }
+            else{
+                $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature
+            }).addTo($scope.map);
+            $scope.filterPrivate = '';
+            }
     };
 
 	angular.extend($scope, {
@@ -296,7 +332,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
 
         homeView : function(){
-          var alachuaZoom = L.latLng(29.651300, -82.326752)
+          var alachuaZoom = L.latLng(29.651300, -82.326752);
             $scope.map.setView(alachuaZoom, 10);
 
         },
