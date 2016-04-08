@@ -31,8 +31,11 @@
 								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
 							</select>
-
+							
+  							<label><input type="checkbox" ng-model="checked" ng-change="showAll(checked)">Show Private Properties</label>
+							
 						</div>
+						
 						<div class="list-group">
     					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>

@@ -17,22 +17,25 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
     //$scope.find = function () {
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
-        console.log($rootScope.boundaries[0]);
-        L.geoJson($rootScope.boundaries, { 
+        $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
             style: 
-            function(feature){
-
-                    switch (feature.properties.MANAME) {
-                    default: return { color: '#8AAAB5', 'weight' : 2 };
-                    }
-
-            },
-            onEachFeature: $scope.onEachFeature
-
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+            return setFilter(feature);
+            }
         }).addTo($scope.map);
       });
 
     //};
+    var setFilter = function(feature){
+        if(feature.properties.OWNER === 'Private Individual(s)'){
+            return false;
+        }
+        else{
+            return true;
+        }
+    };
     
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
@@ -77,6 +80,29 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         $scope.map.once('zoomstart', onZoom);
         
 
+    };
+
+    $scope.showAll = function(){
+            $scope.map.removeLayer($scope.geoLayer);
+            //L.geoJson.addData($rootScope.boundaries);
+            console.log($scope.checked);
+            if($scope.checked === false){
+            $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+            return setFilter(feature);
+            }
+            }).addTo($scope.map);
+            }
+            else{
+                $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature
+            }).addTo($scope.map);
+            }
     };
 
 	angular.extend($scope, {
