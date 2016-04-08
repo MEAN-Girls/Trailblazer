@@ -19,13 +19,9 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         $rootScope.boundaries = res;
         console.log($rootScope.boundaries[0]);
         L.geoJson($rootScope.boundaries, { 
-            style: 
-            function(feature){
-
-                    switch (feature.properties.MANAME) {
-                    default: return { color: '#8AAAB5', 'weight' : 2 };
-                    }
-
+            style: { 
+                color: '#8AAAB5', 
+                weight : 2 
             },
             onEachFeature: $scope.onEachFeature
 
