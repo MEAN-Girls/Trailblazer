@@ -88,7 +88,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
 
     };
-
+    $scope.filterPrivate = '!Private Individual(s)';
     $scope.showAll = function(){
             $scope.map.removeLayer($scope.geoLayer);
             //L.geoJson.addData($rootScope.boundaries);
@@ -102,6 +102,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             return setFilter(feature);
             }
             }).addTo($scope.map);
+            $scope.filterPrivate = '!Private Individual(s)';
             }
             else{
                 $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
@@ -109,6 +110,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             { color: '#8AAAB5', 'weight' : 2 },
             onEachFeature: $scope.onEachFeature
             }).addTo($scope.map);
+            $scope.filterPrivate = '';
             }
     };
 
