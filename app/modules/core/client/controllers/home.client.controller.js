@@ -295,6 +295,12 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             $scope.map.on('locationfound', $scope.onLocationFound);
         },
 
+        homeView : function(){
+          var alachuaZoom = L.latLng(29.651300, -82.326752)
+            $scope.map.setView(alachuaZoom, 10);
+
+        },
+
         onLocationFound : function(e){
             /*if(marker){
                 $scope.map.removeLayer(marker);
