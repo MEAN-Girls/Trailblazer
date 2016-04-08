@@ -155,6 +155,8 @@ angular.module('core').controller('HomeController', ['$scope', '$rootScope', 'Au
         px.y -= e.popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
         $scope.map.panTo($scope.map.unproject(px),{ animate: true }); // pan to new center
         });
+        console.log("HERE");
+        console.log(radiusCircle.latlng);
     });
 
    /*
