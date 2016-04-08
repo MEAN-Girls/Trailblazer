@@ -155,13 +155,15 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.acreSize = function(chosen) {
       // console.log(minSize);
       console.log(chosen);
+      var minSize;
+      var maxSize;
       if(chosen === undefined){
         console.log("No size initialized");
-        var minSize = 0;
-        var maxSize = 10001;
+        minSize = 0;
+        maxSize = 10001;
       } else {
-        var minSize = 0;
-        var maxSize = 10001;
+        minSize = 0;
+        maxSize = 10001;
         if(chosen.large === 1){
           minSize = 1000;
           maxSize = 10000;

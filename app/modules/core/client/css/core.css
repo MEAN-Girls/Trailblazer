@@ -301,7 +301,18 @@ font-size: 16px;
 }
 
 .filter input:checked + span {
-    background-color:#4CAF50;
+    background-color: #49a94c;
+    color:#fff;
+}
+
+.filter input:checked:hover + span {
+    background-color: #4CAF50;
+
+    color:#fff;
+}
+
+.filter .acres:hover span {
+    background-color: #bcc0c3;
     color:#fff;
 }
 
