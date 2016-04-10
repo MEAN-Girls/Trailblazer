@@ -17,6 +17,7 @@ var TrailSchema = new Schema({
  type: String,
  properties: {
    Name: String, 
+   boundary: String
  },
  geometry: Object 
 
