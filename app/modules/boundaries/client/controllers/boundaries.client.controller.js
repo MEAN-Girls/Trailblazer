@@ -10,12 +10,19 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               '$state',
                                                               'leafletData',
                                                               '$http',
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http) {
+                                                              'Trails',
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http, Trails) {
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
     $scope.loading = true;
     $scope.success = false;
     $scope.statusMessage = '!';
+
+    //reroute because we came here from somewhere other than home page
+    if (boundaryFeature === null && boundaryId !== null){
+      $state.go('home');
+    }
+
     /*
       Map logic
     */
@@ -32,6 +39,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       $scope.b_ownertypes = boundaryFeature.properties.OWNERTYPES;
       $scope.b_area = boundaryFeature.properties.AREA;
       $scope.b_totacres = boundaryFeature.properties.TOTACRES;
+
       if(boundaryFeature.properties.DESC2 !== 'ZZ'){
           $scope.b_desc = boundaryFeature.properties.DESC1 + boundaryFeature.properties.DESC2;
       }
@@ -40,13 +48,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       } 
       else {
           $scope.b_desc = 'No description available. ';
-      }
-
-    //reroute because we came here from somewhere other than home page
-      if (boundaryFeature === null && boundaryId !== null){
-        $state.go('home');
-        //boundaryFeature = $scope.findOne();
-        //console.log(boundaryFeature);
       }
 
       var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
@@ -64,16 +65,11 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         mapboxTile.addTo(map);
         $scope.map = map;
         var firstMarker = $stateParams.boundaryFeature.geometry.coordinates[0];
-        console.log(firstMarker);
         var secondMarker = $stateParams.boundaryFeature.geometry.coordinates[$stateParams.boundaryFeature.geometry.coordinates.length - 1];
-        console.log(secondMarker);
         var group = new L.featureGroup([firstMarker, secondMarker]);
-        //$scope.map.fitBounds(group.getBounds());
-        //$scope.map.fitBounds(group.getBounds());
       });
       
       var setZoom = function(){
-
         if($stateParams.boundaryFeature.properties.TOTACRES >= 10000){
            return 12;
         }
@@ -86,9 +82,8 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         else {
            return 15;
         }
-
-
       };
+
       angular.extend($scope, {
         alachua: {
           lat: center.lat,
@@ -152,10 +147,17 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
       ];
 
-
+      Trails.query().$promise.then(function (res) {
+        $scope.trails = res;
+        L.geoJson($scope.trails, {
+            style: {
+                color: 'red',
+                weight : 2
+            }
+        }).addTo($scope.map);
+      });
 
     }
-    //end of boundary map log
     
     /*
       Admin logic
@@ -233,7 +235,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
             var previewData = $scope.boundary;
             var poly = L.geoJson($scope.boundary);
             var center = poly.getBounds().getCenter();
-            console.log(center);
             angular.extend($scope, {
               edit: {
                   lat: center.lat,
