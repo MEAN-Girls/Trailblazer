@@ -152,6 +152,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);*/
+            $rootScope.currLocation = e.latlng;
             if(radiusCircle){
                 $scope.map.removeLayer(radiusCircle);
             }
@@ -317,12 +318,24 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                         maxHeight: 300
                     })
                         .setLatLng(latlng)
-                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
+                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><a style="cursor: pointer;" ng-click="navFunction(center.lat, center.lng)">Take me there!</a><br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
                         //need to $compile to introduce ng directives
                         .openOn($scope.map);
 
 
     }
+
+    $scope.navFunction = function(lat, long){
+
+        if((navigator.platform.indexOf("iPhone") !== -1) || (navigator.platform.indexOf("iPod") !== -1) || (navigator.platform.indexOf("iPad") !== -1))
+         //window.open("maps://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+        window.open("maps://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+        else
+         //window.open("http://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+        window.open("http://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+
+
+    };
 
     angular.extend($scope, {
         tiles : mapboxTile,
