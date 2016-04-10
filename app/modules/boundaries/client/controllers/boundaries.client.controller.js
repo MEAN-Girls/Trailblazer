@@ -19,7 +19,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     $scope.statusMessage = '!';
 
     //reroute because we came here from somewhere other than home page
-    if (boundaryFeature === null && boundaryId !== null){
+    if ($stateParams.boundaryFeature === null && $stateParams.boundaryId !== null){
       $state.go('home');
     }
 
