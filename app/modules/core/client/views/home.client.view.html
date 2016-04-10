@@ -53,12 +53,15 @@
 								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
 								</li>
 							</select>
+
+							
+  							<label><input type="checkbox" ng-model="checked" ng-change="showAll(checked)">Show Private Properties</label>
+							
 						</div>
-
-
+						
 
 						<div class="list-group">
-    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(checkBoxAcres)" ng-click="focusBoundary(boundary)" class="list-group-item">
+    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(checkBoxAcres) | filter: filterPrivate" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>
       					<h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       					<p class="list-group-item-text" ng-bind="boundary.content"></p>
