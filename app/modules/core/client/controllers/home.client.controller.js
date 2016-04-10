@@ -1,19 +1,10 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries',
-  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries) {
+angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 'Trails',
+  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries, Trails) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
-    /*
-        Some quick references for leaflet use in the docs,
-
-        L.Class = angular module. whenever you want to add some functionality
-
-        Later on we will be adding factories to work with new classes.
-
-        This is a simple rendering of our map.
-    */
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
 
@@ -37,7 +28,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
     };
     
-
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
@@ -51,9 +41,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
     };
 
-
     $scope.focusBoundary = function(boundary){
-
         var poly = L.geoJson(boundary);
         var center = poly.getBounds().getCenter();
         openPopup(boundary, center);
@@ -96,8 +84,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     			position: 'topleft'
     		}
         },
-
-
     });
 
     //Creating Mapbox Tile
@@ -162,46 +148,12 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         });
     });
 
-    // $scope.filter('acre_space', function() {
-    //   return function(acres) {
-    //     var out = [];
-    //
-    //     angular.forEach(acres, function() {
-    //
-    //
-    //
-    //     })
-    //
-    //     return out;
-    //   }
-    //
-    //
-    //
-    // })
-
     $scope.acreSize = {};
 
-    // $scope.acreSize = function(minSize, maxSize) {
-    //   // console.log(minSize);
-    //
-    //   if (minSize === undefined) minSize = 0;
-    //   if (maxSize === undefined) maxSize = 1000;
-    //
-    //   return function predicateFunc(item) {
-    //
-    //     // console.log(item.properties.TOTACRES);
-    //     return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
-    //   };
-    //
-    // };
-
     $scope.acreSize = function(chosen) {
-      // console.log(minSize);
-      console.log(chosen);
       var minSize;
       var maxSize;
       if(chosen === undefined){
-        console.log("No size initialized");
         minSize = 0;
         maxSize = 10001;
       } else {
@@ -211,14 +163,12 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
           minSize = 1000;
           maxSize = 10000;
         }
-
         if(chosen.medium === 1){
           minSize = 400;
           if(maxSize !== 10000) {
             maxSize = 999;
           }
         }
-
         if(chosen.small === 1){
           minSize = 0;
           if(maxSize === 10001){
@@ -227,19 +177,13 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
       }
 
-
-      // if (minSize === undefined) minSize = 0;
-      // if (maxSize === undefined) maxSize = 1000;
-
       return function predicateFunc(item) {
-
-        // console.log(item.properties.TOTACRES);
         return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
-        // return item;
       };
 
     };
     var lastChecked = -1;
+  
   $scope.uncheck = function (event) {
     if(event.target.value === lastChecked){
       delete $scope.forms.selected;
@@ -254,6 +198,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         Draw Markers
     */
     function openPopup(feature, latlng){
+
 
                     // console.log(feature.properties.kind);
 
@@ -310,16 +255,14 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
 
         homeView : function(){
-          var alachuaZoom = L.latLng(29.651300, -82.326752);
+            var alachuaZoom = L.latLng(29.651300, -82.326752);
             $scope.map.setView(alachuaZoom, 10);
-
         },
 
         onLocationFound : function(e){
             if(outerCircle){
                 $scope.map.removeLayer(radiusCircle);
             }
-
             radiusCircle = L.circle(e.latlng, e.accuracy, {
                 stroke: false,
                 fillColor: 'blue',
@@ -330,7 +273,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             if(outerCircle){
                 $scope.map.removeLayer(outerCircle);
             }
-
             outerCircle = L.circleMarker(e.latlng, {
                 fillColor: 'blue',
                 opacity: 0.5,
@@ -350,23 +292,17 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 fillOpacity: 1
 
             }).setRadius(7).addTo($scope.map);
-
-
-         },
+        },
         onEachFeature : function(feature, layer){
 
-                layer.on('click', function(e) {
-                    openPopup(feature, e.latlng);
-                });
+            layer.on('click', function(e) {
+                openPopup(feature, e.latlng);
+            });
 
         },
         expand : function(feature){
-
-
-            $state.go('boundaries.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
-
+            $state.go('boundaries.view', { 'boundaryId': $scope.feature._id, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
-
     });
 
 	}
