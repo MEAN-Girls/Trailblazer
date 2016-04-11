@@ -18,6 +18,11 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     $scope.success = false;
     $scope.statusMessage = '!';
 
+    //reroute because we came here from somewhere other than home page
+    if ($stateParams.boundaryFeature === null && $stateParams.boundaryId !== null){
+      $state.go('home');
+    }
+
     /*
       Map logic
     */
@@ -25,11 +30,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       var boundaryFeature = $stateParams.boundaryFeature;
       var boundaryId = $stateParams.boundaryId;
       var center = $stateParams.center;
-
-      //reroute because we came here from somewhere other than home page
-    if (boundaryFeature === null && boundaryId !== null){
-      $state.go('home');
-    }
 
       $scope.b_maname = boundaryFeature.properties.MANAME;
       $scope.b_mgrinst = boundaryFeature.properties.MGRINST;
