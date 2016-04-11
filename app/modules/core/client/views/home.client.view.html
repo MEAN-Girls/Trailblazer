@@ -59,28 +59,11 @@
 						</div>
 
 						<div class="radius-filter">
-							<input type="text" class="form-control" placeholder="Search properties by meter radius" ng-model="r_dist.small" style="background-color:white">
-								<div class="search_box_button">
-									<button type="button" ng-click="rad_search=radius_filter(r_dist)">GO
-									</button>
-								</div>
-						
-							<!-- <label>:</label>
-							<div class="col-sm-4 filter-button acres filter-left">
-								<label>
-									<input type="checkbox" ng-model="r_dist.small" ng-true-value="1" ng-false-value="0">
-								</label>
-							</div>
-							<div class="col-sm-4 filter-button acres">
-								<label>
-									<input type="checkbox" ng-model="r_dist.medium" ng-true-value="1" ng-false-value="0">
-								</label>
-							</div>
-							<div class="col-sm-4 filter-button acres filter-right">
-								<label>
-									<input type="checkbox" ng-model="r_dist.large" ng-true-value="1" ng-false-value="0">
-								</label>
-							</div> -->
+							<input type="text" class="form-control" placeholder="Search properties by mile radius" ng-model="r_dist.small" style="background-color:white" />
+							<button class="rad_button" type="button" ng-click="rad_search=radius_filter(r_dist)">
+								<span class="glyphicon glyphicon-search">
+								</span>
+							</button>
 						</div>
 
 

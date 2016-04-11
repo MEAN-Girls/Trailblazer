@@ -207,19 +207,11 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
      //        }).addTo($scope.map);
             
      //    }, 6000);
-    $scope.$watch(
-        "circle",
-        function(newValue, oldValue){
-            if ( newValue === oldValue){
-                return;
-            }
-            $scope.add_radius_circle();
-        }
-    );
+    
     $scope.radius_filter = {};
     var circle;
     $scope.radius_filter = function(chosen){
-        console.log("CALLED");
+        console.log('CALLED');
         if(chosen === undefined) {
             if(circle){
                 $scope.map.removeLayer(circle);
@@ -233,12 +225,12 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             if(circle){
                 $scope.map.removeLayer(circle);
             }
-            circle = L.circle($scope.current_location, chosen.small, {
+            circle = L.circle($scope.current_location, chosen.small*1609.34, {
                 clickable: false,
                 stroke: true,
                 fillColor: 'blue',
-                opacity: 0.1,
-                fillOpacity: 0.05
+                opacity: 0.08,
+                fillOpacity: 0.03
                 
             }).addTo($scope.map);
             
@@ -257,7 +249,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     than computing*/
     $scope.acreSize = {};
     $scope.acreSize = function(chosen) {
-    console.log("CALLING ACRE");
+    console.log('CALLING ACRE');
     console.log(chosen);
 //      console.log(chosen);
       var minSize;
