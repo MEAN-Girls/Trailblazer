@@ -336,7 +336,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   background-color: transparent;
 }
 .glyphicon{
-  color: gray;
+  color: #4CAF50;
 }
 .list-group{
   cursor: pointer;
