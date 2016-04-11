@@ -14,11 +14,13 @@
         <strong>Trail Successfully {{statusMessage}}!</strong>&nbsp; 
         <a ui-sref="trails.list"> Return to View Trails</a>
       </div>
+
       <div ng-hide="success">
         <hr>
-        <h3> Trail: {{trail.properties.Name}}</h3>    
+        <h3> Boundary: {{trail.properties.boundary}}</h3>   
         <hr>
         <h3> Geometry </h3>
+        <span> Type: {{trail.properties.Name}}</span>
         <div>
           <section class="preview">
           <leaflet geojson="geojson" lf-center="edit" width="100%" height="100%"></leaflet>

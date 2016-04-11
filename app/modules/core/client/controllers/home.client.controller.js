@@ -1,80 +1,75 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries',
-  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries) {
+angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 'Trails',
+  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries, Trails) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
-    /*
-        Some quick references for leaflet use in the docs,
+    var setFilter = function(feature){
+        if(feature.properties.OWNER === 'Private Individual(s)'){
+            return false;
+        }
+        else{
+            return true;
+        }
+    };
 
-        L.Class = angular module. whenever you want to add some functionality
-
-        Later on we will be adding factories to work with new classes.
-
-        This is a simple rendering of our map.
-    */
-    //$scope.find = function () {
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
-//        console.log($rootScope.boundaries[0]);
-        L.geoJson($rootScope.boundaries, {
-            style: {
-                color: '#8AAAB5',
-                weight : 2
-            },
-            onEachFeature: $scope.onEachFeature
 
+        $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+                return setFilter(feature);
+            }
         }).addTo($scope.map);
       });
-
-    //};
 
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
-                /*lat: 30.02065233044293,
-                lng: -82.90171655273438*/
-                /*lat: 30.147827,
-                lng: -81.648200*/
                 lat: 30.349500,
                 lng: -81.510871
             },
             southWest: {
-                /*lat: 29.3742238956322,
-                lng: -83.01408227539062*/
-                /*lat: 29.222027,
-                lng: -82.845709*/
                 lat: 29.181269,
                 lng: -82.928107
             }
         }
     };
 
-
     $scope.focusBoundary = function(boundary){
-
         var poly = L.geoJson(boundary);
         var center = poly.getBounds().getCenter();
-       // console.log(center);
-        //openPopup(boundary);
         openPopup(boundary, center);
-        /*$scope.map.setView(center, 13,
-            {
-                pan: { animate: true, duration: 1 }
-            });*/
-//        var panCoords = center;
-//        panCoords.lat = center.lat + 0.03;
-//        $scope.map.setView(panCoords);
         $scope.toggleMenu();
-        /*function onZoom(e) {
-            $scope.map.closePopup();
-        }
-        $scope.map.once('zoomstart', onZoom);
-
-        $scope.map.once('zoomstart', onZoom);*/
-
-
+    };
+    $scope.filterPrivate = '!Private Individual(s)';
+    $scope.showAll = function(){
+            $scope.map.removeLayer($scope.geoLayer);
+            //L.geoJson.addData($rootScope.boundaries);
+            console.log($scope.checked);
+            if($scope.checked === false){
+            $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+            return setFilter(feature);
+            }
+            }).addTo($scope.map);
+            $scope.filterPrivate = '!Private Individual(s)';
+            }
+            else{
+                $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature
+            }).addTo($scope.map);
+            $scope.filterPrivate = '';
+            }
     };
 
 	angular.extend($scope, {
@@ -90,8 +85,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     			position: 'topleft'
     		}
         },
-
-
     });
 
     //Creating Mapbox Tile
@@ -112,11 +105,13 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.options.minZoom = 10;
         $scope.map.locate({ setView : true, maxZoom : 13 });
         $scope.map.on('locationfound', function (e){
+
             $scope.current_location = e.latlng;
             /*if(marker){
             $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);*/
+
             if(radiusCircle){
                 $scope.map.removeLayer(radiusCircle);
             }
@@ -160,53 +155,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.panTo($scope.map.unproject(px),{ animate: true, duration: 1 }); // pan to new center
         });
     });
-
-    // $scope.filter('acre_space', function() {
-    //   return function(acres) {
-    //     var out = [];
-    //
-    //     angular.forEach(acres, function() {
-    //
-    //
-    //
-    //     })
-    //
-    //     return out;
-    //   }
-    //
-    //
-    //
-    // })
-
-    
-
-    // $scope.acreSize = function(minSize, maxSize) {
-    //   // console.log(minSize);
-    //
-    //   if (minSize === undefined) minSize = 0;
-    //   if (maxSize === undefined) maxSize = 1000;
-    //
-    //   return function predicateFunc(item) {
-    //
-    //     // console.log(item.properties.TOTACRES);
-    //     return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
-    //   };
-    //
-    // };
-
-     // setTimeout(function(){
-     //        console.log("HERE");
-     //        console.log($scope.current_location);
-     //        var circle = L.circle($scope.current_location, 10000, {
-     //            clickable: false,
-     //            stroke: true,
-     //            fillColor: 'blue',
-     //            opacity: 0.1,
-     //            fillOpacity: 0.05
-        
-     //        }).addTo($scope.map);
-            
-     //    }, 6000);
     
     $scope.radius_filter = {};
     var circle;
@@ -245,17 +193,12 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             };
         }
     };
-    /*The above function is constantly updating. Consider storing the filtered results in a temporary list, and reading from there, rather
-    than computing*/
+
     $scope.acreSize = {};
     $scope.acreSize = function(chosen) {
-    console.log('CALLING ACRE');
-    console.log(chosen);
-//      console.log(chosen);
       var minSize;
       var maxSize;
       if(chosen === undefined){
-//        console.log("No size initialized");
         minSize = 0;
         maxSize = 10001;
       } else {
@@ -265,14 +208,12 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
           minSize = 1000;
           maxSize = 10000;
         }
-
         if(chosen.medium === 1){
           minSize = 400;
           if(maxSize !== 10000) {
             maxSize = 999;
           }
         }
-
         if(chosen.small === 1){
           minSize = 0;
           if(maxSize === 10001){
@@ -281,19 +222,13 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
       }
 
-
-      // if (minSize === undefined) minSize = 0;
-      // if (maxSize === undefined) maxSize = 1000;
-
       return function predicateFunc(item) {
-
-        // console.log(item.properties.TOTACRES);
         return minSize <= item.properties.TOTACRES && item.properties.TOTACRES <= maxSize;
-        // return item;
       };
 
     };
     var lastChecked = -1;
+  
   $scope.uncheck = function (event) {
     if(event.target.value === lastChecked){
       delete $scope.forms.selected;
@@ -308,39 +243,31 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         Draw Markers
     */
     function openPopup(feature, latlng){
-
-                    // console.log(feature.properties.kind);
-
-                    $scope.feature = feature;
-                    $scope.boundaryId = $scope.feature._id;
-                    // console.log($scope.boundaryId);
-                    $scope.name = feature.properties.MANAME;
-                    $scope.area = feature.properties.TOTACRES + ' acres';
-                    $scope.type = feature.properties.MATYPE;
-                    $scope.managing_a = feature.properties.MANAGING_A;
-                    if(feature.properties.DESC2 !== 'ZZ'){
-                        $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
-                    }
-                    else if (feature.properties.DESC1 !== 'ZZ'){
-                        $scope.description = feature.properties.DESC1;
-                    }
-                    else {
-                        $scope.description = 'No description available. ';
-                    }
-
-                    var poly = L.geoJson(feature);
-                    $scope.center = poly.getBounds().getCenter();
-//                    $scope.map.setView(latlng, 13);
-                    var popup = L.popup(
-                    {
-                        minWidth: 200,
-                        maxHeight: 300
-                    })
-                        .setLatLng(latlng)
-                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
-                        //need to $compile to introduce ng directives
-                        .openOn($scope.map);
-
+        $scope.feature = feature;
+        $scope.boundaryId = $scope.feature._id;
+        $scope.name = feature.properties.MANAME;
+        $scope.area = feature.properties.TOTACRES + ' acres';
+        $scope.type = feature.properties.MATYPE;
+        $scope.managing_a = feature.properties.MANAGING_A;
+        if(feature.properties.DESC2 !== 'ZZ'){
+            $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
+        }
+        else if (feature.properties.DESC1 !== 'ZZ'){
+            $scope.description = feature.properties.DESC1;
+        }
+        else {
+            $scope.description = 'No description available. ';
+        }
+        var poly = L.geoJson(feature);
+        $scope.center = poly.getBounds().getCenter();
+        var popup = L.popup(
+        {
+            minWidth: 200,
+            maxHeight: 300
+        })
+        .setLatLng(latlng)
+        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
+        .openOn($scope.map);
 
     }
 
@@ -352,20 +279,16 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
 
         homeView : function(){
-          var alachuaZoom = L.latLng(29.651300, -82.326752);
-            $scope.map.setView(alachuaZoom, 10);
 
+        var alachuaZoom = L.latLng(29.651300, -82.326752);
+
+            $scope.map.setView(alachuaZoom, 10);
         },
 
         onLocationFound : function(e){
-            /*if(marker){
-                $scope.map.removeLayer(marker);
-            }
-            marker = new L.marker(e.latlng).addTo($scope.map);*/
             if(outerCircle){
                 $scope.map.removeLayer(radiusCircle);
             }
-
             radiusCircle = L.circle(e.latlng, e.accuracy, {
                 stroke: false,
                 fillColor: 'blue',
@@ -376,7 +299,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             if(outerCircle){
                 $scope.map.removeLayer(outerCircle);
             }
-
             outerCircle = L.circleMarker(e.latlng, {
                 fillColor: 'blue',
                 opacity: 0.5,
@@ -396,28 +318,16 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 fillOpacity: 1
 
             }).setRadius(7).addTo($scope.map);
-
-
-         },
+        },
         onEachFeature : function(feature, layer){
-
-                layer.on('click', function(e) {
-                    openPopup(feature, e.latlng);
-                    // console.log(e);
-//                    var clickCoords = e.latlng;
-//                    clickCoords.lat = clickCoords.lat + 0.04;
-//                    $scope.map.setView(clickCoords);
-
-                });
+            layer.on('click', function(e) {
+                openPopup(feature, e.latlng);
+            });
 
         },
         expand : function(feature){
-
-
-            $state.go('boundaries.view', { 'boundaryName': $scope.name_test, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
-
+            $state.go('boundaries.view', { 'boundaryId': $scope.feature._id, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
-
     });
 
 	}

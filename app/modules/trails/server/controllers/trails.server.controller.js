@@ -40,6 +40,7 @@ exports.update = function (req, res) {
 
   //For security purposes only merge these parameters
   trail.properties.Name = req.body.properties.Name;
+  trail.properties.boundary = req.body.properties.boundary;
 
   trail.save(function (err) {
     if (err) {
