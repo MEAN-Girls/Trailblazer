@@ -30,17 +30,20 @@
 							<!-- <h5>Yo yo yo </h5> -->
 							<div class="col-sm-4 filter-button acres filter-left">
 								<label>
-									<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0"><span class="fa fa-leaf"></span>
+									<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+									<span class="fa fa-leaf"></span>
 								</label>
 							</div>
 							<div class="col-sm-4 filter-button acres">
 								<label>
-									<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0"><span class="fa fa-pagelines"></span>
+									<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+									<span class="fa fa-pagelines"></span>
 								</label>
 							</div>
 							<div class="col-sm-4 filter-button acres filter-right">
 								<label>
-									<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0"><span class="fa fa-tree"></span>
+									<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+									<span class="fa fa-tree"></span>
 								</label>
 							</div>
 						</div>
@@ -55,10 +58,35 @@
 							</select>
 						</div>
 
+						<div class="radius-filter">
+							<input type="text" class="form-control" placeholder="Search properties by meter radius" ng-model="r_dist.small" style="background-color:white">
+								<div class="search_box_button">
+									<button type="button" ng-click="rad_search=radius_filter(r_dist)">GO
+									</button>
+								</div>
+						
+							<!-- <label>:</label>
+							<div class="col-sm-4 filter-button acres filter-left">
+								<label>
+									<input type="checkbox" ng-model="r_dist.small" ng-true-value="1" ng-false-value="0">
+								</label>
+							</div>
+							<div class="col-sm-4 filter-button acres">
+								<label>
+									<input type="checkbox" ng-model="r_dist.medium" ng-true-value="1" ng-false-value="0">
+								</label>
+							</div>
+							<div class="col-sm-4 filter-button acres filter-right">
+								<label>
+									<input type="checkbox" ng-model="r_dist.large" ng-true-value="1" ng-false-value="0">
+								</label>
+							</div> -->
+						</div>
+
 
 
 						<div class="list-group">
-    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acreSize(checkBoxAcres)" ng-click="focusBoundary(boundary)" class="list-group-item">
+    					<a ng-repeat="boundary in boundaries | filter: searchingBar | filter:filters.MGRINST | filter:acres_search | filter:rad_search" ng-click="focusBoundary(boundary)" class="list-group-item">
       					<h4 ng-bind="boundary.properties.MANAME"></h4>
       					<h4 class="list-group-item-heading" ng-bind="boundary.title"></h4>
       					<p class="list-group-item-text" ng-bind="boundary.content"></p>

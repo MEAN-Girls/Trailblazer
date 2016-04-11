@@ -17,7 +17,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     //$scope.find = function () {
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
-        console.log($rootScope.boundaries[0]);
+//        console.log($rootScope.boundaries[0]);
         L.geoJson($rootScope.boundaries, {
             style: {
                 color: '#8AAAB5',
@@ -58,7 +58,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         var center = poly.getBounds().getCenter();
        // console.log(center);
         //openPopup(boundary);
-
         openPopup(boundary, center);
         /*$scope.map.setView(center, 13,
             {
@@ -105,6 +104,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     var outerCircle;
     var radiusCircle;
     $scope.map = null;
+    $scope.current_location = null;
 
     leafletData.getMap('county').then(function(map) {
 
@@ -112,6 +112,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.options.minZoom = 10;
         $scope.map.locate({ setView : true, maxZoom : 13 });
         $scope.map.on('locationfound', function (e){
+            $scope.current_location = e.latlng;
             /*if(marker){
             $scope.map.removeLayer(marker);
             }
@@ -156,10 +157,8 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.on('popupopen', function(e) {
         var px = $scope.map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
         px.y -= e.popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
-        $scope.map.panTo($scope.map.unproject(px),{ animate: true }); // pan to new center
+        $scope.map.panTo($scope.map.unproject(px),{ animate: true, duration: 1 }); // pan to new center
         });
-        console.log("HERE");
-        console.log(radiusCircle.latlng);
     });
 
     // $scope.filter('acre_space', function() {
@@ -179,7 +178,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     //
     // })
 
-    $scope.acreSize = {};
+    
 
     // $scope.acreSize = function(minSize, maxSize) {
     //   // console.log(minSize);
@@ -195,13 +194,76 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     //
     // };
 
+     // setTimeout(function(){
+     //        console.log("HERE");
+     //        console.log($scope.current_location);
+     //        var circle = L.circle($scope.current_location, 10000, {
+     //            clickable: false,
+     //            stroke: true,
+     //            fillColor: 'blue',
+     //            opacity: 0.1,
+     //            fillOpacity: 0.05
+        
+     //        }).addTo($scope.map);
+            
+     //    }, 6000);
+    $scope.$watch(
+        "circle",
+        function(newValue, oldValue){
+            if ( newValue === oldValue){
+                return;
+            }
+            $scope.add_radius_circle();
+        }
+    );
+    $scope.radius_filter = {};
+    var circle;
+    $scope.radius_filter = function(chosen){
+        console.log("CALLED");
+        if(chosen === undefined) {
+            if(circle){
+                $scope.map.removeLayer(circle);
+            }
+        }
+        else if (chosen.small === ''){
+            if(circle){
+                $scope.map.removeLayer(circle);
+            }
+        } else {
+            if(circle){
+                $scope.map.removeLayer(circle);
+            }
+            circle = L.circle($scope.current_location, chosen.small, {
+                clickable: false,
+                stroke: true,
+                fillColor: 'blue',
+                opacity: 0.1,
+                fillOpacity: 0.05
+                
+            }).addTo($scope.map);
+            
+            return function containsFunction(item) {
+                if(circle){
+                    var poly = L.geoJson(item);
+                    return circle.getBounds().contains(poly.getBounds().getCenter());
+                }
+                else{
+                    return item;
+                }
+            };
+        }
+    };
+    /*The above function is constantly updating. Consider storing the filtered results in a temporary list, and reading from there, rather
+    than computing*/
+    $scope.acreSize = {};
     $scope.acreSize = function(chosen) {
-      // console.log(minSize);
-      console.log(chosen);
+    console.log("CALLING ACRE");
+    console.log(chosen);
+//      console.log(chosen);
       var minSize;
       var maxSize;
       if(chosen === undefined){
-        console.log("No size initialized");
+//        console.log("No size initialized");
         minSize = 0;
         maxSize = 10001;
       } else {
@@ -298,7 +360,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
 
         homeView : function(){
-          var alachuaZoom = L.latLng(29.651300, -82.326752)
+          var alachuaZoom = L.latLng(29.651300, -82.326752);
             $scope.map.setView(alachuaZoom, 10);
 
         },
