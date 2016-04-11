@@ -14,15 +14,13 @@ body {
   font-size: 12px;
   position: absolute;
   top: 10px; /* Use to move button */
-  right: 0rem;
+  right: 0;
   border-radius: 0;
   /*background-color: #407186;*/
   background-color: black;
-
   background-image: none;
   border: 0;
-
-  outline: none;
+  /*outline: none;*/
   border-left: 2px green !important;
 }
 .footer{
@@ -78,7 +76,7 @@ body {
   font-size: 11px;
   display: block;
   text-align: center;
-  vertical-align: bottom;
+  /*vertical-align: bottom;*/
 }
 
 #site-canvas{
@@ -127,7 +125,6 @@ section .preview {
   padding-bottom: 30px;
 }
 .dropbtn {
-  font-size: 16px;
   overflow: auto;
   font-size: 16px;
   /*margin: 10px 0;*/
@@ -144,7 +141,7 @@ section .preview {
 }
 
 .sidebar_subclass{
-  background: rgba(255,0,0,0);
+  background: rgb(255,0,0);
   text-align: left;
   width: 100%;
   padding-left: 30px;
