@@ -5,20 +5,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
-    Boundaries.query().$promise.then(function (res) {
-        $rootScope.boundaries = res;
-
-        $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
-            style: 
-            { color: '#8AAAB5', 'weight' : 2 },
-            onEachFeature: $scope.onEachFeature,
-            filter: function(feature, layer) {
-            return setFilter(feature);
-            }
-
-        }).addTo($scope.map);
-      });
-
     var setFilter = function(feature){
         if(feature.properties.OWNER === 'Private Individual(s)'){
             return false;
@@ -27,7 +13,20 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             return true;
         }
     };
-    
+
+    Boundaries.query().$promise.then(function (res) {
+        $rootScope.boundaries = res;
+
+        $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+                return setFilter(feature);
+            }
+        }).addTo($scope.map);
+      });
+
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {
@@ -96,6 +95,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     var outerCircle;
     var radiusCircle;
     $scope.map = null;
+    $scope.current_location = null;
 
     leafletData.getMap('county').then(function(map) {
 
@@ -103,7 +103,17 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.options.minZoom = 10;
         $scope.map.locate({ setView : true, maxZoom : 13 });
         $scope.map.on('locationfound', function (e){
+
             $rootScope.currLocation = e.latlng;
+
+
+            $scope.current_location = e.latlng;
+            /*if(marker){
+            $scope.map.removeLayer(marker);
+            }
+            marker = new L.marker(e.latlng).addTo($scope.map);*/
+
+
             if(radiusCircle){
                 $scope.map.removeLayer(radiusCircle);
             }
@@ -144,12 +154,49 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.on('popupopen', function(e) {
         var px = $scope.map.project(e.popup._latlng); // find the pixel location on the map where the popup anchor is
         px.y -= e.popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
-        $scope.map.panTo($scope.map.unproject(px),{ animate: true }); // pan to new center
+        $scope.map.panTo($scope.map.unproject(px),{ animate: true, duration: 1 }); // pan to new center
         });
     });
+    
+    $scope.radius_filter = {};
+    var circle;
+    $scope.radius_filter = function(chosen){
+        console.log('CALLED');
+        if(chosen === undefined) {
+            if(circle){
+                $scope.map.removeLayer(circle);
+            }
+        }
+        else if (chosen.small === ''){
+            if(circle){
+                $scope.map.removeLayer(circle);
+            }
+        } else {
+            if(circle){
+                $scope.map.removeLayer(circle);
+            }
+            circle = L.circle($scope.current_location, chosen.small*1609.34, {
+                clickable: false,
+                stroke: true,
+                fillColor: 'blue',
+                opacity: 0.08,
+                fillOpacity: 0.03
+                
+            }).addTo($scope.map);
+            
+            return function containsFunction(item) {
+                if(circle){
+                    var poly = L.geoJson(item);
+                    return circle.getBounds().contains(poly.getBounds().getCenter());
+                }
+                else{
+                    return item;
+                }
+            };
+        }
+    };
 
     $scope.acreSize = {};
-
     $scope.acreSize = function(chosen) {
       var minSize;
       var maxSize;
@@ -255,7 +302,9 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
 
         homeView : function(){
-            var alachuaZoom = L.latLng(29.651300, -82.326752);
+
+        var alachuaZoom = L.latLng(29.651300, -82.326752);
+
             $scope.map.setView(alachuaZoom, 10);
         },
 

@@ -45,9 +45,10 @@ var BoundarySchema = new Schema({
    OWNERTYPES: String,
    ESTMT_HOLD: String
  },
-
- geometry: Object 
-
+ geometry: {
+   type: Object,
+   required: true
+ }
 });
 
 mongoose.model('Boundary', BoundarySchema);

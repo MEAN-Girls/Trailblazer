@@ -5,13 +5,14 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               '$stateParams',
                                                               '$rootScope',
                                                               '$location',
+                                                              '$compile',
                                                               'Authentication',
                                                               'Boundaries',
                                                               '$state',
                                                               'leafletData',
                                                               '$http',
-                                                              'Trails',
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http, Trails) {
+                                                              'Trails', 
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http, $compile, Trails) {
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
     $scope.loading = true;
@@ -107,6 +108,13 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
      $scope.showChildren = function(item){
         item.active = !item.active;
       };
+
+      $scope.parkingIcon = L.icon({
+      iconUrl: '/modules/core/client/img/icons/parking.png',
+      iconSize:     [38, 95], // size of the icon
+      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+      });
       
       $scope.boundary_items = [
           {
@@ -150,13 +158,44 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       Trails.query().$promise.then(function (res) {
         $scope.trails = res;
         L.geoJson($scope.trails, {
-            style: {
-                color: 'red',
-                weight : 2
-            }
+            style: function(){
+                if($scope.trails.properties.Name === "parking"){
+                  return { icon: $scope.parkingIcon };
+                }
+                else{
+                  return { color: 'red', weight : 2 };
+                }
+            },
+            //onEachFeature: $scope.onEachFeature
         }).addTo($scope.map);
       });
+      /*$scope.onEachFeature = function(feature, layer){
+      layer.on('click', function(e) {
+          if($scope.trails.properties.Name === "parking"){
+            //openPopup(feature, e.latlng);
+            var popup = L.popup(
+            {
+                  minWidth: 200,
+                  maxHeight: 300
+            })
+            .setLatLng(e.latlng)
+            .setContent($compile('<p><a style="cursor: pointer;" ng-click="navFunction(center.lat, center.lng)">Take me there!</a><br></p>')($scope)[0])
+            //need to $compile to introduce ng directives
+            .openOn($scope.map);
+          }
+      });
+    };*/
+    $scope.navFunction = function(lat, long){
 
+        if((navigator.platform.indexOf("iPhone") !== -1) || (navigator.platform.indexOf("iPod") !== -1) || (navigator.platform.indexOf("iPad") !== -1))
+         //window.open("maps://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+        window.open("maps://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+        else
+         //window.open("http://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+        window.open("http://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+
+
+    };
     }
     
     /*
