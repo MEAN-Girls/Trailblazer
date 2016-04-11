@@ -5,20 +5,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
-    Boundaries.query().$promise.then(function (res) {
-        $rootScope.boundaries = res;
-
-        $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
-            style: 
-            { color: '#8AAAB5', 'weight' : 2 },
-            onEachFeature: $scope.onEachFeature,
-            filter: function(feature, layer) {
-            return setFilter(feature);
-            }
-
-        }).addTo($scope.map);
-      });
-
     var setFilter = function(feature){
         if(feature.properties.OWNER === 'Private Individual(s)'){
             return false;
@@ -27,7 +13,21 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             return true;
         }
     };
-    
+
+    Boundaries.query().$promise.then(function (res) {
+        $rootScope.boundaries = res;
+
+        $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
+            style: 
+            { color: '#8AAAB5', 'weight' : 2 },
+            onEachFeature: $scope.onEachFeature,
+            filter: function(feature, layer) {
+                return setFilter(feature);
+            }
+
+        }).addTo($scope.map);
+      });
+
     var regions = { //defines corner coordinates for maxboundary
         alachua: {
             northEast: {

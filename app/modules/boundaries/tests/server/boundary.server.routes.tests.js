@@ -47,8 +47,21 @@ describe('Boundary CRUD tests', function () {
     // Save a user to the test db and create new boundary
     user.save(function () {
       boundary = {
-        title: 'Boundary Title',
-        content: 'Boundary Content'
+        properties: {
+          MANAME: 'Test management',
+          OWNER:'Test owner',
+          MGRINST: 'Test institution',
+          MANAGER: 'Test Manager',
+          MGRCITY: 'Test city',
+          MGRPHONE: 'Test phone',  
+          COMMENTS1: 'Test comment1',
+          COMMENTS2: 'Test comment2',
+          MA_WEBSITE: 'Test website'
+        }, 
+        geometry: { 
+          type: 'Point',
+          coordinates: [ -82.22820807639421, 29.59590886748321 ] 
+        }
       };
 
       done();
@@ -90,8 +103,7 @@ describe('Boundary CRUD tests', function () {
                 var boundaries = boundariesGetRes.body;
 
                 // Set assertions
-                (boundaries[0].user._id).should.equal(userId);
-                (boundaries[0].title).should.match('Boundary Title');
+                (boundaries[0].properties.MANAME).should.match('Test management');
 
                 // Call the assertion callback
                 done();
@@ -100,7 +112,7 @@ describe('Boundary CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an boundary if not logged in', function (done) {
+  it('should not be able to save a boundary if not logged in', function (done) {
     agent.post('/api/boundaries')
       .send(boundary)
       .expect(403)
@@ -110,9 +122,8 @@ describe('Boundary CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an boundary if no title is provided', function (done) {
-    // Invalidate title field
-    boundary.title = '';
+  it('should not be able to save a boundary if no geometry is provided', function (done) {
+    boundary.geometry = null;
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -132,7 +143,7 @@ describe('Boundary CRUD tests', function () {
           .expect(400)
           .end(function (boundarySaveErr, boundarySaveRes) {
             // Set message assertion
-            (boundarySaveRes.body.message).should.match('Title cannot be blank');
+            (boundarySaveRes.body.message).should.match('Path `geometry` is required.');
 
             // Handle boundary save error
             done(boundarySaveErr);
@@ -163,8 +174,9 @@ describe('Boundary CRUD tests', function () {
               return done(boundarySaveErr);
             }
 
+
             // Update boundary title
-            boundary.title = 'WHY YOU GOTTA BE SO MEAN?';
+            boundary.properties.MANAME = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing boundary
             agent.put('/api/boundaries/' + boundarySaveRes.body._id)
@@ -178,7 +190,7 @@ describe('Boundary CRUD tests', function () {
 
                 // Set assertions
                 (boundaryUpdateRes.body._id).should.equal(boundarySaveRes.body._id);
-                (boundaryUpdateRes.body.title).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (boundaryUpdateRes.body.properties.MANAME).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -215,7 +227,7 @@ describe('Boundary CRUD tests', function () {
       request(app).get('/api/boundaries/' + boundaryObj._id)
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('title', boundary.title);
+          res.body.should.be.instanceof(Object).and.have.property('properties', boundary.properties);
 
           // Call the assertion callback
           done();
@@ -223,7 +235,7 @@ describe('Boundary CRUD tests', function () {
     });
   });
 
-  it('should return proper error for single boundary with an invalid Id, if not signed in', function (done) {
+  it('should return error for single boundary with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
     request(app).get('/api/boundaries/test')
       .end(function (req, res) {
@@ -235,7 +247,7 @@ describe('Boundary CRUD tests', function () {
       });
   });
 
-  it('should return proper error for single boundary which doesnt exist, if not signed in', function (done) {
+  it('should return error for single boundary which doesnt exist', function (done) {
     // This is a valid mongoose Id but a non-existent boundary
     request(app).get('/api/boundaries/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
@@ -247,7 +259,7 @@ describe('Boundary CRUD tests', function () {
       });
   });
 
-  it('should be able to delete an boundary if signed in', function (done) {
+  it('should be able to delete a boundary', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -290,12 +302,10 @@ describe('Boundary CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an boundary if not signed in', function (done) {
-    // Set boundary user
-    boundary.user = user;
+  it('get error message for non-existent boundary search', function (done) {
 
     // Create new boundary model instance
-    var boundaryObj = new Boundary(boundary);
+    var boundaryObj = new Boundary();
 
     // Save the boundary
     boundaryObj.save(function () {
@@ -304,10 +314,9 @@ describe('Boundary CRUD tests', function () {
         .expect(403)
         .end(function (boundaryDeleteErr, boundaryDeleteRes) {
           // Set message assertion
-          (boundaryDeleteRes.body.message).should.match('User is not authorized');
-
-          // Handle boundary error error
-          done(boundaryDeleteErr);
+          (boundaryDeleteRes.body.message).should.match('No boundary with that identifier has been found');
+         
+          done();
         });
 
     });

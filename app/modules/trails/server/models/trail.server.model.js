@@ -19,8 +19,10 @@ var TrailSchema = new Schema({
    Name: String, 
    boundary: String
  },
- geometry: Object 
-
+ geometry: {
+ 	type: Object,
+ 	required: true
+ }
 });
 
 mongoose.model('Trail', TrailSchema);
