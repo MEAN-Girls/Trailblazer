@@ -27,7 +27,7 @@
 						</div>
 
 						<div class="filter">
-							<!-- <h5>Yo yo yo </h5> -->
+
 							<div class="col-sm-4 filter-button acres filter-left">
 								<label>
 									<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
@@ -59,8 +59,8 @@
 						</div>
 
 						<div class="radius-filter">
-							<input type="text" class="form-control" placeholder="Search properties by mile radius" ng-model="r_dist.small" style="background-color:white" />
-							<button class="rad_button" type=submit ng-click="rad_search=radius_filter(r_dist)">
+							<input type="text" class="form-control" onkeydown = "if (event.keyCode == 13) document.getElementById('btn-srch').click()" placeholder="Search properties by mile radius" ng-model="r_dist.small" style="background-color:white" />
+							<button class="rad_button" type="button" id="btn-srch" ng-click="rad_search=radius_filter(r_dist)">
 								<span class="glyphicon glyphicon-search">
 								</span>
 							</button>
