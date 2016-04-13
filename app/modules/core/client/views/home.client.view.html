@@ -17,6 +17,15 @@
 		<div class="button">
  			<span type="button" ng-click="homeView()"><i class="fa fa-home" style="bottom: 7rem;"></i></span>
  		</div>
+				<div class="button">
+			<span type="button" ng-click="changeTiles('light')"><i class="fa fa-home" style="bottom: 10rem;"></i></span>
+ 		</div>
+ 		<div class="button">
+ 			<span type="button" ng-click="changeTiles('street')"><i class="fa fa-home" style="bottom: 13rem;"></i></span>
+ 		</div>
+ 		<div class="button">
+ 			<span type="button" ng-click="changeTiles('dark')"><i class="fa fa-home" style="bottom: 16rem;"></i></span>
+ 		</div>
 
 	<div class="home_sidebar">
 
@@ -25,7 +34,7 @@
 					<div id="home-site-menu">
 						<div class="searchBar">
 							<input type="text" class="form-control" placeholder="Search Properties" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
-						</div>						
+						</div>
 
 						<h4 ng-click="showMe = !showMe" class="filter-button">Property Filters
 							<span class="glyphicon glyphicon-chevron-down"></span>
@@ -73,21 +82,21 @@
 													</select>
 												</div> -->
 
-										<div>	
+										<div>
 				  							<label><input type="checkbox" ng-model="checked" ng-change="showAll(checked)"> Show Private Properties</label>
-													
+
 										</div>
 			                </div>
-				        
-				    	
 
-						
+
+
+
 
 						<!-- radius here -->
 
 
-						
-						
+
+
 
 						<div class="list-group">
 
