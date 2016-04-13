@@ -421,19 +421,20 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   -moz-box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
 }
-
-.filter-dropdown{
-  
-  text-align: center;
-  margin-bottom: 20px;
-  
-  /*padding: 10px 0;*/
+.ng-hide-add, .ng-hide-remove {
+    /* ensure visibility during the transition */
+    display: block !important; /* yes, important */
 }
-
-#filter-subclass{
-  background-color: red;
+.filter-subclass{
+  transition: .5s linear all;
+  overflow: hidden;
+  height: 135px;
+}
+.filter-subclass.ng-hide{
+  height:0;
 }
 .filter-button{
+  text-align: center;
   background-color: #4CAF50;
   padding: 10px;
   cursor: pointer;

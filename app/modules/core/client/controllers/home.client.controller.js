@@ -159,7 +159,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.radius_filter = {};
     var circle;
     $scope.radius_filter = function(chosen){
-        console.log('CALLED');
         if(chosen === undefined) {
             if(circle){
                 $scope.map.removeLayer(circle);
@@ -181,7 +180,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 fillOpacity: 0.03
                 
             }).addTo($scope.map);
-            
+            $scope.map.panTo($scope.current_location,{ animate: true, duration: .5 });
             return function containsFunction(item) {
                 if(circle){
                     var poly = L.geoJson(item);
