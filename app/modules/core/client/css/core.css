@@ -245,7 +245,7 @@ section > .map {
   top: 0;
   right: -300px;
   background-color: white;
-  background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");
+  /*background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");*/
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 10px;
@@ -325,6 +325,8 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   position: relative;
   border:0;
   padding: 0;
+  margin-top: 38px;
+  margin-bottom: 10px;
 
 }
 .rad_button{
@@ -347,5 +349,92 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   color: #4CAF50;
 }
 .list-group{
+  cursor: pointer;
+}
+
+/*----------------------*/
+#filter-btn-yeah {
+  /*padding-top: 10px;*/
+  height: 150px;
+  width: 50%;
+  font-size: 12px;
+  position: absolute;
+  /*top: 10px;  Use to move button */
+  /*right: 0;*/
+  border-radius: 0;
+  /*background-color: #407186;*/
+  background-color: green;
+  background-image: none;
+  border: 0;
+  /*outline: none;*/
+  /*border-left: 2px green !important;*/
+  z-index: 100;
+}
+/*
+.fa-bars {
+  text-shadow: none !important;
+  font-size: 16px !important;
+}
+*/
+/*#home-btn-yeah:active {
+  outline: none !important;
+}*/
+
+#home-filter-canvas{
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  transition: 500ms ease all;
+  backface-visibility: hidden;
+  padding: 5% 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+
+}
+.home-show-filter #home-filter-canvas {
+  transform: translateY(300px);
+  transform: translate3d(0, -300px, 0);
+  /*width: 100% !important;*/
+}
+
+/*.home-show-nav #home-site-canvas #county{
+  width: 50% !important;
+}*/
+
+#home-filter-menu {
+  width: 100%;
+  height: 350px;
+  position: fixed;
+  top: -200px;
+  background-color: red;
+  /*background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");*/
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 10px;
+  /*margin-top: 60px;*/
+  /*overflow: scroll;*/
+  -webkit-box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
+  -moz-box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
+  box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
+}
+
+.filter-dropdown{
+  
+  text-align: center;
+  margin-bottom: 20px;
+  
+  /*padding: 10px 0;*/
+}
+
+#filter-subclass{
+  background-color: red;
+}
+.filter-button{
+  background-color: #4CAF50;
+  padding: 10px;
   cursor: pointer;
 }

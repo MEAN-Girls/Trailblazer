@@ -237,6 +237,10 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
       lastChecked = event.target.value;
     }
   };
+  $scope.showChildrens = function(item){
+    console.log("HERE");
+        item.active = !item.active;
+    };
 
 
    /*
@@ -325,20 +329,37 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             });
 
         },
+        // toggleFilterMenu : function(isFilterOpen){
+        //     console.log(isFilterOpen);
+        //     isFilterOpen = !isFilterOpen;
+        //     return{
+        //         restrict: 'A',
+        //         replace: false,
+        //         link: function (scope, element) {
+        //             scope.isFilterOpen = false;
+        //             scope.toggleFilterMenu = function () {
+        //                 scope.isFilterOpen = !scope.isFilterOpen;
+                        
+        //             };
+        //         }
+        //     };
+        // },
         expand : function(feature){
             $state.go('boundaries.view', { 'boundaryId': $scope.feature._id, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
     });
 
 	}
-]).directive('offCanvasMenu', function () {
+]).directive('filtersMenu', function () {
+    console.log("here!");
     return {
         restrict: 'A',
         replace: false,
         link: function (scope, element) {
-            scope.isMenuOpen = false;
-            scope.toggleMenu = function () {
-                scope.isMenuOpen = !scope.isMenuOpen;
+            scope.isFilterOpen = false;
+            scope.toggleFilterMenu = function () {
+                scope.isFilterOpen = !scope.isFilterOpen;
+                console.log("here");
             };
         }
     };
