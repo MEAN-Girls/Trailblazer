@@ -141,7 +141,6 @@ section .preview {
 }
 
 .sidebar_subclass{
-  background: rgb(255,0,0);
   text-align: left;
   width: 100%;
   padding-left: 30px;

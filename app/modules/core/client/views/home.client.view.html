@@ -3,6 +3,7 @@
 			body { margin:0; padding:0; }
 	</style>
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
+	<script src="lib/angular-animate.min.js"></script>
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
@@ -23,54 +24,69 @@
 				<div id="home-site-canvas">
 					<div id="home-site-menu">
 						<div class="searchBar">
-							<input type="text" class="form-control" placeholder="Search" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
-						</div>
+							<input type="text" class="form-control" placeholder="Search Properties" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
+						</div>						
 
-						<div class="filter">
-							<!-- <h5>Yo yo yo </h5> -->
-							<div class="col-sm-4 filter-button acres filter-left">
-								<label>
-									<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
-									<span class="fa fa-leaf"></span>
-								</label>
-							</div>
-							<div class="col-sm-4 filter-button acres">
-								<label>
-									<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
-									<span class="fa fa-pagelines"></span>
-								</label>
-							</div>
-							<div class="col-sm-4 filter-button acres filter-right">
-								<label>
-									<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
-									<span class="fa fa-tree"></span>
-								</label>
-							</div>
-						</div>
+						<h4 ng-click="showMe = !showMe" class="filter-button">Property Filters
+							<span class="glyphicon glyphicon-chevron-down"></span>
+						</h4>
+				            <div ng-show="showMe" class="filter-subclass">
+								            <div class="filter">
+												<div class="col-sm-4 filter-button acres filter-left">
+													<label>
+														<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+														<span class="fa fa-leaf"></span>
+													</label>
+												</div>
+												<div class="col-sm-4 filter-button acres">
+													<label>
+														<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+														<span class="fa fa-pagelines"></span>
+													</label>
+												</div>
+												<div class="col-sm-4 filter-button acres filter-right">
+													<label>
+														<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+														<span class="fa fa-tree"></span>
+													</label>
+												</div>
+											</div>
+
+							               <div class="radius-filter">
+												<input type="text" class="form-control" id="rad_search_box" onkeydown = "if (event.keyCode == 13) document.getElementById('btn-srch').click()" placeholder="Search by mile radius" ng-model="r_dist.small" style="background-color:white" />
+												<button class="rad_button rad_button_submit" id="btn-srch" type="button" ng-click="rad_search=radius_filter(r_dist)">
+													<span class="glyphicon glyphicon-search">
+													</span>
+												</button>
+												<button class="rad_button rad_button_cancel" id="btn-cancel" type="button" ng-click="clearRadius(); rad_search=radius_filter(undefined)">
+													<span class="glyphicon glyphicon-remove-circle">
+													</span>
+												</button>
+											</div>
+
+												<!-- <div>
+													<select class="filter-bar" id="manager-filter" ng-model="filters.MGRINST">
+														<option ng-click="filters.MGRINST = ''" ></option>
+														<li>
+														<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
+														</li>
+													</select>
+												</div> -->
+
+										<div>	
+				  							<label><input type="checkbox" ng-model="checked" ng-change="showAll(checked)"> Show Private Properties</label>
+													
+										</div>
+			                </div>
+				        
+				    	
+
+						
+
+						<!-- radius here -->
 
 
-						<div>
-							<select class="filter-bar" id="manager-filter" ng-model="filters.MGRINST">
-								<option ng-click="filters.MGRINST = ''" ></option>
-								<li>
-								<option ng-repeat="boundary in boundaries">{{boundary.properties.MGRINST}}</option>
-								</li>
-							</select>
-						</div>
-
-						<div class="radius-filter">
-							<input type="text" class="form-control" placeholder="Search properties by mile radius" ng-model="r_dist.small" style="background-color:white" />
-							<button class="rad_button" type="button" ng-click="rad_search=radius_filter(r_dist)">
-								<span class="glyphicon glyphicon-search">
-								</span>
-							</button>
-						</div>
-
-
-						<div>	
-  							<label><input type="checkbox" ng-model="checked" ng-change="showAll(checked)">Show Private Properties</label>
-							
-						</div>
+						
 						
 
 						<div class="list-group">

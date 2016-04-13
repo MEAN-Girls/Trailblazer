@@ -325,9 +325,11 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   position: relative;
   border:0;
   padding: 0;
+  margin-top: 38px;
+  margin-bottom: 10px;
 
 }
-.rad_button{
+.rad_button_submit{
   height: 100%;
   right:1%;
   top:0;
@@ -335,9 +337,121 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   border: 0;
   background-color: transparent;
 }
-.glyphicon{
-  color: gray;
+.rad_button_cancel{
+  height: 100%;
+  right:8%;
+  top:0;
+  position: absolute;
+  border: 0;
+  background-color: transparent;
 }
+
+.rad_button:hover {
+    -webkit-transform:scale(1.1); /* Safari and Chrome */
+    -moz-transform:scale(1.1); /* Firefox */
+    -ms-transform:scale(1.1); /* IE 9 */
+    -o-transform:scale(1.1); /* Opera */
+     transform:scale(1.1);
+}
+.glyphicon-search{
+  color: #4CAF50;
+}
+.glyphicon-remove-circle{
+  color: red;
+}
+.glyphicon-chevron-down{
+  float: right;
+}
+
 .list-group{
+  cursor: pointer;
+}
+
+/*----------------------*/
+#filter-btn-yeah {
+  /*padding-top: 10px;*/
+  height: 150px;
+  width: 50%;
+  font-size: 12px;
+  position: absolute;
+  /*top: 10px;  Use to move button */
+  /*right: 0;*/
+  border-radius: 0;
+  /*background-color: #407186;*/
+  background-color: green;
+  background-image: none;
+  border: 0;
+  /*outline: none;*/
+  /*border-left: 2px green !important;*/
+  z-index: 100;
+}
+/*
+.fa-bars {
+  text-shadow: none !important;
+  font-size: 16px !important;
+}
+*/
+/*#home-btn-yeah:active {
+  outline: none !important;
+}*/
+
+#home-filter-canvas{
+  width: 100%;
+  height: 200px;
+  position: fixed;
+  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  transition: 500ms ease all;
+  backface-visibility: hidden;
+  padding: 5% 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+
+}
+.home-show-filter #home-filter-canvas {
+  transform: translateY(300px);
+  transform: translate3d(0, -300px, 0);
+  /*width: 100% !important;*/
+}
+
+/*.home-show-nav #home-site-canvas #county{
+  width: 50% !important;
+}*/
+
+#home-filter-menu {
+  width: 100%;
+  height: 350px;
+  position: fixed;
+  top: -200px;
+  background-color: red;
+  /*background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");*/
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 10px;
+  /*margin-top: 60px;*/
+  /*overflow: scroll;*/
+  -webkit-box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
+  -moz-box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
+  box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
+}
+.ng-hide-add, .ng-hide-remove {
+    /* ensure visibility during the transition */
+    display: block !important; /* yes, important */
+}
+.filter-subclass{
+  transition: .5s linear all;
+  overflow: hidden;
+  height: 135px;
+  /*background-color: #e8ffea;*/
+}
+.filter-subclass.ng-hide{
+  height:0;
+}
+.filter-button{
+  text-align: center;
+  background-color: #4CAF50;
+  padding: 10px;
   cursor: pointer;
 }

@@ -161,7 +161,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.radius_filter = {};
     var circle;
     $scope.radius_filter = function(chosen){
-        console.log('CALLED');
         if(chosen === undefined) {
             if(circle){
                 $scope.map.removeLayer(circle);
@@ -183,7 +182,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 fillOpacity: 0.03
                 
             }).addTo($scope.map);
-            
+            $scope.map.panTo($scope.current_location,{ animate: true, duration: 0.5 });
             return function containsFunction(item) {
                 if(circle){
                     var poly = L.geoJson(item);
@@ -194,6 +193,9 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 }
             };
         }
+    };
+    $scope.clearRadius = function(){
+        document.getElementById("rad_search_box").value = "";
     };
 
     $scope.acreSize = {};
@@ -239,6 +241,10 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
       lastChecked = event.target.value;
     }
   };
+  $scope.showChildrens = function(item){
+    console.log("HERE");
+        item.active = !item.active;
+    };
 
 
    /*
@@ -349,20 +355,37 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             });
 
         },
+        // toggleFilterMenu : function(isFilterOpen){
+        //     console.log(isFilterOpen);
+        //     isFilterOpen = !isFilterOpen;
+        //     return{
+        //         restrict: 'A',
+        //         replace: false,
+        //         link: function (scope, element) {
+        //             scope.isFilterOpen = false;
+        //             scope.toggleFilterMenu = function () {
+        //                 scope.isFilterOpen = !scope.isFilterOpen;
+                        
+        //             };
+        //         }
+        //     };
+        // },
         expand : function(feature){
             $state.go('boundaries.view', { 'boundaryId': $scope.feature._id, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
     });
 
 	}
-]).directive('offCanvasMenu', function () {
+]).directive('filtersMenu', function () {
+    console.log("here!");
     return {
         restrict: 'A',
         replace: false,
         link: function (scope, element) {
-            scope.isMenuOpen = false;
-            scope.toggleMenu = function () {
-                scope.isMenuOpen = !scope.isMenuOpen;
+            scope.isFilterOpen = false;
+            scope.toggleFilterMenu = function () {
+                scope.isFilterOpen = !scope.isFilterOpen;
+                console.log("here");
             };
         }
     };
