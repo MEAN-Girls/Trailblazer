@@ -166,10 +166,10 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                   return { color: 'red', weight : 2 };
                 }
             },
-            //onEachFeature: $scope.onEachFeature
+            onEachFeature: $scope.onEachFeature
         }).addTo($scope.map);
       });
-      /*$scope.onEachFeature = function(feature, layer){
+      $scope.onEachFeature = function(feature, layer){
       layer.on('click', function(e) {
           if($scope.trails.properties.Name === "parking"){
             //openPopup(feature, e.latlng);
@@ -184,7 +184,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
             .openOn($scope.map);
           }
       });
-    };*/
+     };
     $scope.navFunction = function(lat, long){
 
         if((navigator.platform.indexOf("iPhone") !== -1) || (navigator.platform.indexOf("iPod") !== -1) || (navigator.platform.indexOf("iPad") !== -1))
@@ -197,7 +197,6 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
     };
     }
-    
     /*
       Admin logic
     */
