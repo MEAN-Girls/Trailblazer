@@ -24,11 +24,13 @@
 				<div id="home-site-canvas">
 					<div id="home-site-menu">
 						<div class="searchBar">
-							<input type="text" class="form-control" placeholder="Search" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
+							<input type="text" class="form-control" placeholder="Search Properties" data-ng-model="searchingBar.properties.MANAME" style="background-color:white">
 						</div>						
 
-						<h4 ng-click="showMe = !showMe" class="filter-button">FILTERS</h4>
-				            <div ng-hide="showMe" class="filter-subclass">
+						<h4 ng-click="showMe = !showMe" class="filter-button">Property Filters
+							<span class="glyphicon glyphicon-chevron-down"></span>
+						</h4>
+				            <div ng-show="showMe" class="filter-subclass">
 								            <div class="filter">
 												<div class="col-sm-4 filter-button acres filter-left">
 													<label>
@@ -51,9 +53,13 @@
 											</div>
 
 							               <div class="radius-filter">
-												<input type="text" class="form-control" onkeydown = "if (event.keyCode == 13) document.getElementById('btn-srch').click()" placeholder="Search properties by mile radius" ng-model="r_dist.small" style="background-color:white" />
-												<button class="rad_button" type="button" id="btn-srch" ng-click="rad_search=radius_filter(r_dist)">
+												<input type="text" class="form-control" id="rad_search_box" onkeydown = "if (event.keyCode == 13) document.getElementById('btn-srch').click()" placeholder="Search by mile radius" ng-model="r_dist.small" style="background-color:white" />
+												<button class="rad_button rad_button_submit" id="btn-srch" type="button" ng-click="rad_search=radius_filter(r_dist)">
 													<span class="glyphicon glyphicon-search">
+													</span>
+												</button>
+												<button class="rad_button rad_button_cancel" id="btn-cancel" type="button" ng-click="clearRadius(); rad_search=radius_filter(undefined)">
+													<span class="glyphicon glyphicon-remove-circle">
 													</span>
 												</button>
 											</div>

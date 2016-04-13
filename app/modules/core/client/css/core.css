@@ -245,7 +245,7 @@ section > .map {
   top: 0;
   right: -300px;
   background-color: white;
-  /*background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");*/
+  background-image: url("/modules/core/client/img/search-sidebar/textile-background.jpg");
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 10px;
@@ -329,9 +329,17 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   margin-bottom: 10px;
 
 }
-.rad_button{
+.rad_button_submit{
   height: 100%;
   right:1%;
+  top:0;
+  position: absolute;
+  border: 0;
+  background-color: transparent;
+}
+.rad_button_cancel{
+  height: 100%;
+  right:8%;
   top:0;
   position: absolute;
   border: 0;
@@ -345,9 +353,16 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
     -o-transform:scale(1.1); /* Opera */
      transform:scale(1.1);
 }
-.glyphicon{
+.glyphicon-search{
   color: #4CAF50;
 }
+.glyphicon-remove-circle{
+  color: red;
+}
+.glyphicon-chevron-down{
+  float: right;
+}
+
 .list-group{
   cursor: pointer;
 }
@@ -429,6 +444,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   transition: .5s linear all;
   overflow: hidden;
   height: 135px;
+  /*background-color: #e8ffea;*/
 }
 .filter-subclass.ng-hide{
   height:0;

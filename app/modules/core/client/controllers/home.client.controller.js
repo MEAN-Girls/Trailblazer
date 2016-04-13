@@ -180,7 +180,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 fillOpacity: 0.03
                 
             }).addTo($scope.map);
-            $scope.map.panTo($scope.current_location,{ animate: true, duration: .5 });
+            $scope.map.panTo($scope.current_location,{ animate: true, duration: 0.5 });
             return function containsFunction(item) {
                 if(circle){
                     var poly = L.geoJson(item);
@@ -191,6 +191,9 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 }
             };
         }
+    };
+    $scope.clearRadius = function(){
+        document.getElementById("rad_search_box").value = "";
     };
 
     $scope.acreSize = {};
