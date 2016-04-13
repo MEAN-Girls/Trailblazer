@@ -5,14 +5,14 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               '$stateParams',
                                                               '$rootScope',
                                                               '$location',
-                                                              '$compile',
                                                               'Authentication',
                                                               'Boundaries',
                                                               '$state',
                                                               'leafletData',
                                                               '$http',
                                                               'Trails', 
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http, $compile, Trails) {
+                                                              '$compile',
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http, Trails, $compile) {
     $scope.authentication = Authentication;
     console.log($stateParams.boundaryId);
     $scope.loading = true;
@@ -158,28 +158,33 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       Trails.query().$promise.then(function (res) {
         $scope.trails = res;
         L.geoJson($scope.trails, {
-            style: function(){
-                if($scope.trails.properties.Name === "parking"){
+            style: function(feature){
+                if(feature.properties.Name === "parking"){
+                  console.log(feature);
                   return { icon: $scope.parkingIcon };
                 }
                 else{
                   return { color: 'red', weight : 2 };
                 }
             },
+            //{ color: 'red', weight : 2 },
             onEachFeature: $scope.onEachFeature
         }).addTo($scope.map);
       });
       $scope.onEachFeature = function(feature, layer){
       layer.on('click', function(e) {
-          if($scope.trails.properties.Name === "parking"){
+          if(feature.properties.Name === "parking"){
             //openPopup(feature, e.latlng);
+            console.log(e.latlng.lat);
+            $scope.parkingLat = e.latlng.lat;
+            $scope.parkingLng = e.latlng.lng;
             var popup = L.popup(
             {
                   minWidth: 200,
                   maxHeight: 300
             })
             .setLatLng(e.latlng)
-            .setContent($compile('<p><a style="cursor: pointer;" ng-click="navFunction(center.lat, center.lng)">Take me there!</a><br></p>')($scope)[0])
+            .setContent($compile('<p><a style="cursor: pointer;" ng-click="navFunction(parkingLat, parkingLng)">Take me there!</a><br></p>')($scope)[0])
             //need to $compile to introduce ng directives
             .openOn($scope.map);
           }
