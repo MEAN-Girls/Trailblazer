@@ -49,7 +49,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.filterPrivate = '!Private Individual(s)';
     $scope.showAll = function(){
             $scope.map.removeLayer($scope.geoLayer);
-            //L.geoJson.addData($rootScope.boundaries);
             console.log($scope.checked);
             if($scope.checked === false){
             $scope.geoLayer = L.geoJson($rootScope.boundaries, { 
@@ -78,7 +77,6 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 			lat: 29.671316,
 			lng: -82.327766,
 			zoom: 13
-			//autoDiscover: true
     	},
     	controls: {
     		fullscreen: {
@@ -106,11 +104,15 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.locate({ setView : true, maxZoom : 13 });
         $scope.map.on('locationfound', function (e){
 
+            $rootScope.currLocation = e.latlng;
+
+
             $scope.current_location = e.latlng;
             /*if(marker){
             $scope.map.removeLayer(marker);
             }
             marker = new L.marker(e.latlng).addTo($scope.map);*/
+
 
             if(radiusCircle){
                 $scope.map.removeLayer(radiusCircle);
@@ -243,33 +245,54 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         Draw Markers
     */
     function openPopup(feature, latlng){
-        $scope.feature = feature;
-        $scope.boundaryId = $scope.feature._id;
-        $scope.name = feature.properties.MANAME;
-        $scope.area = feature.properties.TOTACRES + ' acres';
-        $scope.type = feature.properties.MATYPE;
-        $scope.managing_a = feature.properties.MANAGING_A;
-        if(feature.properties.DESC2 !== 'ZZ'){
-            $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
-        }
-        else if (feature.properties.DESC1 !== 'ZZ'){
-            $scope.description = feature.properties.DESC1;
-        }
-        else {
-            $scope.description = 'No description available. ';
-        }
-        var poly = L.geoJson(feature);
-        $scope.center = poly.getBounds().getCenter();
-        var popup = L.popup(
-        {
-            minWidth: 200,
-            maxHeight: 300
-        })
-        .setLatLng(latlng)
-        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
-        .openOn($scope.map);
+
+
+                    // console.log(feature.properties.kind);
+
+                    $scope.feature = feature;
+                    $scope.boundaryId = $scope.feature._id;
+                    // console.log($scope.boundaryId);
+                    $scope.name = feature.properties.MANAME;
+                    $scope.area = feature.properties.TOTACRES + ' acres';
+                    $scope.type = feature.properties.MATYPE;
+                    $scope.managing_a = feature.properties.MANAGING_A;
+                    if(feature.properties.DESC2 !== 'ZZ'){
+                        $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
+                    }
+                    else if (feature.properties.DESC1 !== 'ZZ'){
+                        $scope.description = feature.properties.DESC1;
+                    }
+                    else {
+                        $scope.description = 'No description available. ';
+                    }
+
+                    var poly = L.geoJson(feature);
+                    $scope.center = poly.getBounds().getCenter();
+//                    $scope.map.setView(latlng, 13);
+                    var popup = L.popup(
+                    {
+                        minWidth: 200,
+                        maxHeight: 300
+                    })
+                        .setLatLng(latlng)
+                        .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><a style="cursor: pointer;" ng-click="navFunction(center.lat, center.lng)">Take me there!</a><br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
+                        //need to $compile to introduce ng directives
+                        .openOn($scope.map);
+
 
     }
+
+    $scope.navFunction = function(lat, long){
+
+        if((navigator.platform.indexOf("iPhone") !== -1) || (navigator.platform.indexOf("iPod") !== -1) || (navigator.platform.indexOf("iPad") !== -1))
+         //window.open("maps://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+        window.open("maps://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+        else
+         //window.open("http://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+        window.open("http://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+
+
+    };
 
     angular.extend($scope, {
         tiles : mapboxTile,
@@ -320,6 +343,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             }).setRadius(7).addTo($scope.map);
         },
         onEachFeature : function(feature, layer){
+
             layer.on('click', function(e) {
                 openPopup(feature, e.latlng);
             });
