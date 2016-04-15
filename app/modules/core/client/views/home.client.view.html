@@ -18,13 +18,13 @@
  			<span type="button" ng-click="homeView()"><i class="fa fa-home" style="bottom: 7rem;"></i></span>
  		</div>
 				<div class="button">
-			<span type="button" ng-click="changeTiles('light')"><i class="fa fa-home" style="bottom: 10rem;"></i></span>
+			<span type="button" ng-click="changeTiles('light')"><i class="fa fa-sun-o" aria-hidden="true" style="bottom: 10rem;"></i></span>
  		</div>
  		<div class="button">
- 			<span type="button" ng-click="changeTiles('street')"><i class="fa fa-home" style="bottom: 13rem;"></i></span>
+ 			<span type="button" ng-click="changeTiles('street')"><i class="fa fa-map-o" aria-hidden="true" style="bottom: 13rem;"></i></span>
  		</div>
  		<div class="button">
- 			<span type="button" ng-click="changeTiles('dark')"><i class="fa fa-home" style="bottom: 16rem;"></i></span>
+ 			<span type="button" ng-click="changeTiles('dark')"><i class="fa fa-moon-o" aria-hidden="true" style="bottom: 16rem;"></i></span>
  		</div>
 
 	<div class="home_sidebar">
@@ -41,6 +41,7 @@
 						</h4>
 				            <div ng-show="showMe" class="filter-subclass">
 								            <div class="filter">
+															<h6 style="margin-top: 0px;">Acres</h6>
 												<div class="col-sm-4 filter-button acres filter-left">
 													<label>
 														<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
@@ -83,7 +84,7 @@
 												</div> -->
 
 										<div>
-				  							<label><input type="checkbox" ng-model="checked" ng-change="showAll(checked)"> Show Private Properties</label>
+				  							<label style="font-weight: normal"><input type="checkbox" ng-model="checked" ng-change="showAll(checked)"> Show Private Properties</label>
 
 										</div>
 			                </div>
