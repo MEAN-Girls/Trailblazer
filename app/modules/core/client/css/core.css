@@ -264,7 +264,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
 }
 
 .filter {
-  padding: 10px 10px;
+  padding: 10px 0px;
 }
 
 
@@ -441,9 +441,10 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
     display: block !important; /* yes, important */
 }
 .filter-subclass{
-  transition: .5s linear all;
+  transition: .3s ease all;
   overflow: hidden;
-  height: 135px;
+  height: 165px;
+  padding: 0px 10px;
   /*background-color: #e8ffea;*/
 }
 .filter-subclass.ng-hide{
@@ -454,6 +455,11 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   background-color: #4CAF50;
   padding: 10px;
   cursor: pointer;
+  font-size: 16px;
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 0px;
+
 }
 
 .dropbtn {
