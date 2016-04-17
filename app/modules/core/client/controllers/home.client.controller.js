@@ -99,12 +99,10 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 			lng: -82.327766,
 			zoom: 13
     	},
-      tiles:mapboxTile
-    	// controls: {
-    	// 	fullscreen: {
-    	// 		position: 'topleft'
-    	// 	}
-      //   },
+        tiles:mapboxTile,
+    	controls: {
+            fullscreen: { position: 'topleft' }
+        }
     });
 
     //Creating Mapbox Tile
