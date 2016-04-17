@@ -164,11 +164,13 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                   console.log(feature);
                   return { icon: $scope.parkingIcon };
                 }
+                else if(feature.properties.color !== "null"){
+                  return { color: feature.properties.color, weight : 2, dashArray: '3' };
+                }
                 else{
                   return { color: 'red', weight : 2 };
                 }
             },
-            //{ color: 'red', weight : 2 },
             onEachFeature: $scope.onEachFeature
         }).addTo($scope.map);
       });
