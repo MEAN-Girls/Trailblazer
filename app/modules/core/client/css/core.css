@@ -264,7 +264,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
 }
 
 .filter {
-  padding: 10px 0px;
+  padding: 10px 0;
 }
 
 
@@ -444,7 +444,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   transition: .3s ease all;
   overflow: hidden;
   height: 165px;
-  padding: 0px 10px;
+  padding: 0 10px;
   /*background-color: #e8ffea;*/
 }
 .filter-subclass.ng-hide{
@@ -458,7 +458,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   font-size: 16px;
   color: white;
   border-radius: 4px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 
 }
 
@@ -483,7 +483,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 /* Links inside the dropdown */

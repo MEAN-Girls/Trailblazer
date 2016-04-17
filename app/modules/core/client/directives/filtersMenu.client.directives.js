@@ -8,7 +8,6 @@ angular.module('core').directive('filtersMenu', function ($stateParams) {
             scope.isFilterOpen = false;
             scope.toggleFilterMenu = function () {
                 scope.isFilterOpen = !scope.isFilterOpen;
-                console.log("HERE");
             };
         }
     };

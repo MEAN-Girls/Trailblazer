@@ -160,11 +160,11 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         $scope.trails = res;
         L.geoJson($scope.trails, {
             style: function(feature){
-                if(feature.properties.Name === "parking"){
+                if(feature.properties.Name === 'parking'){
                   console.log(feature);
                   return { icon: $scope.parkingIcon };
                 }
-                else if(feature.properties.color !== "null"){
+                else if(feature.properties.color !== 'null'){
                   return { color: feature.properties.color, weight : 2, dashArray: '3' };
                 }
                 else{
@@ -176,7 +176,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       });
       $scope.onEachFeature = function(feature, layer){
       layer.on('click', function(e) {
-          if(feature.properties.Name === "parking"){
+          if(feature.properties.Name === 'parking'){
             //openPopup(feature, e.latlng);
             console.log(e.latlng.lat);
             $scope.parkingLat = e.latlng.lat;
@@ -195,12 +195,12 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
      };
     $scope.navFunction = function(lat, long){
 
-        if((navigator.platform.indexOf("iPhone") !== -1) || (navigator.platform.indexOf("iPod") !== -1) || (navigator.platform.indexOf("iPad") !== -1))
+        if((navigator.platform.indexOf('iPhone') !== -1) || (navigator.platform.indexOf('iPod') !== -1) || (navigator.platform.indexOf('iPad') !== -1))
          //window.open("maps://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
-        window.open("maps://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+        window.open('maps://maps.google.com/maps/dir/' + $rootScope.currLocation.lat + ',' + $rootScope.currLocation.lng + '/' + lat + ',' + long);
         else
          //window.open("http://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
-        window.open("http://maps.google.com/maps/dir/" + $rootScope.currLocation.lat + "," + $rootScope.currLocation.lng + "/" + lat + "," + long);
+        window.open('http://maps.google.com/maps/dir/' + $rootScope.currLocation.lat + ',' + $rootScope.currLocation.lng + '/' + lat + ',' + long);
 
 
     };
