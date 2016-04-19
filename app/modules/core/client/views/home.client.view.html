@@ -41,23 +41,28 @@
 						</h4>
 				            <div ng-show="showMe" class="filter-subclass">
 								            <div class="filter">
-															<h6 style="margin-top: 0px;">Acres</h6>
+															<h6 style="margin-top: 0px;" data-hover="Go ahead!!" >{{acreText}}</h6>
 												<div class="col-xs-4 filter-button acres filter-left">
 													<label>
 														<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres); turnClear()">
 														<span class="fa fa-leaf"></span>
+														 <h5 id="details-acres">0 - 400</h5>
 													</label>
 												</div>
 												<div class="col-xs-4 filter-button acres">
 													<label>
 														<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres); turnClear()">
 														<span class="fa fa-pagelines"></span>
+														<h5 id="details-acres">400 - 1000</h5>
+
 													</label>
 												</div>
 												<div class="col-xs-4 filter-button acres filter-right">
 													<label>
 														<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres); turnClear()">
 														<span class="fa fa-tree"></span>
+														<h5 id="details-acres">1000+</h5>
+
 													</label>
 												</div>
 											</div>

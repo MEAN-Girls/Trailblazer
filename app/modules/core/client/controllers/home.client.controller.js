@@ -244,13 +244,18 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
   tilesDict[tiles].addTo($scope.map);
 };
 
+    $scope.acreText = 'Acres:';
     $scope.acreSize = {};
     $scope.acreSize = function(chosen) {
       var minSize;
       var maxSize;
+      var maxString;
+      var minString;
+      var acreString;
       if(chosen === undefined){
         minSize = 0;
         maxSize = 10001;
+
       } else {
         minSize = 0;
         maxSize = 10001;
@@ -270,6 +275,19 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             maxSize = 399;
           }
         }
+
+        if (maxSize === 10000) {
+          acreString = minSize + "+";
+        } else if (minSize === 0 && maxSize === 10001) {
+          acreString = "";
+        }
+        else {
+          acreString = minSize + " - " + (maxSize+1);
+        }
+
+
+        $scope.acreText = "Acres: " + acreString;
+
       }
 
       return function predicateFunc(item) {

@@ -467,6 +467,19 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
 
 }
 
+#details-acres {
+  font-size: 0px;
+  margin: 0px;
+  transition: font-size 0.1s ease;
+}
+.acres:hover #details-acres {
+  font-size: 10px;
+
+}
+
+
+
+
 #clear-filter {
   width: 100%;
   border: none;
