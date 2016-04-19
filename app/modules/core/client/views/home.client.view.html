@@ -68,7 +68,10 @@
 											</div>
 
 							               <div class="radius-filter">
-												<input type="text" class="form-control" id="rad_search_box" onkeydown = "if (event.keyCode == 13) document.getElementById('btn-srch').click()" placeholder="Search by mile radius" ng-model="r_dist.small" style="background-color:white" />
+							               	<h6 style="margin-top: 0px;">Filter by mile radius</h6>
+							                <div><input ng-model="sliderValue" type="text" id="mySlider1" slider options="sliderOptions"/></div>
+
+												<!--<input type="text" class="form-control" id="rad_search_box" onkeydown = "if (event.keyCode == 13) document.getElementById('btn-srch').click()" placeholder="Search by mile radius" ng-model="r_dist.small" style="background-color:white" />
 												<button class="rad_button rad_button_submit" id="btn-srch" type="button" ng-click="rad_search=radius_filter(r_dist); turnClear()">
 													<span class="glyphicon glyphicon-search">
 													</span>
@@ -76,7 +79,7 @@
 												<button class="rad_button rad_button_cancel" id="btn-cancel" type="button" ng-click="clearRadius(); rad_search=radius_filter(undefined)">
 													<span class="glyphicon glyphicon-remove-circle">
 													</span>
-												</button>
+												</button>-->
 											</div>
 
 												<!-- <div>

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 'Trails', 'angularAwesomeSlider',
-  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries, Trails, angularAwesomeSlider) {
+angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 'Trails',
+  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries, Trails) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -36,8 +36,8 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     };
 
     $scope.clearFilter = function() {
-      console.log("Cleared filters");
-      $scope.customStyle.style = { "background-color":"#b8bbbc" };
+      console.log('Cleared filters');
+      $scope.customStyle.style = { 'background-color':'#b8bbbc' };
       $scope.searchingBar = {};
       $scope.acres_search = {};
       // $scope.rad_search = {};
@@ -49,7 +49,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
     $scope.customStyle = {};
     $scope.turnClear = function (){
-        $scope.customStyle.style = { "background-color":"#a32f2f" };
+        $scope.customStyle.style = { 'background-color':'#a32f2f' };
     };
 
 
@@ -195,6 +195,34 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         });
     });
 
+    $scope.sliderValue = '35';
+    $scope.sliderOptions = {       
+        from: 1,
+        to: 15,
+        step: 1,
+        dimension: ' mi',
+        scale: [1, 3, 5, 7, 9, 11, 13, { val: 15, label:'15+' }] ,
+        limits: false,
+        modelLabels: { 15: '15+' },
+        css: {
+          background: { 'background-color': 'silver' },
+          before: { 'background-color': '#407186' },
+          default: { 'background-color': 'white' },
+          after: { 'background-color': '#407186' },
+          pointer: { 'background-color': 'white' }
+
+        },
+        callback: function(value, elt){
+            console.log(value);
+            if (value === '15'){
+                $scope.rad_search = $scope.radius_filter(undefined);
+            }
+            else{
+                $scope.rad_search = $scope.radius_filter(value);
+            }
+        }        
+    };
+
     $scope.radius_filter = {};
     var circle;
     $scope.radius_filter = function(chosen){
@@ -203,7 +231,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 $scope.map.removeLayer(circle);
             }
         }
-        else if (chosen.small === ''){
+        else if (chosen === ''){
             if(circle){
                 $scope.map.removeLayer(circle);
             }
@@ -211,7 +239,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             if(circle){
                 $scope.map.removeLayer(circle);
             }
-            circle = L.circle($scope.current_location, chosen.small*1609.34, {
+            circle = L.circle($scope.current_location, chosen*1609.34, {
                 clickable: false,
                 stroke: true,
                 fillColor: '#3473e2',
@@ -277,16 +305,16 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
 
         if (maxSize === 10000) {
-          acreString = minSize + "+";
+          acreString = minSize + '+';
         } else if (minSize === 0 && maxSize === 10001) {
-          acreString = "";
+          acreString = '';
         }
         else {
-          acreString = minSize + " - " + (maxSize+1);
+          acreString = minSize + ' - ' + (maxSize+1);
         }
 
 
-        $scope.acreText = "Acres: " + acreString;
+        $scope.acreText = 'Acres: ' + acreString;
 
       }
 
