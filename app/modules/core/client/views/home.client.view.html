@@ -41,30 +41,35 @@
 						</h4>
 				            <div ng-show="showMe" class="filter-subclass">
 								            <div class="filter">
-															<h6 style="margin-top: 0px;">Acres</h6>
-												<div class="col-sm-4 filter-button acres filter-left">
+															<h6 style="margin-top: 0px;" data-hover="Go ahead!!" >{{acreText}}</h6>
+												<div class="col-xs-4 filter-button acres filter-left">
 													<label>
-														<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+														<input type="checkbox" ng-model="checkBoxAcres.small" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres); turnClear()">
 														<span class="fa fa-leaf"></span>
+														 <h5 id="details-acres">0 - 400</h5>
 													</label>
 												</div>
-												<div class="col-sm-4 filter-button acres">
+												<div class="col-xs-4 filter-button acres">
 													<label>
-														<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+														<input type="checkbox" ng-model="checkBoxAcres.medium" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres); turnClear()">
 														<span class="fa fa-pagelines"></span>
+														<h5 id="details-acres">400 - 1000</h5>
+
 													</label>
 												</div>
-												<div class="col-sm-4 filter-button acres filter-right">
+												<div class="col-xs-4 filter-button acres filter-right">
 													<label>
-														<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres)">
+														<input type="checkbox" ng-model="checkBoxAcres.large" ng-true-value="1" ng-false-value="0" ng-click="acres_search=acreSize(checkBoxAcres); turnClear()">
 														<span class="fa fa-tree"></span>
+														<h5 id="details-acres">1000+</h5>
+
 													</label>
 												</div>
 											</div>
 
 							               <div class="radius-filter">
 												<input type="text" class="form-control" id="rad_search_box" onkeydown = "if (event.keyCode == 13) document.getElementById('btn-srch').click()" placeholder="Search by mile radius" ng-model="r_dist.small" style="background-color:white" />
-												<button class="rad_button rad_button_submit" id="btn-srch" type="button" ng-click="rad_search=radius_filter(r_dist)">
+												<button class="rad_button rad_button_submit" id="btn-srch" type="button" ng-click="rad_search=radius_filter(r_dist); turnClear()">
 													<span class="glyphicon glyphicon-search">
 													</span>
 												</button>
@@ -86,10 +91,11 @@
 										<div ng-show="authentication.user">
 				  							<label style="font-weight: normal"><input type="checkbox" ng-model="checked" ng-change="showAll(checked)"> Show Private Properties</label>
 										</div>
-			                </div>
+
+										<button id="clear-filter" ng-style="customStyle.style" class="filter-button" ng-click="clearFilter()" type="button">Clear Filters</button>
 
 
-
+									</div>
 
 
 						<!-- radius here -->
