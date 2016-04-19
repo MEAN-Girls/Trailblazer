@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 'Trails',
-  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries, Trails) {
+angular.module('core').controller('HomeController', ['$scope', '$filter', '$rootScope', 'Authentication', '$http','$stateParams', '$state', 'leafletData', '$compile', 'Boundaries', 'Trails', 'angularAwesomeSlider',
+  function ($scope, $filter, $rootScope, Authentication, $http, $stateParams, $state, leafletData, $compile, Boundaries, Trails, angularAwesomeSlider) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
 
@@ -37,7 +37,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
     $scope.clearFilter = function() {
       console.log("Cleared filters");
-      $scope.customStyle.style = {"background-color":"#b8bbbc"};
+      $scope.customStyle.style = { "background-color":"#b8bbbc" };
       $scope.searchingBar = {};
       $scope.acres_search = {};
       // $scope.rad_search = {};
@@ -49,7 +49,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
     $scope.customStyle = {};
     $scope.turnClear = function (){
-        $scope.customStyle.style = {"background-color":"#a32f2f"};
+        $scope.customStyle.style = { "background-color":"#a32f2f" };
     };
 
 
