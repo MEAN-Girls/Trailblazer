@@ -466,3 +466,16 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   margin-bottom: 0;
 
 }
+
+#clear-filter {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 5px 10px;
+  background-color: #b8bbbc;
+}
+
+button:focus {
+  outline: 0;
+}

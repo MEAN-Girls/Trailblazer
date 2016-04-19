@@ -35,6 +35,26 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
     };
 
+    $scope.clearFilter = function() {
+      console.log("Cleared filters");
+      $scope.customStyle.style = {"background-color":"#b8bbbc"};
+      $scope.searchingBar = {};
+      $scope.acres_search = {};
+      // $scope.rad_search = {};
+      $scope.checkBoxAcres = false;
+      $scope.clearRadius();
+      $scope.rad_search = $scope.radius_filter(undefined);
+      // $scope.radius_filter = {};
+    };
+
+    $scope.customStyle = {};
+    $scope.turnClear = function (){
+        $scope.customStyle.style = {"background-color":"#a32f2f"};
+    };
+
+
+    // ilter: searchingBar | filter:filters.MGRINST | filter:acres_search | filter:rad_search
+
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
 
