@@ -86,7 +86,7 @@ body {
   transform: translateX(0);
   transform: translate3d(0, 0, 0);
   transition: 500ms ease all;
-  backface-visibility: hidden; 
+  backface-visibility: hidden;
   padding: 5% 0;
   right: 0;
 }
@@ -142,7 +142,7 @@ section .preview {
 
 .sidebar_subclass{
   text-align: left;
-  width: 100%;
+  width: 200px !important;
   padding-left: 30px;
   /*padding: 3px 0;*/
 }

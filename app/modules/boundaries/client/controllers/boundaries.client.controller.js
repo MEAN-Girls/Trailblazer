@@ -10,7 +10,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                                                               '$state',
                                                               'leafletData',
                                                               '$http',
-                                                              'Trails', 
+                                                              'Trails',
                                                               '$compile',
   function ($scope, $stateParams, $rootScope, $location, Authentication, Boundaries, $state, leafletData, $http, Trails, $compile) {
     $scope.authentication = Authentication;
@@ -47,7 +47,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       }
       else if (boundaryFeature.properties.DESC1 !== 'ZZ'){
           $scope.b_desc = boundaryFeature.properties.DESC1;
-      } 
+      }
       else {
           $scope.b_desc = 'No description available. ';
       }
@@ -70,7 +70,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         var secondMarker = $stateParams.boundaryFeature.geometry.coordinates[$stateParams.boundaryFeature.geometry.coordinates.length - 1];
         var group = new L.featureGroup([firstMarker, secondMarker]);
       });
-      
+
       var setZoom = function(){
         if($stateParams.boundaryFeature.properties.TOTACRES >= 10000){
            return 12;
@@ -99,10 +99,10 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         },
         geojson: {
           data: boundaryFeature,
-          style: {         
-                  color: '#8AAAB5', 'weight' : 2       
+          style: {
+                  color: '#DAEAB9', 'weight' : 1      
           }
-        }, 
+        },
         tiles: mapboxTile
       });
 
@@ -116,7 +116,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
       });
-      
+
       $scope.boundary_items = [
           {
               name: 'Managing Information',
@@ -316,4 +316,3 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
   }
 }
 ]);
-

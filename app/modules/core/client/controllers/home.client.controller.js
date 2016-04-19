@@ -40,7 +40,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
         $scope.geoLayer = L.geoJson($rootScope.boundaries, {
             style:
-            { color: '#8AAAB5', 'weight' : 2 },
+            { color: '#9BC152', 'weight' : 2 },
             onEachFeature: $scope.onEachFeature,
             filter: function(feature, layer) {
                 return setFilter(feature);
@@ -74,7 +74,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             if($scope.checked === false){
             $scope.geoLayer = L.geoJson($rootScope.boundaries, {
             style:
-            { color: '#8AAAB5', 'weight' : 2 },
+            { color: '#9BC152', 'weight' : 2 },
             onEachFeature: $scope.onEachFeature,
             filter: function(feature, layer) {
             return setFilter(feature);
@@ -85,7 +85,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             else{
                 $scope.geoLayer = L.geoJson($rootScope.boundaries, {
             style:
-            { color: '#8AAAB5', 'weight' : 2 },
+            { color: '#9BC152', 'weight' : 2 },
             onEachFeature: $scope.onEachFeature
             }).addTo($scope.map);
             $scope.filterPrivate = '';
@@ -139,7 +139,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
             radiusCircle = L.circle(e.latlng, e.accuracy, {
                 stroke: false,
-                fillColor: 'blue',
+                fillColor: '#3473e2',
                 opacity: 0.2,
                 fillOpacity: 0.2
 
@@ -149,7 +149,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             }
 
             outerCircle = L.circleMarker(e.latlng, {
-                fillColor: 'blue',
+                fillColor: '#3473e2',
                 opacity: 0.5,
                 weight: 1,
                 fillOpacity: 0.5
@@ -160,7 +160,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             }
 
             innerCircle = L.circleMarker(e.latlng, {
-                fillColor: 'blue',
+                fillColor: '#3473e2',
                 color: 'white',
                 opacity: 1,
                 weight: 2,
@@ -196,7 +196,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             circle = L.circle($scope.current_location, chosen.small*1609.34, {
                 clickable: false,
                 stroke: true,
-                fillColor: 'blue',
+                fillColor: '#3473e2',
                 opacity: 0.08,
                 fillOpacity: 0.03
 
@@ -348,7 +348,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             }
             radiusCircle = L.circle(e.latlng, e.accuracy, {
                 stroke: false,
-                fillColor: 'blue',
+                fillColor: '#3473e2',
                 opacity: 0.2,
                 fillOpacity: 0.2
 
@@ -357,7 +357,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
                 $scope.map.removeLayer(outerCircle);
             }
             outerCircle = L.circleMarker(e.latlng, {
-                fillColor: 'blue',
+                fillColor: '#3473e2',
                 opacity: 0.5,
                 weight: 1,
                 fillOpacity: 0.5
@@ -368,7 +368,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             }
 
             innerCircle = L.circleMarker(e.latlng, {
-                fillColor: 'blue',
+                fillColor: '#3473e2',
                 color: 'white',
                 opacity: 1,
                 weight: 2,
