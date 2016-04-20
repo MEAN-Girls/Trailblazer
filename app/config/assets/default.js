@@ -7,7 +7,8 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/leaflet/dist/leaflet.css',
-        'public/lib/leaflet-fullscreen/dist/leaflet.fullscreen.css'
+        'public/lib/leaflet-fullscreen/dist/leaflet.fullscreen.css',
+        'public/lib/angular-awesome-slider/dist/css/angular-awesome-slider.min.css'
       ],
       js: [
         'public/lib/angular/angular.min.js',
@@ -21,6 +22,7 @@ module.exports = {
         'public/lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
         'public/lib/leaflet/dist/leaflet.js',
         'public/lib/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js',
+        'public/lib/angular-awesome-slider/dist/angular-awesome-slider.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

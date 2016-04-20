@@ -10,7 +10,8 @@ var ApplicationConfiguration = (function () {
                                             'ui.router', 
                                             'ui.bootstrap', 
                                             'ui.utils', 
-                                            'leaflet-directive'];
+                                            'leaflet-directive',
+                                            'angularAwesomeSlider'];
 
   // Add a new vertical module
   var registerModule = function (moduleName, dependencies) {

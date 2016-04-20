@@ -326,7 +326,8 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
   border:0;
   padding: 0;
   margin-top: 38px;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
+  /*padding-bottom: 10px;*/
 
 }
 .rad_button_submit{
@@ -448,7 +449,7 @@ box-shadow: inset 83px 0 21px -81px rgba(0,0,0,0.32);
 .filter-subclass{
   transition: .3s ease all;
   overflow: hidden;
-  height: 165px;
+  height: 180px;
   padding: 0 10px;
   /*background-color: #e8ffea;*/
 }
