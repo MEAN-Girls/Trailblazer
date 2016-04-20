@@ -42,18 +42,20 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
       $scope.acres_search = {};
       // $scope.rad_search = {};
       $scope.checkBoxAcres = false;
-      $scope.clearRadius();
       $scope.rad_search = $scope.radius_filter(undefined);
-      // $scope.radius_filter = {};
+      
+      $scope.sliderValue = '15';
     };
 
     $scope.customStyle = {};
     $scope.turnClear = function (){
+        if($scope.checkBoxAcres === false){
+        $scope.customStyle.style = { 'background-color':'#b8bbbc' };
+        }
+        else{
         $scope.customStyle.style = { 'background-color':'#a32f2f' };
+        }
     };
-
-
-    // ilter: searchingBar | filter:filters.MGRINST | filter:acres_search | filter:rad_search
 
     Boundaries.query().$promise.then(function (res) {
         $rootScope.boundaries = res;
@@ -142,15 +144,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.map.on('locationfound', function (e){
 
             $rootScope.currLocation = e.latlng;
-
-
             $scope.current_location = e.latlng;
-            /*if(marker){
-            $scope.map.removeLayer(marker);
-            }
-            marker = new L.marker(e.latlng).addTo($scope.map);*/
-
-
             if(radiusCircle){
                 $scope.map.removeLayer(radiusCircle);
             }
@@ -214,6 +208,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         },
         callback: function(value, elt){
             console.log(value);
+            $scope.turnClear();
             if (value === '15'){
                 $scope.rad_search = $scope.radius_filter(undefined);
             }
@@ -383,10 +378,10 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.navFunction = function(lat, long){
 
         if((navigator.platform.indexOf('iPhone') !== -1) || (navigator.platform.indexOf('iPod') !== -1) || (navigator.platform.indexOf('iPad') !== -1))
-         //window.open("maps://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+        
         window.open('maps://maps.google.com/maps/dir/' + $rootScope.currLocation.lat + ',' + $rootScope.currLocation.lng + '/' + lat + ',' + long);
         else
-         //window.open("http://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
+      
         window.open('http://maps.google.com/maps/dir/' + $rootScope.currLocation.lat + ','+ $rootScope.currLocation.lng + '/' + lat + ',' + long);
 
 
@@ -447,21 +442,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             });
 
         },
-        // toggleFilterMenu : function(isFilterOpen){
-        //     console.log(isFilterOpen);
-        //     isFilterOpen = !isFilterOpen;
-        //     return{
-        //         restrict: 'A',
-        //         replace: false,
-        //         link: function (scope, element) {
-        //             scope.isFilterOpen = false;
-        //             scope.toggleFilterMenu = function () {
-        //                 scope.isFilterOpen = !scope.isFilterOpen;
-
-        //             };
-        //         }
-        //     };
-        // },
+    
         expand : function(feature){
             $state.go('boundaries.view', { 'boundaryId': $scope.feature._id, 'center': $scope.center, 'boundaryFeature':  $scope.feature });
         }
