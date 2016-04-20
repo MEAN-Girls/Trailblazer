@@ -49,12 +49,9 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
     $scope.customStyle = {};
     $scope.turnClear = function (){
-        if($scope.checkBoxAcres === false){
-        $scope.customStyle.style = { 'background-color':'#b8bbbc' };
-        }
-        else{
+        
         $scope.customStyle.style = { 'background-color':'#a32f2f' };
-        }
+        
     };
 
     Boundaries.query().$promise.then(function (res) {
