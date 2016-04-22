@@ -59,4 +59,4 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
-![alt tag](https://raw.githubusercontent.com/MEAN-Girls/Trailblazer/blob/develop/images/landing.JPG)
+![alt text](images/landing.png "Landing Page")
