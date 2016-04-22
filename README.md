@@ -69,10 +69,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 The landing page is the central part of this application. Here is where users can explore Alachua county on our interactive map, and view all properties relative to their current location. Our base map layer can be swapped between three separate views (daytime, nighttime, and satellite). There are also 'home' and 'locate' buttons under these view buttons. The home button zooms all the way out to show the entire Alachua county area. The locate button finds the users location and zooms and pans to it. Shown below are pictures demonstrating some of these features:
 
 Daytime view, after clicking the home button:
-![alt text](images/landing.JPG "home_button")
+![alt text](images/home_button.JPG "home_button")
 
 Daytime view, after clicking the locate button:
-![alt text](images/landing.JPG "location")
+![alt text](images/location.JPG "location")
 
 Nighttime view:
 ![alt text](images/landing_dark.JPG "Dark Landing Page") 
