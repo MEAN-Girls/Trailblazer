@@ -64,7 +64,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-The landing page is the central part of this application. Here is where users can explore Alachua county on our interactive map, and view all properties relative to their current location. Our base map layer can be swapped between three separate designs (daytime, nighttime, and sa
+
+
 The landing page is the central part of this application. Here is where users can explore Alachua county on our interactive map, and view all properties relative to their current location. Our base map layer can be swapped between three separate views (daytime, nighttime, and satellite). Shown below are the daytime and nighttime views of the landing page. 
 
 ![alt text](images/landing.JPG "Landing Page")
