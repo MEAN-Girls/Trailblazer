@@ -66,10 +66,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
-The landing page is the central part of this application. Here is where users can explore Alachua county on our interactive map, and view all properties relative to their current location. Our base map layer can be swapped between three separate views (daytime, nighttime, and satellite). Shown below are the daytime and nighttime views of the landing page. 
+The landing page is the central part of this application. Here is where users can explore Alachua county on our interactive map, and view all properties relative to their current location. Our base map layer can be swapped between three separate views (daytime, nighttime, and satellite). There are also 'home' and 'locate' buttons under these view buttons. The home button zooms all the way out to show the entire Alachua county area. The locate button finds the users location and zooms and pans to it. Shown below are pictures demonstrating some of these features:
 
-![alt text](images/landing.JPG "Landing Page")
+Daytime view, after clicking the home button:
+![alt text](images/landing.JPG "home_button")
 
+Daytime view, after clicking the locate button:
+![alt text](images/landing.JPG "locate")
+
+Nighttime view:
 ![alt text](images/landing_dark.JPG "Dark Landing Page") 
 
 Each one of the boundaries on the landing page is clickable, which initiates a popup with the name and a short description of the property, as well as a “take me there!” button that gives directions to the property in google maps, or the relevant mapping application. The landing page sidebar houses a list of all properties, and a dropdown containing multiple filtering options. The search bar searches the property list by name. The acres filter allows the user to filter the properties based off of preset sizes. The radius slider allows the user to specify a certain radius in miles away from their current location. This places a circle on the map with said radius, and shows in the sidebar only the properties contained within this circle. All filters are compoundable. These features are displayed in the below image:
