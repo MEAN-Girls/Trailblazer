@@ -72,7 +72,7 @@ Daytime view, after clicking the home button:
 ![alt text](images/landing.JPG "home_button")
 
 Daytime view, after clicking the locate button:
-![alt text](images/landing.JPG "locate")
+![alt text](images/landing.JPG "location")
 
 Nighttime view:
 ![alt text](images/landing_dark.JPG "Dark Landing Page") 
