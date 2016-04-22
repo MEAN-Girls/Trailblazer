@@ -32,9 +32,13 @@ Wickes, Takashi   | twickes32	   | Product Manager
 
 ## Credits
 [Leaflet](http://leafletjs.com/)
+
 [Angular-Leaflet-Directive](http://tombatossals.github.io/angular-leaflet-directive/#!/)
+
 [Mapbox](https://www.mapbox.com/mapbox.js/api/v2.4.0/)
+
 [Angular-Bootstrap](https://angular-ui.github.io/bootstrap/)
+
 [Angular-Awesome-Slider](http://darul75.github.io/angular-awesome-slider/)
 
 ## License
