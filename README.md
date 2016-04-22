@@ -59,4 +59,4 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 
-![alt text](images/landing.png "Landing Page")
+![alt text](images/landing.JPG "Landing Page")
