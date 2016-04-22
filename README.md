@@ -60,3 +60,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 ![alt text](images/landing.JPG "Landing Page")
+![alt text](images/landing_dark.JPG "Dark Landing Page")
+![alt text](images/landing_filters.JPG "Landing Page Filters")
+![alt text](images/boundary.JPG "Boundary Page")
+![alt text](images/trails.JPG "Trails Page")
