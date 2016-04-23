@@ -26,7 +26,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
        dark: mapboxDark
      };
 
-    var setFilter = function(feature){    //display private properties
+    var setFilter = function(feature){    //used by leaflet filter to decide which properties are private on page load
         if(feature.properties.OWNER === 'Private Individual(s)'){
             return false;
         }
@@ -50,7 +50,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         $scope.customStyle.style = { 'background-color':'#a32f2f' };  //clear button pressed
     };
 
-    Boundaries.query().$promise.then(function (res) {
+    Boundaries.query().$promise.then(function (res) { //retrieve all the boundaries from db and add them to the map
         $rootScope.boundaries = res;
         $scope.geoLayer = L.geoJson($rootScope.boundaries, {
             style:
@@ -75,17 +75,17 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
     };
 
-    $scope.focusBoundary = function(boundary){
+    $scope.focusBoundary = function(boundary){ //opens a popup when a boundary is clicked on the sidebar
         var poly = L.geoJson(boundary);
         var center = poly.getBounds().getCenter();
         openPopup(boundary, center);
         $scope.toggleMenu();
     };
     $scope.filterPrivate = '!Private Individual(s)';
-    $scope.showAll = function(){  //remove layers from the map view
+    $scope.showAll = function(){  //A function that deletes and redraws boundaries on map depending on show private toggle
             $scope.map.removeLayer($scope.geoLayer);
             console.log($scope.checked);
-            if($scope.checked === false){
+            if($scope.checked === false){ //if show private properties is unchecked, delete them and draw nonprivate
             $scope.geoLayer = L.geoJson($rootScope.boundaries, {
             style:
             { color: '#9BC152', 'weight' : 2 },
@@ -96,7 +96,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             }).addTo($scope.map);
             $scope.filterPrivate = '!Private Individual(s)';
             }
-            else{
+            else{ //else draw all properties including private
                 $scope.geoLayer = L.geoJson($rootScope.boundaries, {
             style:
             { color: '#9BC152', 'weight' : 2 },
@@ -107,7 +107,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     };
 
 	angular.extend($scope, {
-        maxbounds: regions.alachua, // Added maxbounds declaration
+        maxbounds: regions.alachua, // Restricts map panning based on region set in alachua
 		alachua: {
 			lat: 29.671316,
 			lng: -82.327766,
@@ -119,7 +119,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
         }
     });
 
-    //Creating Mapbox Tile
+    //Create Mapbox Tile
 
     var marker;
     var innerCircle;
@@ -128,12 +128,12 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.map = null;
     $scope.current_location = null;
 
-    leafletData.getMap('county').then(function(map) { //current location and draw marker
+    leafletData.getMap('county').then(function(map) { // gets map and performs various functions
 
         $scope.map = map;
-        $scope.map.options.minZoom = 10;
-        $scope.map.locate({ setView : true, maxZoom : 13 });
-        $scope.map.on('locationfound', function (e){
+        $scope.map.options.minZoom = 10; //set minzoom so users cant zoom out completely
+        $scope.map.locate({ setView : true, maxZoom : 13 }); //locates user and centers on them
+        $scope.map.on('locationfound', function (e){ //when location is found, draw a circle on users location
 
             $rootScope.currLocation = e.latlng;
             $scope.current_location = e.latlng;
@@ -186,7 +186,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
     $scope.sliderOptions = {       //filter radius slider
         from: 1,                  //slider min
         to: 15,                    //slider max
-        step: 1,                   //slider inrement
+        step: 1,                   //slider increment
         dimension: ' mi',
         scale: [1, 3, 5, 7, 9, 11, 13, { val: 15, label:'15+' }] ,
         limits: false,
@@ -226,7 +226,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
             if(circle){
                 $scope.map.removeLayer(circle);
             }
-            circle = L.circle($scope.current_location, chosen*1609.34, {  //determine user location and draws circle
+            circle = L.circle($scope.current_location, chosen*1609.34, {  //determines user location and draws radius circle
                 clickable: false,
                 stroke: true,
                 fillColor: '#3473e2',
@@ -327,14 +327,14 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
    /*
         Draw Markers
     */
-    function openPopup(feature, latlng){    //popups for clicking boundaries
+    function openPopup(feature, latlng){    //function that gets data from boundaries and opens popup
       $scope.feature = feature;
       $scope.boundaryId = $scope.feature._id;
       $scope.name = feature.properties.MANAME;
       $scope.area = feature.properties.TOTACRES + ' acres';
       $scope.type = feature.properties.MATYPE;
       $scope.managing_a = feature.properties.MANAGING_A;
-      if(feature.properties.DESC2 !== 'ZZ'){
+      if(feature.properties.DESC2 !== 'ZZ'){ //combines the descriptions from geojson data
           $scope.description = feature.properties.DESC1 + feature.properties.DESC2;
       }
       else if (feature.properties.DESC1 !== 'ZZ'){
@@ -352,12 +352,13 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
           maxHeight: 300
       })
           .setLatLng(latlng)
+          //calls navFunction when link is clicked, passes coords of boundary clicked
           .setContent($compile('<p><b>{{name}}</b><br><br>{{area}}</br><br>{{managing_a}}</br><br>{{description}}</br><br><a style="cursor: pointer;" ng-click="navFunction(center.lat, center.lng)">Take me there!</a><br><br><button class="btn btn-success" type="button" ng-click="expand(feature)">See More...</button></p>')($scope)[0])
           //need to $compile to introduce ng directives
           .openOn($scope.map);
     }
 
-    $scope.navFunction = function(lat, long){
+    $scope.navFunction = function(lat, long){ //creates a url that opens google maps for directions
 
         if((navigator.platform.indexOf('iPhone') !== -1) || (navigator.platform.indexOf('iPod') !== -1) || (navigator.platform.indexOf('iPad') !== -1))
 
@@ -370,7 +371,7 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
     angular.extend($scope, {
         tiles : mapboxTile,
-        findUser : function(){
+        findUser : function(){ //finds user when find user button is pressed
             $scope.map.locate({ setView : true, maxZoom : 13 });
             $scope.map.on('locationfound', $scope.onLocationFound);
         },
@@ -415,8 +416,8 @@ angular.module('core').controller('HomeController', ['$scope', '$filter', '$root
 
             }).setRadius(7).addTo($scope.map);
         },
-        onEachFeature : function(feature, layer){ //event listener for clicked boundary
-            layer.on('click', function(e) {
+        onEachFeature : function(feature, layer){ //what gets done on each boundary in feature collection
+            layer.on('click', function(e) { //event listener for clicked boundary
                 openPopup(feature, e.latlng);
             });
         },
