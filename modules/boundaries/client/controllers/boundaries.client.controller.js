@@ -32,7 +32,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     if ($stateParams.boundaryFeature === null && $stateParams.boundaryId !== null){
       $state.go('home');
     }
-      //create a bunch of variables from map data
+
       $scope.b_maname = boundaryFeature.properties.MANAME;
       $scope.b_mgrinst = boundaryFeature.properties.MGRINST;
       $scope.b_owner = boundaryFeature.properties.OWNER;
@@ -42,7 +42,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       $scope.b_area = boundaryFeature.properties.AREA;
       $scope.b_totacres = boundaryFeature.properties.TOTACRES;
 
-      if(boundaryFeature.properties.DESC2 !== 'ZZ'){ //combine descriptions from geojson data
+      if(boundaryFeature.properties.DESC2 !== 'ZZ'){
           $scope.b_desc = boundaryFeature.properties.DESC1 + boundaryFeature.properties.DESC2;
       }
       else if (boundaryFeature.properties.DESC1 !== 'ZZ'){
@@ -51,7 +51,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       else {
           $scope.b_desc = 'No description available. ';
       }
-      //set the tile layer
+
       var mapboxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -63,15 +63,15 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
 
       $scope.map = null;
 
-      leafletData.getMap('boundary').then(function(map) { 
+      leafletData.getMap('boundary').then(function(map) {
         mapboxTile.addTo(map);
         $scope.map = map;
-        var firstMarker = $stateParams.boundaryFeature.geometry.coordinates[0]; //firstMarker - group aren't needed can be deleted
+        var firstMarker = $stateParams.boundaryFeature.geometry.coordinates[0];
         var secondMarker = $stateParams.boundaryFeature.geometry.coordinates[$stateParams.boundaryFeature.geometry.coordinates.length - 1];
         var group = new L.featureGroup([firstMarker, secondMarker]);
       });
 
-      var setZoom = function(){ //sets the zoom level based on the size of the boundary
+      var setZoom = function(){
         if($stateParams.boundaryFeature.properties.TOTACRES >= 10000){
            return 12;
         }
@@ -86,18 +86,18 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         }
       };
 
-      angular.extend($scope, { 
-        alachua: { //set the center of the view
+      angular.extend($scope, {
+        alachua: {
           lat: center.lat,
           lng: center.lng,
           zoom: setZoom()
         },
-        controls: { //position the controls
+        controls: {
           fullscreen: {
             position: 'topleft'
           }
         },
-        geojson: { //sets the geojson data based on the boundary feature
+        geojson: {
           data: boundaryFeature,
           style: {
                   color: '#9BC152', 'weight' : 2      
@@ -110,14 +110,14 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         item.active = !item.active;
       };
 
-      $scope.parkingIcon = L.icon({ //attempted to create icon for parking location
+      $scope.parkingIcon = L.icon({
       iconUrl: '/modules/core/client/img/icons/parking.png',
       iconSize:     [38, 95], // size of the icon
       iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
       });
 
-      $scope.boundary_items = [//info for info sidebar
+      $scope.boundary_items = [
           {
               name: 'Managing Information',
               subItems: [
@@ -156,7 +156,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
       ];
 
-      Trails.query().$promise.then(function (res) { //query the trails module and draw them on the map
+      Trails.query().$promise.then(function (res) {
         $scope.trails = res;
         L.geoJson($scope.trails, {
             style: function(feature){
@@ -174,7 +174,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
             onEachFeature: $scope.onEachFeature
         }).addTo($scope.map);
       });
-      $scope.onEachFeature = function(feature, layer){ //if the feature is a parking feature, open popup with nav link
+      $scope.onEachFeature = function(feature, layer){
       layer.on('click', function(e) {
           if(feature.properties.Name === 'parking'){
             //openPopup(feature, e.latlng);
@@ -187,14 +187,13 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
                   maxHeight: 300
             })
             .setLatLng(e.latlng)
-            //calls navFunction when link is clicked, passes coords of boundary clicked
             .setContent($compile('<p><a style="cursor: pointer;" ng-click="navFunction(parkingLat, parkingLng)">Take me there!</a><br></p>')($scope)[0])
             //need to $compile to introduce ng directives
             .openOn($scope.map);
           }
       });
      };
-    $scope.navFunction = function(lat, long){ //creates a url that opens google maps for directions
+    $scope.navFunction = function(lat, long){
 
         if((navigator.platform.indexOf('iPhone') !== -1) || (navigator.platform.indexOf('iPod') !== -1) || (navigator.platform.indexOf('iPad') !== -1))
          //window.open("maps://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
