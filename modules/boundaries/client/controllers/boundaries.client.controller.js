@@ -32,7 +32,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
     if ($stateParams.boundaryFeature === null && $stateParams.boundaryId !== null){
       $state.go('home');
     }
-
+      //create a bunch of variables from map data
       $scope.b_maname = boundaryFeature.properties.MANAME;
       $scope.b_mgrinst = boundaryFeature.properties.MGRINST;
       $scope.b_owner = boundaryFeature.properties.OWNER;
@@ -87,17 +87,17 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       };
 
       angular.extend($scope, {
-        alachua: {
+        alachua: { //set the center of the view
           lat: center.lat,
           lng: center.lng,
           zoom: setZoom()
         },
-        controls: {
+        controls: { //position the controls
           fullscreen: {
             position: 'topleft'
           }
         },
-        geojson: {
+        geojson: { //sets the geojson data based on the boundary feature
           data: boundaryFeature,
           style: {
                   color: '#9BC152', 'weight' : 2      
@@ -117,7 +117,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
       });
 
-      $scope.boundary_items = [
+      $scope.boundary_items = [ //info for info sidebar
           {
               name: 'Managing Information',
               subItems: [
@@ -156,7 +156,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
       ];
 
-      Trails.query().$promise.then(function (res) {
+      Trails.query().$promise.then(function (res) { //query the trails module and draw them on the map
         $scope.trails = res;
         L.geoJson($scope.trails, {
             style: function(feature){
@@ -174,7 +174,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
             onEachFeature: $scope.onEachFeature
         }).addTo($scope.map);
       });
-      $scope.onEachFeature = function(feature, layer){
+      $scope.onEachFeature = function(feature, layer){ //if the feature is a parking feature, open popup with nav link
       layer.on('click', function(e) {
           if(feature.properties.Name === 'parking'){
             //openPopup(feature, e.latlng);
@@ -193,7 +193,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
           }
       });
      };
-    $scope.navFunction = function(lat, long){
+    $scope.navFunction = function(lat, long){ //creates a url that opens google maps for directions
 
         if((navigator.platform.indexOf('iPhone') !== -1) || (navigator.platform.indexOf('iPod') !== -1) || (navigator.platform.indexOf('iPad') !== -1))
          //window.open("maps://maps.google.com/maps?daddr=" + lat + "," + long + "&amp;ll=");
