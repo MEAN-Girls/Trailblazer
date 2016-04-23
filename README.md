@@ -4,6 +4,18 @@ Application Live [here](https://act-trailblazer.herokuapp.com/)
 
 URL: [https://act-trailblazer.herokuapp.com/](https://act-trailblazer.herokuapp.com/)
 
+## Credits
+
+[Leaflet](http://leafletjs.com/)
+
+[Angular-Leaflet-Directive](http://tombatossals.github.io/angular-leaflet-directive/#!/)
+
+[Mapbox](https://www.mapbox.com/mapbox.js/api/v2.4.0/)
+
+[Angular-Bootstrap](https://angular-ui.github.io/bootstrap/)
+
+[Angular-Awesome-Slider](http://darul75.github.io/angular-awesome-slider/)
+
 ## Implemented Functionality
 
 ### Landing Page
@@ -60,9 +72,7 @@ $ bower install
 $ grunt
 ```
 
-
 ##Students
-
 
 Name   		      |  Gatorlink     | Role   
 ------------------|----------------|-----------------
@@ -72,16 +82,10 @@ Mejia, Krystal    | krystalmejia24 | Scrum Master
 Wickes, Takashi   | twickes32	   | Product Manager
 
 
-## Credits
-[Leaflet](http://leafletjs.com/)
+## Database
 
-[Angular-Leaflet-Directive](http://tombatossals.github.io/angular-leaflet-directive/#!/)
+The database information on the server is sensitive.  For access to the database please request access by contacting Krystal Mejia - krystalmejia24@ufl.edu
 
-[Mapbox](https://www.mapbox.com/mapbox.js/api/v2.4.0/)
-
-[Angular-Bootstrap](https://angular-ui.github.io/bootstrap/)
-
-[Angular-Awesome-Slider](http://darul75.github.io/angular-awesome-slider/)
 
 ## License
 (The MIT License)
