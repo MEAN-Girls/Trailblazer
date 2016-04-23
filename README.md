@@ -1,5 +1,37 @@
 # Trailblazer
 
+## Implemented Functionality
+
+### Landing Page
+
+The landing page is the central part of this application. Here is where users can explore Alachua county on our interactive map, and view all properties relative to their current location. Our base map layer can be swapped between three separate views (daytime, nighttime, and satellite). There are also 'home' and 'locate' buttons under these view buttons. The home button zooms all the way out to show the entire Alachua county area. The locate button finds the users location and zooms and pans to it. Shown below are pictures demonstrating some of these features:
+
+#### Map Tiles
+
+Daytime view, after clicking the home button:
+![alt text](images/home_button.JPG "home_button")
+
+Daytime view, after clicking the locate button:
+![alt text](images/location.JPG "location")
+
+Nighttime view:
+![alt text](images/landing_dark.JPG "Dark Landing Page") 
+
+#### Boundary Properties
+
+Each one of the boundaries on the landing page is clickable, which initiates a popup with the name and a short description of the property, as well as a “take me there!” button that gives directions to the property in google maps, or the relevant mapping application. The landing page sidebar houses a list of all properties, and a dropdown containing multiple filtering options. The search bar searches the property list by name. The acres filter allows the user to filter the properties based off of preset sizes. The radius slider allows the user to specify a certain radius in miles away from their current location. This places a circle on the map with said radius, and shows in the sidebar only the properties contained within this circle. All filters are compoundable. These features are displayed in the below image:
+
+#### Filters
+
+![alt text](images/landing_filters.JPG "Landing Page Filters")
+
+If the user clicks the “see more” button on a boundary popup, it will redirect them to the boundary page for that specific property. The boundary page focuses in on the clicked property, and has an info bar that contains relevant information about the property itself. This is shown in the following screenshot.
+
+### Boundary Page
+
+![alt text](images/boundary.JPG "Boundary Page")
+
+
 ## Local Install
 
 To get the app running on your local machine, you first need to install all prerequisites found [here](https://github.com/MEAN-Girls/Trailblazer/tree/develop/app). Once you have done that, you can clone this repository.
@@ -63,27 +95,6 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-
-
-The landing page is the central part of this application. Here is where users can explore Alachua county on our interactive map, and view all properties relative to their current location. Our base map layer can be swapped between three separate views (daytime, nighttime, and satellite). There are also 'home' and 'locate' buttons under these view buttons. The home button zooms all the way out to show the entire Alachua county area. The locate button finds the users location and zooms and pans to it. Shown below are pictures demonstrating some of these features:
-
-Daytime view, after clicking the home button:
-![alt text](images/home_button.JPG "home_button")
-
-Daytime view, after clicking the locate button:
-![alt text](images/location.JPG "location")
-
-Nighttime view:
-![alt text](images/landing_dark.JPG "Dark Landing Page") 
-
-Each one of the boundaries on the landing page is clickable, which initiates a popup with the name and a short description of the property, as well as a “take me there!” button that gives directions to the property in google maps, or the relevant mapping application. The landing page sidebar houses a list of all properties, and a dropdown containing multiple filtering options. The search bar searches the property list by name. The acres filter allows the user to filter the properties based off of preset sizes. The radius slider allows the user to specify a certain radius in miles away from their current location. This places a circle on the map with said radius, and shows in the sidebar only the properties contained within this circle. All filters are compoundable. These features are displayed in the below image:
-
-![alt text](images/landing_filters.JPG "Landing Page Filters")
-
-If the user clicks the “see more” button on a boundary popup, it will redirect them to the boundary page for that specific property. The boundary page focuses in on the clicked property, and has an info bar that contains relevant information about the property itself. This is shown in the following screenshot.
-
-![alt text](images/boundary.JPG "Boundary Page")
 
 Many properties contain trails. If this is the case, the trails will appear in the boundary view. They are color coded to match the physical color of the trail markers. The trail head can be clicked, as well as the trail parking, and contains a “take me there!” option as well.
 
