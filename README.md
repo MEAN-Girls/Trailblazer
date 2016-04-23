@@ -8,13 +8,13 @@ The landing page is the central part of this application. Here is where users ca
 
 #### Map Tiles
 
-Daytime view, after clicking the home button:
+###### Daytime view, after clicking the home button:
 ![alt text](images/home_button.JPG "home_button")
 
-Daytime view, after clicking the locate button:
+###### Daytime view, after clicking the locate button:
 ![alt text](images/location.JPG "location")
 
-Nighttime view:
+###### Nighttime view:
 ![alt text](images/landing_dark.JPG "Dark Landing Page") 
 
 #### Boundary Properties
@@ -30,6 +30,12 @@ If the user clicks the “see more” button on a boundary popup, it will redire
 ### Boundary Page
 
 ![alt text](images/boundary.JPG "Boundary Page")
+
+#### Trail View 
+
+Many properties contain trails. If this is the case, the trails will appear in the boundary view. They are color coded to match the physical color of the trail markers. The trail head can be clicked, as well as the trail parking, and contains a “take me there!” option as well.
+
+![alt text](images/trails.JPG "Trails Page")
 
 
 ## Local Install
@@ -95,7 +101,3 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-Many properties contain trails. If this is the case, the trails will appear in the boundary view. They are color coded to match the physical color of the trail markers. The trail head can be clicked, as well as the trail parking, and contains a “take me there!” option as well.
-
-![alt text](images/trails.JPG "Trails Page")
