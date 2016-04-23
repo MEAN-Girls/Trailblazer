@@ -1,5 +1,9 @@
 # Trailblazer
 
+Application Live [here](https://act-trailblazer.herokuapp.com/)
+
+URL: [https://act-trailblazer.herokuapp.com/](https://act-trailblazer.herokuapp.com/)
+
 ## Implemented Functionality
 
 ### Landing Page
