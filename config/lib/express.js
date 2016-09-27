@@ -5,6 +5,7 @@
  */
 var config = require('../config'),
   express = require('express'),
+  cors = require('cors'),
   morgan = require('morgan'),
   logger = require('./logger'),
   bodyParser = require('body-parser'),
@@ -184,6 +185,13 @@ module.exports.initModulesServerRoutes = function (app) {
 };
 
 /**
+ * Configure CORS
+ */
+module.exports.initCorsOption = function(app){
+    app.use(cors());
+};
+
+/**
  * Configure error handling
  */
 module.exports.initErrorRoutes = function (app) {
@@ -233,6 +241,9 @@ module.exports.init = function (db) {
 
   // Initialize Modules configuration
   this.initModulesConfiguration(app);
+
+  // Initialise Cors options
+  this.initCorsOption(app);
 
   // Initialize Helmet security headers
   this.initHelmetHeaders(app);
