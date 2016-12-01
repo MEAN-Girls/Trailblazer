@@ -58,20 +58,6 @@ module.exports = function (grunt) {
         options: {
           livereload: true
         }
-      },
-      clientSCSS: {
-        files: defaultAssets.client.sass,
-        tasks: ['sass', 'csslint'],
-        options: {
-          livereload: true
-        }
-      },
-      clientLESS: {
-        files: defaultAssets.client.less,
-        tasks: ['less', 'csslint'],
-        options: {
-          livereload: true
-        }
       }
     },
     nodemon: {
@@ -138,30 +124,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    sass: {
-      dist: {
-        files: [{
-          expand: true,
-          src: defaultAssets.client.sass,
-          ext: '.css',
-          rename: function (base, src) {
-            return src.replace('/scss/', '/css/');
-          }
-        }]
-      }
-    },
-    less: {
-      dist: {
-        files: [{
-          expand: true,
-          src: defaultAssets.client.less,
-          ext: '.css',
-          rename: function (base, src) {
-            return src.replace('/less/', '/css/');
-          }
-        }]
-      }
-    },
     'node-inspector': {
       custom: {
         options: {
@@ -226,6 +188,7 @@ module.exports = function (grunt) {
     }
   });
 
+  /*
   grunt.event.on('coverage', function(lcovFileContents, done) {
     // Set coverage config so karma-coverage knows to run coverage
     testConfig.coverage = true;
@@ -236,21 +199,14 @@ module.exports = function (grunt) {
       done();
     });
   });
+  */
 
   // Load NPM tasks
   require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-protractor-coverage');
 
-  // Make sure upload directory exists
-  grunt.task.registerTask('mkdir:upload', 'Task that makes sure upload directory exists.', function () {
-    // Get the callback
-    var done = this.async();
 
-    grunt.file.mkdir(path.normalize(__dirname + '/modules/users/client/img/profile/uploads'));
-
-    done();
-  });
-
+/*
   // Connect to the MongoDB instance and load the models
   grunt.task.registerTask('mongoose', 'Task that connects to the MongoDB instance and loads the application models.', function () {
     // Get the callback
@@ -284,6 +240,7 @@ module.exports = function (grunt) {
       });
     });
   });
+  */
 
   grunt.task.registerTask('server', 'Starting the server', function () {
     // Get the callback
@@ -297,18 +254,18 @@ module.exports = function (grunt) {
   });
 
   // Lint CSS and JavaScript files.
-  grunt.registerTask('lint', ['sass', 'less', 'jshint', 'eslint', 'csslint']);
+  grunt.registerTask('lint', ['jshint', 'eslint', 'csslint']);
 
   // Lint project files and minify them into two production files.
   grunt.registerTask('build', ['env:dev', 'lint', 'ngAnnotate', 'uglify', 'cssmin']);
 
   // Run the project tests
-  grunt.registerTask('test', ['env:test', 'lint', 'mkdir:upload', 'copy:localConfig', 'server', 'mochaTest', 'karma:unit', 'protractor']);
+  grunt.registerTask('test', ['env:test', 'lint', 'mkdir:upload', 'copy:localConfig', 'server', 'mochaTest', 'karma:unit']);
   grunt.registerTask('test:server', ['env:test', 'lint', 'server', 'mochaTest']);
   grunt.registerTask('test:client', ['env:test', 'lint', 'karma:unit']);
-  grunt.registerTask('test:e2e', ['env:test', 'lint', 'dropdb', 'server', 'protractor']);
+  //grunt.registerTask('test:e2e', ['env:test', 'lint', 'dropdb', 'server', 'protractor']);
   // Run project coverage
-  grunt.registerTask('coverage', ['env:test', 'lint', 'mocha_istanbul:coverage', 'karma:unit']);
+  //grunt.registerTask('coverage', ['env:test', 'lint', 'mocha_istanbul:coverage', 'karma:unit']);
 
   // Run the project in development mode
   grunt.registerTask('default', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);

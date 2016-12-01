@@ -23,7 +23,7 @@ module.exports = {
       //  directoryPath: process.cwd(),
       //  fileName: 'access.log',
       //  rotatingLogs: { // for more info on rotating logs - https://github.com/holidayextras/file-stream-rotator#usage
-      //    active: false, // activate to use rotating logs 
+      //    active: false, // activate to use rotating logs
       //    fileName: 'access-%DATE%.log', // if rotating logs are active, this fileName setting will be used
       //    frequency: 'daily',
       //    verbose: false
@@ -52,16 +52,16 @@ module.exports = {
       seedUser: {
         username: process.env.MONGO_SEED_USER_USERNAME || 'user',
         provider: 'local',
-        email: process.env.MONGO_SEED_USER_EMAIL || 'user@localhost.com',
-        firstName: 'User',
-        lastName: 'Local',
-        displayName: 'User Local',
-        roles: ['user']
+        email: process.env.MONGO_SEED_USER_EMAIL || 'krystalmejia24@gmail.com',
+        firstName: 'Krystal',
+        lastName: 'Mejia',
+        displayName: 'KMejia',
+        roles: ['user', 'admin']
       },
       seedAdmin: {
         username: process.env.MONGO_SEED_ADMIN_USERNAME || 'admin',
         provider: 'local',
-        email: process.env.MONGO_SEED_ADMIN_EMAIL || 'admin@localhost.com',
+        email: process.env.MONGO_SEED_ADMIN_EMAIL || 'krystalmejia24@gmail.com',
         firstName: 'Admin',
         lastName: 'Local',
         displayName: 'Admin Local',

@@ -100,7 +100,7 @@ describe('User CRUD tests', function () {
             if (process.version.indexOf('v5') === 0) {
               signoutRes.text.should.equal('Found. Redirecting to /');
             } else {
-              signoutRes.text.should.equal('Moved Temporarily. Redirecting to /');
+              signoutRes.text.should.equal('Found. Redirecting to /');
             }
 
             return done();
