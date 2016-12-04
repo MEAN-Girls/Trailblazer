@@ -4,19 +4,20 @@
       <img class="header-logo" ng-src="/modules/core/client/img/brand/ACT-logo copy.png" alt="poo">
     </div>
     <div class="col-xs-10">
-      <a ui-sref="home" class="navbar-brand"><img class="header-logo-wordmark" ng-src="/modules/core/client/img/brand/ACT-logo.png"></a>
+      <div ng-hide="authentication.user" class="navbar-brand"><img class="header-logo-wordmark" ng-src="/modules/core/client/img/brand/ACT-logo.png"></div>
+      <a ng-show="authentication.user" class="navbar-brand" ui-sref="menu"><img class="header-logo-wordmark" ng-src="/modules/core/client/img/brand/ACT-logo.png"></a>
     </div>
   </div>
 
   <nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
     <ul class="nav navbar-nav navbar-right" ng-hide="authentication.user"></ul>
-    <ul class="nav navbar-nav navbar-right" ng-show="authentication.user">
+    <ul class="nav navbar-nav navbar-right" ng-show="authentication.user" style="height: 50px">
       <li class="dropdown" style="margin-bottom: 0px;" dropdown>
-        <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button">
+        <a class="dropdown-toggle user-header-dropdown-toggle" dropdown-toggle role="button" style="height: 50px">
           <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
         </a>
         <ul class="dropdown-menu" role="menu">
-          <li ui-sref-active="active">
+          <li ui-sref-active="active" ng-show="authentication.user.roles[1] === 'admin'">
             <a ui-sref="admin.users">Manage Users</a>
           </li>
           <li ui-sref-active="active">
@@ -27,14 +28,14 @@
           </li>
           <li class="divider"></li>
           <li ui-sref-active="active">
-            <a ui-sref="boundaries.list">View Boundaries</a>
+            <a ui-sref="boundaries.list">Edit Boundaries</a>
           </li>
 		      <li ui-sref-active="active">
             <a ui-sref="boundaries.create">Add Boundary</a>
           </li>
           <li class="divider"></li>
           <li ui-sref-active="active">
-            <a ui-sref="trails.list">View Trails</a>
+            <a ui-sref="trails.list">Edit Trails</a>
           </li>
           <li ui-sref-active="active">
             <a ui-sref="trails.create">Add Trail</a>

@@ -14,7 +14,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
     // Home state routing
     $stateProvider
     .state('home', {
-      url: '/',
+      url: '/county',
       templateUrl: 'modules/core/client/views/home.client.view.html'
     })
     .state('not-found', {
@@ -38,9 +38,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         ignoreState: true
       }
     })
-    .state('login', {
-      url: '/login',
-      templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
+    .state('menu', {
+      url: '/',
+      templateUrl: 'modules/core/client/views/menu.client.view.html'
     });
   }
 ]);
