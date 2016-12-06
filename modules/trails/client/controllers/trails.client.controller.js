@@ -10,21 +10,44 @@ angular.module('trails').controller('TrailsController', ['$scope',
                                                               '$state',
                                                               'leafletData',
   function ($scope, $stateParams, $rootScope, $location, Authentication, Trails, $state, leafletData) {
+    // boolean for trail toggle menu
+    $scope.iconCollapse = false;
+    $scope.uploadCollapse = false;
+
+    //icons list
+    $scope.icon = [];
+    $scope.icons = [
+        'bicycle',
+        'bus-stop',
+        'campsite',
+        'first-aid',
+        'food',
+        'head',
+        'hospital',
+        'lodging',
+        'parking',
+        'pets',
+        'picnic',
+        'restrooms',
+        'visitor-center',
+        'wheelchair',
+        'wi-fi'
+    ];
+
     $scope.authentication = Authentication;
     $scope.loading = true;
-    
+
     // Create new Trail
     $scope.create = function (content) {
       $scope.error = null;
       var trail = new Trails(JSON.parse(content));
 
-      console.log(trail);
-
       trail.$save(function (response) {
         $scope.success = true;
         $scope.statusMessage = 'Added';
       }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
+          $scope.failure = true;
+          $scope.statusMessage = errorResponse.data.message;
       });
     };
 
@@ -38,7 +61,7 @@ angular.module('trails').controller('TrailsController', ['$scope',
               }, function(error) {
                 $scope.error = 'Unable to remove trail!\n' + error;
               });
-        }    
+        }
     };
 
     // Update existing trail
@@ -65,7 +88,6 @@ angular.module('trails').controller('TrailsController', ['$scope',
       Trails.query().$promise.then(function (res) {
         $scope.trails = res;
         $scope.loading = false;
-        console.log('EXECUTED FIND');
       });
     };
 
@@ -106,6 +128,8 @@ angular.module('trails').controller('TrailsController', ['$scope',
 
     $scope.showContent = function($fileContent){
       $scope.content = $fileContent;
+      $scope.iconCollapse = false;
+      $scope.uploadCollapse = false;
       var previewData = JSON.parse($scope.content);
       angular.extend($scope, {
         center: {
@@ -121,6 +145,39 @@ angular.module('trails').controller('TrailsController', ['$scope',
         }
       });
     };
+
+    // Find existing trail
+    $scope.createIcon = function (isValid) {
+        $scope.error = null;
+
+        if (!isValid) {
+          $scope.$broadcast('show-errors-check-validity', 'iconForm');
+          return false;
+        }
+
+        var trail = {
+            "type": "Feature",
+            "properties": {
+                "Name": $scope.icon.type ,
+                "color": "null",
+                "boundary": $scope.icon.boundary
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [$scope.icon.lat, $scope.icon.lng]
+            }
+        };
+
+        var icon = new Trails(trail);
+        icon.$save(function (response) {
+          $scope.success = true;
+          $scope.statusMessage = 'Icon Added';
+        }, function (errorResponse) {
+            $scope.failure = true;
+            $scope.statusMessage = errorResponse.data.message;
+        });
+        console.log(icon);
+    };
+
 }
 ]);
-

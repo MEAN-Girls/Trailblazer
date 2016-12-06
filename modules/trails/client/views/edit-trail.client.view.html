@@ -11,13 +11,14 @@
         <i class="glyphicon glyphicon-trash"></i> &nbsp; Delete
       </a>
       <div ng-show="success" ng-model="statusMessage" class="alert alert-success">
-        <strong>Trail Successfully {{statusMessage}}!</strong>&nbsp; 
+        <strong>Trail Successfully {{statusMessage}}!</strong>
+        <br>
         <a ui-sref="trails.list"> Return to View Trails</a>
       </div>
 
       <div ng-hide="success">
         <hr>
-        <h3> Boundary: {{trail.properties.boundary}}</h3>   
+        <h3> Boundary: {{trail.properties.boundary}}</h3>
         <hr>
         <h3> Geometry </h3>
         <span> Type: {{trail.properties.Name}}</span>

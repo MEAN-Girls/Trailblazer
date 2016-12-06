@@ -100,7 +100,7 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         geojson: { //sets the geojson data based on the boundary feature
           data: boundaryFeature,
           style: {
-                  color: '#9BC152', 'weight' : 2      
+                  color: '#9BC152', 'weight' : 2
           }
         },
         tiles: mapboxTile

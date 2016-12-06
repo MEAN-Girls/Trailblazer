@@ -3,13 +3,77 @@
     <h1>New Trail</h1>
   </div>
    <div ng-show="success" ng-model="statusMessage" class="alert alert-success">
-    <strong>Trail Successfully {{statusMessage}}!</strong>&nbsp; 
+    <strong>Trail Successfully {{statusMessage}}!</strong>&nbsp;
     <a ui-sref="trails.list"> Return to View Trails</a>
   </div>
+  <div ng-show="failure" ng-model="statusMessage" class="alert alert-danger">
+   <strong>Oops! There was a problem:  "{{statusMessage}}"</strong>&nbsp;
+ </div>
   <div class="col-md-12" ng-hide="success">
-    <span>To create a new trail, upload a file
-      <br><br>
-      <input type="file" on-read-file="showContent($fileContent)"/>
+    <button type="button" class="btn btn-default" ng-click="uploadCollapse = !uploadCollapse">
+    Upload Trail Data
+    </button>
+    <hr>
+    <div ng-if="uploadCollapse">
+		<div class="well well-lg">
+              <span>To create a new trail, upload a file
+              <br><br>
+              <input type="file" on-read-file="showContent($fileContent)"/>
+        </div>
+	</div>
+    <button type="button" class="btn btn-default" ng-click="iconCollapse = !iconCollapse">
+    Create Icons
+    </button>
+    <hr>
+    <div ng-if="iconCollapse">
+        <div class="well well-lg">
+            <form name="iconForm" class="form-horizontal" ng-submit="createIcon(iconForm.$valid)">
+                <fieldset>
+                  <div class="form-group" show-errors>
+                    <label for="iconSelect">Select a type of Icon: </label><br>
+                    <select name="iconSelect" ng-model="icon.type">
+                      <option ng-repeat="icon in icons" value="{{icon}}">{{icon}}</option>
+                    </select>
+                    <div ng-messages="iconForm.name.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Icon is requried</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group" show-errors>
+                    <label for="trail-boundary">Boundary:</label>
+                    <input name="trail-boundary" type="text" ng-model="icon.boundary" id="trail-boundary" class="form-control" placeholder="Boundary" required>
+                    <div ng-messages="iconForm.name.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Boundary is required</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group" show-errors>
+                    <label for="latitude">Latitude:</label>
+                    <input name="latitude" type="text" ng-model="icon.lat" id="latitude" class="form-control" placeholder="Lat" required>
+                    <div ng-messages="iconForm.name.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Latitude is required</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group" show-errors>
+                    <label for="longitude">Longitude:</label>
+                    <input name="longitude" type="text" ng-model="icon.lng" id="longitude" class="form-control" placeholder="Long" required>
+                    <div ng-messages="iconForm.name.$error" role="alert">
+                      <p class="help-block error-text" ng-message="required">Longitude is required</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-primary">
+                  </div>
+                  <div ng-show="error" class="text-danger">
+                    <strong ng-bind="error"></strong>
+                  </div>
+                </fieldset>
+            </form>
+        </div>
+	</div>
+
     <div ng-if="content">
         <hr>
         <h2>Preview: </h2>
