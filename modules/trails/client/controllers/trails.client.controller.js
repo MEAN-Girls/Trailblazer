@@ -156,15 +156,15 @@ angular.module('trails').controller('TrailsController', ['$scope',
         }
 
         var trail = {
-            "type": "Feature",
-            "properties": {
-                "Name": $scope.icon.type ,
-                "color": "null",
-                "boundary": $scope.icon.boundary
+            'type': 'Feature',
+            'properties': {
+                'Name': $scope.icon.type ,
+                'color': 'null',
+                'boundary': $scope.icon.boundary
             },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [$scope.icon.lat, $scope.icon.lng]
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [$scope.icon.lat, $scope.icon.lng]
             }
         };
 
