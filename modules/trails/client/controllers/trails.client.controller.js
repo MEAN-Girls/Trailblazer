@@ -7,12 +7,14 @@ angular.module('trails').controller('TrailsController', ['$scope',
                                                               '$location',
                                                               'Authentication',
                                                               'Trails',
+                                                              'Boundaries',
                                                               '$state',
                                                               'leafletData',
-  function ($scope, $stateParams, $rootScope, $location, Authentication, Trails, $state, leafletData) {
+  function ($scope, $stateParams, $rootScope, $location, Authentication, Trails, Boundaries, $state, leafletData) {
     // boolean for trail toggle menu
     $scope.iconCollapse = false;
     $scope.uploadCollapse = false;
+    $scope.loading = false;
 
     //icons list
     $scope.icon = [];
@@ -35,7 +37,6 @@ angular.module('trails').controller('TrailsController', ['$scope',
     ];
 
     $scope.authentication = Authentication;
-    $scope.loading = true;
 
     // Create new Trail
     $scope.create = function (content) {
@@ -85,6 +86,7 @@ angular.module('trails').controller('TrailsController', ['$scope',
 
     // Find a list of trails
     $scope.find = function () {
+      $scope.loading = true;
       Trails.query().$promise.then(function (res) {
         $scope.trails = res;
         $scope.loading = false;
@@ -179,5 +181,16 @@ angular.module('trails').controller('TrailsController', ['$scope',
         console.log(icon);
     };
 
+    // Create icons
+    $scope.buildIcon = function () {
+        //retreieve boundary list for edit trail functionality
+        Boundaries.query().$promise.then(function (res) { //retrieve all the boundaries from db and add them to the map
+            $scope.boundaries = res;
+            $scope.loading = false;
+            console.log(boundaries);
+        });
+        $scope.iconCollapse = !$scope.iconCollapse;
+        $scope.loading = true;
+    };
 }
 ]);

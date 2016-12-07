@@ -21,11 +21,27 @@
               <input type="file" on-read-file="showContent($fileContent)"/>
         </div>
 	</div>
-    <button type="button" class="btn btn-default" ng-click="iconCollapse = !iconCollapse">
+    <button type="button" class="btn btn-default" ng-click="buildIcon()">
     Create Icons
     </button>
     <hr>
-    <div ng-if="iconCollapse">
+    <div ng-if="loading">
+        <img ng-src="/modules/core/client/img/loaders/loader.gif">
+    </div>
+    <div ng-if="iconCollapse && !loading">
+        <!--
+        <div class="icon-toggle" dropdown>
+              <button class="dropdown-toggle" dropdown-toggle role="button">
+              View Icons
+              </button>
+              <ul class="dropdown-menu" role="menu">
+              <li ng-repeat="icon in icons">
+                  <img ng-src="/modules/core/client/img/icons/{{icon}}.png">
+                  {{icon}}
+              </li>
+            </ul>
+        </div>
+        -->
         <div class="well well-lg">
             <form name="iconForm" class="form-horizontal" ng-submit="createIcon(iconForm.$valid)">
                 <fieldset>
@@ -40,8 +56,11 @@
                   </div>
 
                   <div class="form-group" show-errors>
-                    <label for="trail-boundary">Boundary:</label>
-                    <input name="trail-boundary" type="text" ng-model="icon.boundary" id="trail-boundary" class="form-control" placeholder="Boundary" required>
+                    <label for="trail-boundary">Boundary:</label><br>
+                    <!--<input name="trail-boundary" type="text" ng-model="icon.boundary" id="trail-boundary" class="form-control" placeholder="Boundary" required>-->
+                    <select name="trail-boundary" ng-model="boundary">
+                      <option ng-repeat="boundary in boundaries" value="boundary">{{boundary.properties.MGRINST}}</option>
+                    </select>
                     <div ng-messages="iconForm.name.$error" role="alert">
                       <p class="help-block error-text" ng-message="required">Boundary is required</p>
                     </div>
