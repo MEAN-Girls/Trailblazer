@@ -310,7 +310,12 @@ angular.module('boundaries').controller('BoundariesController', ['$scope',
         geojson: {
           data: previewData,
           style: {
-            color: 'red'
+            fillColor: 'white',
+            weight: 2,
+            opacity: 0.5,
+            color: 'red',
+            dashArray: '1',
+            fillOpacity: 0.01
           }
         }
       });
