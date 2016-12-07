@@ -187,7 +187,6 @@ angular.module('trails').controller('TrailsController', ['$scope',
         Boundaries.query().$promise.then(function (res) { //retrieve all the boundaries from db and add them to the map
             $scope.boundaries = res;
             $scope.loading = false;
-            console.log(boundaries);
         });
         $scope.iconCollapse = !$scope.iconCollapse;
         $scope.loading = true;
